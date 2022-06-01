@@ -74,8 +74,7 @@ La comunidad de contribuidores es la encargada de la traducción de esta documen
 Por favor, tenga en cuenta que se tienen diversos grados de integridad y actualización.
 La versión en Inglés es tomada como referencia.
 
-You can switch between languages by clicking on the flyout menu in the bottom-left corner
-and selecting the preferred language.
+Puede elegir entre distintos lenguajes haciendo click en el menú desplegable que se encuentra en la esquina inferior izquierda y seleccionando su lenguaje preferido.
 
 * `French <https://docs.soliditylang.org/fr/latest/>`_
 * `Indonesian <https://github.com/solidity-docs/id-indonesian>`_

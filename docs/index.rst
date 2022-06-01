@@ -17,19 +17,16 @@ Aparte de casos excepcionales, solamente la última versión recibe `correciones
 Además, cambios importantes y nuevas funciones se introducen periódicamente.
 Actualmente se utiliza el número de versión 0.y.z `para indicar estos rápidos cambios <https://semver.org/#spec-item-4>`_.
 
-.. Advertencia::
+Advertencia:
 
-  Solidity lanzó recientemente la versión 0.8.x, que introdujo varios cambios significantes.
-  Asegúrese de leer :doc:`la lista completa de cambios <080-breaking-changes>`.
+Solidity lanzó recientemente la versión 0.8.x, que introdujo varios cambios significantes.
+Asegúrese de leer :doc:`la lista completa de cambios <080-breaking-changes>`.
 
-Ideas for improving Solidity or this documentation are always welcome,
-read our :doc:`contributors guide <contributing>` for more details.
+Ideas para mejorar Solidity o esta misma documentación son siempre bienvenidas, lea nuestra :doc:`guía de contribución <contributing>` para más detalles.
 
-.. Nota::
+Nota:
 
-  You can download this documentation as PDF, HTML or Epub by clicking on the versions
-  flyout menu in the bottom-left corner and selecting the preferred download format.
-
+Puede descargar esta documentación como PDF, HTML o Epub haciendo click en el menú desplegable en la esquina inferior izquierda y seleccionando el formato preferido de descarga.
 
 Getting Started
 ---------------

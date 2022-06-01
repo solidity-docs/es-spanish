@@ -71,7 +71,7 @@ Traducciones
 ------------
 
 La comunidad de contribuidores es la encargada de la traducción de esta documentación en diferentes lenguajes.
-Por favor, tenga en cuenta que tienen diversos grados de integridad y actualización.
+Por favor, tenga en cuenta que se tienen diversos grados de integridad y actualización.
 La versión en Inglés es tomada como referencia.
 
 You can switch between languages by clicking on the flyout menu in the bottom-left corner

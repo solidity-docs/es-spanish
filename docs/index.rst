@@ -59,12 +59,9 @@ Hay distintas maneras de instalar el compilador de Solidity, simplemente elija s
     Esto incluye la revisión, pruebas, auditorías y la correcta validez del código.
     Algunas veces los usuarios de los contratos inteligentes tienen más confianza con el código que sus mismos autores; ya que las cadenas de bloques y los contratos inteligentes tienes sus respectivos problemas, se recomienda que lea la sección :ref:`security_considerations` antes de trabajar en el código de producción.
 
-**4. Learn More**
+**4. Conocer Más**
 
-If you want to learn more about building decentralized applications on Ethereum, the
-`Ethereum Developer Resources <https://ethereum.org/en/developers/>`_
-can help you with further general documentation around Ethereum, and a wide selection of tutorials,
-tools and development frameworks.
+Si desea obtener más información sobre la creación de aplicaciones descentralizadas en Ethereum, los recursos para desarrolladores de Ethereum pueden ayudarlo con con más documentación general sobre Ethereum y una amplia selección de tutoriales, herramientas y marcos de desarrollo (frameworks).
 
 If you have any questions, you can try searching for answers or asking on the
 `Ethereum StackExchange <https://ethereum.stackexchange.com/>`_, or

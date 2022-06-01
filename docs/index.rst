@@ -17,7 +17,7 @@ Aparte de casos excepcionales, solamente la última versión recibe `correciones
 Además, cambios importantes y nuevas funciones se introducen periódicamente.
 Actualmente se utiliza el número de versión 0.y.z `para indicar estos rápidos cambios <https://semver.org/#spec-item-4>`_.
 
-.. warning::
+.. Advertencia::
 
   Solidity recently released the 0.8.x version that introduced a lot of breaking
   changes. Make sure you read :doc:`the full list <080-breaking-changes>`.

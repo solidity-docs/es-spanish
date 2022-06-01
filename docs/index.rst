@@ -7,8 +7,7 @@ Los contratos inteligentes son programas que rigen el comportamiento de las cuen
 Solidity es un `lenguaje de llaves <https://en.wikipedia.org/wiki/List_of_programming_languages_by_type#Curly-bracket_languages>`_, diseñado para la máquina virtual de Ethereum (Ethereum Virtual Machine). Está influenciado por los lenguajes de programación C++, Python y JavaScript.
 Para más detalles sobre los lenguajes que han inspirado Solidity visita la sección :doc:`influencia de lenguajes <language-influences>`.
 
-Solidity is statically typed, supports inheritance, libraries and complex
-user-defined types among other features.
+Solidity es estáticamente escrito, soporta herencia, librerías, y tipos complejos definidos por el usuario, entre otras características.
 
 With Solidity you can create contracts for uses such as voting, crowdfunding, blind auctions,
 and multi-signature wallets.

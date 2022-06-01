@@ -57,8 +57,7 @@ Hay distintas maneras de instalar el compilador de Solidity, simplemente elija s
     Ya que el software está escrito por humanos, puede contener errores.
     Usted debe seguir e implementar las mejores prácticas de desarrollo de software establecidas al escribir sus contratos inteligentes.
     Esto incluye la revisión, pruebas, auditorías y la correcta validez del código.
-    Algunas veces los usuarios de los contratos inteligentes tienen más confianza con el código que sus mismos autores.
-    Ya que las cadenas de bloques y los contratos inteligentes tienes sus respectivos problemas, se recomienda que lea la sección :ref:`security_considerations` antes de trabajar en el código de producción.
+    Algunas veces los usuarios de los contratos inteligentes tienen más confianza con el código que sus mismos autores; ya que las cadenas de bloques y los contratos inteligentes tienes sus respectivos problemas, se recomienda que lea la sección :ref:`security_considerations` antes de trabajar en el código de producción.
 
 **4. Learn More**
 

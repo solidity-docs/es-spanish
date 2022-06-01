@@ -67,12 +67,12 @@ Si tiene alguna duda o pregunta, puede intentar buscar consultas o respuestas en
 
 .. _translations:
 
-Translations
+Traducciones
 ------------
 
-Community contributors help translate this documentation into several languages.
-Note that they have varying degrees of completeness and up-to-dateness. The English
-version stands as a reference.
+La comunidad de contribuidores es la encargada de la traducción de esta documentación en diferentes lenguajes.
+Por favor, tenga en cuenta que tienen diversos grados de integridad y actualización.
+La versión en Inglés es tomada como referencia.
 
 You can switch between languages by clicking on the flyout menu in the bottom-left corner
 and selecting the preferred language.

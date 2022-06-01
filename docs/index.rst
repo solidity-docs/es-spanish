@@ -19,8 +19,8 @@ Actualmente se utiliza el número de versión 0.y.z `para indicar estos rápidos
 
 .. Advertencia::
 
-  Solidity recently released the 0.8.x version that introduced a lot of breaking
-  changes. Make sure you read :doc:`the full list <080-breaking-changes>`.
+  Solidity lanzó recientemente la versión 0.8.x, que introdujo varios cambios significantes.
+  Asegúrese de leer :doc:`la lista completa de cambios <080-breaking-changes>`.
 
 Ideas for improving Solidity or this documentation are always welcome,
 read our :doc:`contributors guide <contributing>` for more details.

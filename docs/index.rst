@@ -74,25 +74,22 @@ La comunidad de contribuidores es la encargada de la traducción de esta documen
 Por favor, tenga en cuenta que se tienen diversos grados de integridad y actualización.
 La versión en Inglés es tomada como referencia.
 
-Puede elegir entre distintos lenguajes haciendo click en el menú desplegable que se encuentra en la esquina inferior izquierda y seleccionando su lenguaje preferido.
+Puede elegir entre distintos idiomas haciendo click en el menú desplegable que se encuentra en la esquina inferior izquierda y seleccionando su lenguaje preferido.
 
-* `French <https://docs.soliditylang.org/fr/latest/>`_
-* `Indonesian <https://github.com/solidity-docs/id-indonesian>`_
-* `Persian <https://github.com/solidity-docs/fa-persian>`_
-* `Japanese <https://github.com/solidity-docs/ja-japanese>`_
-* `Korean <https://github.com/solidity-docs/ko-korean>`_
-* `Chinese <https://github.com/solidity-docs/zh-cn-chinese/>`_
+* `Francés <https://docs.soliditylang.org/fr/latest/>`_
+* `Indonesio <https://github.com/solidity-docs/id-indonesian>`_
+* `Persa <https://github.com/solidity-docs/fa-persian>`_
+* `Japonés <https://github.com/solidity-docs/ja-japanese>`_
+* `Coreano <https://github.com/solidity-docs/ko-korean>`_
+* `Chino <https://github.com/solidity-docs/zh-cn-chinese/>`_
 
-.. note::
+.. Nota::
 
-   We recently set up a new GitHub organization and translation workflow to help streamline the
-   community efforts. Please refer to the `translation guide <https://github.com/solidity-docs/translation-guide>`_
-   for information on how to start a new language or contribute to the community translations.
+  Recientemente se creó una nueva organización en GitHub y un flujo de trabajo para las traducciones, con el motivo de agilizar los esfuerzos de la comunidad.
+  Por favor, consulte la `guía de traducción <https://github.com/solidity-docs/translation-guide>`_ para obtener información sobre cómo iniciar un nuevo idioma o contribuir en las traducciones de la comunidad.
 
-Contents
-========
 
-:ref:`Keyword Index <genindex>`, :ref:`Search Page <search>`
+:ref:`Índice de Palabras Clave <genindex>`, :ref:`Página de Búsqueda <search>`
 
 .. toctree::
    :maxdepth: 2

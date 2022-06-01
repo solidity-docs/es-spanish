@@ -28,10 +28,10 @@ Nota:
 
 Puede descargar esta documentación como PDF, HTML o Epub haciendo click en el menú desplegable que se encuentra en la esquina inferior izquierda y seleccionando el formato preferido de descarga.
 
-Getting Started
+Para Comenzar
 ---------------
 
-**1. Understand the Smart Contract Basics**
+**1. Comprender los Conceptos Básicos de los Contratos Inteligentes**
 
 If you are new to the concept of smart contracts we recommend you to get started by digging
 into the "Introduction to Smart Contracts" section, which covers:

@@ -93,7 +93,7 @@ Puede elegir entre distintos idiomas haciendo click en el menú desplegable que 
 
 .. toctree::
    :maxdepth: 2
-   :caption: Basics
+   :caption: Conceptos Básicos
 
    introduction-to-smart-contracts.rst
    installing-solidity.rst
@@ -101,7 +101,7 @@ Puede elegir entre distintos idiomas haciendo click en el menú desplegable que 
 
 .. toctree::
    :maxdepth: 2
-   :caption: Language Description
+   :caption: Descripción del Lenguaje
 
    layout-of-source-files.rst
    structure-of-a-contract.rst
@@ -115,7 +115,7 @@ Puede elegir entre distintos idiomas haciendo click en el menú desplegable que 
 
 .. toctree::
    :maxdepth: 2
-   :caption: Compiler
+   :caption: Compilador
 
    using-the-compiler.rst
    analysing-compilation-output.rst
@@ -123,7 +123,7 @@ Puede elegir entre distintos idiomas haciendo click en el menú desplegable que 
 
 .. toctree::
    :maxdepth: 2
-   :caption: Internals
+   :caption: Partes Internas
 
    internals/layout_in_storage.rst
    internals/layout_in_memory.rst
@@ -136,7 +136,7 @@ Puede elegir entre distintos idiomas haciendo click en el menú desplegable que 
 
 .. toctree::
    :maxdepth: 2
-   :caption: Additional Material
+   :caption: Material Adicional
 
    050-breaking-changes.rst
    060-breaking-changes.rst

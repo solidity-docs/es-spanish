@@ -36,7 +36,7 @@ Para Comenzar
 Si usted es nuevo y todavía no está familiarizado con el concepto de los contratos inteligentes, le recomendamos iniciar con la sección "Introducción a los Contratos Inteligents", que cubre:
 
 * :ref:`Un ejemplo sencillo de un contrato inteligente <simple-smart-contract>` escrito en Solidity.
-* :ref:`Conceptos Básicos del Blockchain <blockchain-basics>`.
+* :ref:`Conceptos Básicos de las Cadenas de Bloques (Blockchain) <blockchain-basics>`.
 * :ref:`La Máquina Virtual de Ethereum <the-ethereum-virtual-machine>`.
 
 **2. Conozca Solidity**
@@ -50,16 +50,15 @@ Hay distintas maneras de instalar el compilador de Solidity, simplemente elija s
 .. Nota::
 
   Puede probar algunos ejemplos de código directamente en su navegador con `Remix IDE <https://remix.ethereum.org>`_.
-  Remix es un entorno de desarrollo integrado (IDE) basado en el navegador web que permite a cualquier usueario escribir, desplegar y administrar contratos inteligentes de Solidity, sin la necesidad de instalar Solidity localmente.
+  Remix es un entorno de desarrollo integrado (IDE) basado en el navegador web, que permite a cualquier usuario escribir, desplegar y administrar contratos inteligentes de Solidity; sin la necesidad de instalar Solidity localmente.
 
-.. warning::
-    As humans write software, it can have bugs. You should follow established
-    software development best-practices when writing your smart contracts. This
-    includes code review, testing, audits, and correctness proofs. Smart contract
-    users are sometimes more confident with code than their authors, and
-    blockchains and smart contracts have their own unique issues to
-    watch out for, so before working on production code, make sure you read the
-    :ref:`security_considerations` section.
+.. Advertencia::
+
+    Ya que el software está escrito por humanos, puede tener errores.
+    Usted debe seguir e implementar las mejores prácticas de desarrollo de software establecidas al escribir sus contratos inteligentes.
+    Esto incluye la revisión, pruebas, auditorías y la correcta validez del código.
+    Algunas veces los usuarios los contratos inteligentes tienen más confianza con el código que sus mismos autores.
+    Ya que las cadenas de bloques y los contratos inteligentes tienes sus respectivos problemas, se recomienda que lea la sección :ref:`security_considerations` antes de trabajar en el código de producción.
 
 **4. Learn More**
 

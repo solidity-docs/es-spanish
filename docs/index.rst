@@ -25,7 +25,7 @@ Actualmente se utiliza el número de versión 0.y.z `para indicar estos rápidos
 Ideas for improving Solidity or this documentation are always welcome,
 read our :doc:`contributors guide <contributing>` for more details.
 
-.. Hint::
+.. Nota::
 
   You can download this documentation as PDF, HTML or Epub by clicking on the versions
   flyout menu in the bottom-left corner and selecting the preferred download format.

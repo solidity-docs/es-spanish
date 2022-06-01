@@ -1,7 +1,7 @@
 Solidity
 ========
 
-Solidity es un lenguaje de alto nivel orientado a objetos para implementar contratos inteligentes (smart contracts).
+Solidity es un lenguaje de alto nivel orientado a objetos, para implementar contratos inteligentes (smart contracts).
 Los contratos inteligentes son programas que rigen el comportamiento de las cuentas dentro del ecosistema de Ethereum.
 
 Solidity es un `lenguaje de llaves <https://en.wikipedia.org/wiki/List_of_programming_languages_by_type#Curly-bracket_languages>`_, diseñado para la máquina virtual de Ethereum (Ethereum Virtual Machine).
@@ -15,7 +15,7 @@ Con Solidity se pueden crear contratos para votaciones, financiación colectiva 
 Al momento de desplegar un contrato, debes utilizar la versión más reciente de Solidity.
 Aparte de casos excepcionales, solamente la última versión recibe `correciones de seguridad <https://github.com/ethereum/solidity/security/policy#supported-versions>`_.
 Además, cambios importantes y nuevas funciones se introducen periódicamente.
-Actualmente se utiliza el formato 0.y.z `para indicar estos cambios rápidos <https://semver.org/#spec-item-4>`_ en el número de versión.
+Actualmente se utiliza el número de versión 0.y.z `para indicar estos rápidos cambios <https://semver.org/#spec-item-4>`_.
 
 .. warning::
 

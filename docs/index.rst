@@ -39,7 +39,7 @@ Si usted es nuevo y todavía no está familiarizado con el concepto de los contr
 * :ref:`Conceptos Básicos del Blockchain <blockchain-basics>`.
 * :ref:`La Máquina Virtual de Ethereum <the-ethereum-virtual-machine>`.
 
-**2. Get to Know Solidity**
+**2. Conozca Solidity**
 
 Once you are accustomed to the basics, we recommend you read the :doc:`"Solidity by Example" <solidity-by-example>`
 and “Language Description” sections to understand the core concepts of the language.

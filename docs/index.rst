@@ -17,16 +17,16 @@ Aparte de casos excepcionales, solamente la última versión recibe `correciones
 Además, cambios importantes y nuevas funciones se introducen periódicamente.
 Actualmente se utiliza el número de versión 0.y.z `para indicar estos rápidos cambios <https://semver.org/#spec-item-4>`_.
 
-Advertencia:
+.. Advertencia::
 
-Solidity lanzó recientemente la versión 0.8.x, que introdujo varios cambios significantes.
-Asegúrese de leer :doc:`la lista completa de cambios <080-breaking-changes>`.
+  Solidity lanzó recientemente la versión 0.8.x, que introdujo varios cambios significantes.
+  Asegúrese de leer :doc:`la lista completa de cambios <080-breaking-changes>`.
 
 Ideas para mejorar Solidity o esta misma documentación son siempre bienvenidas, lea nuestra :doc:`guía de contribución <contributing>` para más detalles.
 
-Nota:
+.. Nota::
 
-Puede descargar esta documentación como PDF, HTML o Epub haciendo click en el menú desplegable que se encuentra en la esquina inferior izquierda y seleccionando el formato preferido de descarga.
+  Puede descargar esta documentación como PDF, HTML o Epub haciendo click en el menú desplegable que se encuentra en la esquina inferior izquierda y seleccionando su formato preferido de descarga.
 
 Para Comenzar
 ---------------
@@ -47,11 +47,10 @@ Una vez que esté relacionado con los conceptos básicos, le recomendamos leer l
 
 Hay distintas maneras de instalar el compilador de Solidity, simplemente elija su opción preferida y siga los pasos indicados en la :ref:`página de instalación <installing-solidity>`.
 
-.. hint::
-  You can try out code examples directly in your browser with the
-  `Remix IDE <https://remix.ethereum.org>`_. Remix is a web browser based IDE
-  that allows you to write, deploy and administer Solidity smart contracts, without
-  the need to install Solidity locally.
+.. Nota::
+
+  Puede probar algunos ejemplos de código directamente en su navegador con `Remix IDE <https://remix.ethereum.org>`_.
+  Remix es un entorno de desarrollo integrado (IDE) basado en el navegador web que permite a cualquier usueario escribir, desplegar y administrar contratos inteligentes de Solidity, sin la necesidad de instalar Solidity localmente.
 
 .. warning::
     As humans write software, it can have bugs. You should follow established

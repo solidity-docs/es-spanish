@@ -6,7 +6,7 @@ Los contratos inteligentes son programas que rigen el comportamiento de las cuen
 
 Solidity es un `lenguaje de llaves <https://en.wikipedia.org/wiki/List_of_programming_languages_by_type#Curly-bracket_languages>`_, diseñado para la Máquina Virtual de Ethereum (Ethereum Virtual Machine).
 Está influenciado por los lenguajes de programación C++, Python y JavaScript.
-Para más detalles sobre los lenguajes que han inspirado Solidity visita la sección :doc:`influencia de lenguajes <language-influences>`.
+Para más detalles sobre los lenguajes que han inspirado Solidity visite la sección :doc:`influencia de lenguajes <language-influences>`.
 
 Solidity es estáticamente escrito, soporta herencia, librerías, y tipos complejos definidos por el usuario, entre otras características.
 
@@ -33,7 +33,7 @@ Para Comenzar
 
 **1. Comprender los Conceptos Básicos de los Contratos Inteligentes**
 
-Si usted es nuevo y todavía no está familiarizado con el concepto de los contratos inteligentes, le recomendamos iniciar con la sección "Introducción a los Contratos Inteligents", que cubre:
+Si usted es nuevo y todavía no está familiarizado con el concepto de los contratos inteligentes, le recomendamos iniciar con la sección "Introducción a los Contratos Inteligentes", que cubre:
 
 * :ref:`Un ejemplo sencillo de un contrato inteligente <simple-smart-contract>` escrito en Solidity.
 * :ref:`Conceptos Básicos de las Cadenas de Bloques (Blockchain) <blockchain-basics>`.
@@ -57,13 +57,13 @@ Hay distintas maneras de instalar el compilador de Solidity, simplemente elija s
     Ya que el software está escrito por humanos, puede contener errores.
     Usted debe seguir e implementar las mejores prácticas de desarrollo de software establecidas al escribir sus contratos inteligentes.
     Esto incluye la revisión, pruebas, auditorías y la correcta validez del código.
-    Algunas veces los usuarios de los contratos inteligentes tienen más confianza con el código que sus mismos autores; ya que las cadenas de bloques y los contratos inteligentes tienes sus respectivos problemas, se recomienda que lea la sección :ref:`security_considerations` antes de trabajar en el código de producción.
+    Algunas veces los usuarios de los contratos inteligentes tienen más confianza el el código que sus mismos autores; ya que las cadenas de bloques y los contratos inteligentes tienes sus respectivos problemas, se recomienda que lea la sección :ref:`security_considerations` antes de trabajar en el código de producción.
 
 **4. Conocer Más**
 
 Si desea obtener más información sobre la creación de aplicaciones descentralizadas en Ethereum, los recursos para desarrolladores de Ethereum pueden ayudarlo con más documentación general sobre Ethereum y una amplia selección de tutoriales, herramientas y marcos de desarrollo (frameworks).
 
-Si tiene alguna duda o pregunta, puede intentar buscar consultas o respuestas en `Ethereum StackExchange <https://ethereum.stackexchange.com/>`_, o en nuetro `Canal de Gitter <https://gitter.im/ethereum/solidity/>`_.
+Si tiene alguna duda o pregunta, puede intentar buscar consultas o respuestas en `Ethereum StackExchange <https://ethereum.stackexchange.com/>`_, o en nuestro `Canal de Gitter <https://gitter.im/ethereum/solidity/>`_.
 
 .. _translations:
 

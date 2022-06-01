@@ -61,7 +61,7 @@ Hay distintas maneras de instalar el compilador de Solidity, simplemente elija s
 
 **4. Conocer Más**
 
-Si desea obtener más información sobre la creación de aplicaciones descentralizadas en Ethereum, los recursos para desarrolladores de Ethereum pueden ayudarlo con con más documentación general sobre Ethereum y una amplia selección de tutoriales, herramientas y marcos de desarrollo (frameworks).
+Si desea obtener más información sobre la creación de aplicaciones descentralizadas en Ethereum, los recursos para desarrolladores de Ethereum pueden ayudarlo con más documentación general sobre Ethereum y una amplia selección de tutoriales, herramientas y marcos de desarrollo (frameworks).
 
 If you have any questions, you can try searching for answers or asking on the
 `Ethereum StackExchange <https://ethereum.stackexchange.com/>`_, or

@@ -123,7 +123,7 @@ Puede elegir entre distintos idiomas haciendo click en el menú desplegable que 
 
 .. toctree::
    :maxdepth: 2
-   :caption: Partes Internas
+   :caption: Componentes Internos
 
    internals/layout_in_storage.rst
    internals/layout_in_memory.rst

@@ -45,8 +45,7 @@ Una vez que esté relacionado con los conceptos básicos, le recomendamos leer l
 
 **3. Instalar el Compilador de Solidity**
 
-There are various ways to install the Solidity compiler,
-simply choose your preferred option and follow the steps outlined on the :ref:`installation page <installing-solidity>`.
+Hay distintas maneras de instalar el compilador de Solidity, simplemente elija su opción preferida y siga los pasos indicados en la :ref:`página de instalación <installing-solidity>`.
 
 .. hint::
   You can try out code examples directly in your browser with the

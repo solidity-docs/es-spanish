@@ -33,8 +33,7 @@ Para Comenzar
 
 **1. Comprender los Conceptos Básicos de los Contratos Inteligentes**
 
-If you are new to the concept of smart contracts we recommend you to get started by digging
-into the "Introduction to Smart Contracts" section, which covers:
+Si usted es nuevo y todavía no está familiarizado con el concepto de los contratos inteligentes, le recomendamos iniciar con la sección "Introducción a los Contratos Inteligents", que cubre:
 
 * :ref:`A simple example smart contract <simple-smart-contract>` written in Solidity.
 * :ref:`Blockchain Basics <blockchain-basics>`.

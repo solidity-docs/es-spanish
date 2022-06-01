@@ -41,9 +41,9 @@ Si usted es nuevo y todavía no está familiarizado con el concepto de los contr
 
 **2. Conozca Solidity**
 
-Una vez que esté relacionado con los conceptos básicos, le recomendamos leer las secciones de :doc:`"Solidity by Example" <solidity-by-example>` y "Descripción del Lenguaje" para comprender los conceptos fundamentales del lenguaje.
+Una vez que esté relacionado con los conceptos básicos, le recomendamos leer las secciones de :doc:`"Solidity con Ejemplos" <solidity-by-example>` y "Descripción del Lenguaje" para comprender los conceptos fundamentales del lenguaje.
 
-**3. Install the Solidity Compiler**
+**3. Instalar el compilador de Solidity**
 
 There are various ways to install the Solidity compiler,
 simply choose your preferred option and follow the steps outlined on the :ref:`installation page <installing-solidity>`.

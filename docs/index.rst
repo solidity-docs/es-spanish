@@ -4,19 +4,18 @@ Solidity
 Solidity es un lenguaje de alto nivel orientado a objetos para implementar contratos inteligentes (smart contracts).
 Los contratos inteligentes son programas que rigen el comportamiento de las cuentas dentro del ecosistema de Ethereum.
 
-Solidity es un `lenguaje de llaves <https://en.wikipedia.org/wiki/List_of_programming_languages_by_type#Curly-bracket_languages>`_, diseñado para la máquina virtual de Ethereum (Ethereum Virtual Machine). Está influenciado por los lenguajes de programación C++, Python y JavaScript.
+Solidity es un `lenguaje de llaves <https://en.wikipedia.org/wiki/List_of_programming_languages_by_type#Curly-bracket_languages>`_, diseñado para la máquina virtual de Ethereum (Ethereum Virtual Machine).
+Está influenciado por los lenguajes de programación C++, Python y JavaScript.
 Para más detalles sobre los lenguajes que han inspirado Solidity visita la sección :doc:`influencia de lenguajes <language-influences>`.
 
 Solidity es estáticamente escrito, soporta herencia, librerías, y tipos complejos definidos por el usuario, entre otras características.
 
 Con Solidity se pueden crear contratos para votaciones, financiación colectiva (crowdfunding), subastas a ciegas, y monederos (wallets) multifirma.
 
-When deploying contracts, you should use the latest released
-version of Solidity. Apart from exceptional cases, only the latest version receives
-`security fixes <https://github.com/ethereum/solidity/security/policy#supported-versions>`_.
-Furthermore, breaking changes as well as
-new features are introduced regularly. We currently use
-a 0.y.z version number `to indicate this fast pace of change <https://semver.org/#spec-item-4>`_.
+Al momento de desplegar un contrato, debes usar la versión más reciente de Solidity.
+Aparte de casos excepcionales, solamente la última version recibe `correciones de seguridad <https://github.com/ethereum/solidity/security/policy#supported-versions>`_.
+Además, cambios importantes y nuevas funciones se introducen periódicamente.
+Actualmente se utiliza el formato 0.y.z para el numero de versión `para indicar estos cambios tan rápidos <https://semver.org/#spec-item-4>`_.
 
 .. warning::
 

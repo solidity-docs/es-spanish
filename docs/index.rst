@@ -13,7 +13,7 @@ Solidity es estáticamente escrito, soporta herencia, librerías, y tipos comple
 Con Solidity se pueden crear contratos para votaciones, financiación colectiva (crowdfunding), subastas a ciegas, y monederos (wallets) multifirma.
 
 Al momento de desplegar un contrato, debes utilizar la versión más reciente de Solidity.
-Aparte de casos excepcionales, solamente la última version recibe `correciones de seguridad <https://github.com/ethereum/solidity/security/policy#supported-versions>`_.
+Aparte de casos excepcionales, solamente la última versión recibe `correciones de seguridad <https://github.com/ethereum/solidity/security/policy#supported-versions>`_.
 Además, cambios importantes y nuevas funciones se introducen periódicamente.
 Actualmente se utiliza el formato 0.y.z `para indicar estos cambios rápidos <https://semver.org/#spec-item-4>`_ en el número de versión.
 

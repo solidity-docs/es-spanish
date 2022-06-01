@@ -26,7 +26,7 @@ Ideas para mejorar Solidity o esta misma documentación son siempre bienvenidas,
 
 Nota:
 
-Puede descargar esta documentación como PDF, HTML o Epub haciendo click en el menú desplegable en la esquina inferior izquierda y seleccionando el formato preferido de descarga.
+Puede descargar esta documentación como PDF, HTML o Epub haciendo click en el menú desplegable que se encuentra en la esquina inferior izquierda y seleccionando el formato preferido de descarga.
 
 Getting Started
 ---------------

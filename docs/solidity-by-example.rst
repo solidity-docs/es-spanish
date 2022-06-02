@@ -1,5 +1,5 @@
 ###################
-Solidity by Example
+Solidity con Ejemplos
 ###################
 
 .. include:: examples/voting.rst
@@ -10,4 +10,4 @@ Solidity by Example
 
 .. include:: examples/micropayment.rst
 
-.. include:: examples/modular.rst
+.. include:: examples/modular.rstn

@@ -10,4 +10,4 @@ Solidity con Ejemplos
 
 .. include:: examples/micropayment.rst
 
-.. include:: examples/modular.rstn
+.. include:: examples/modular.rst

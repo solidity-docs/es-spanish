@@ -1,11 +1,11 @@
 ###############################
-Introduction to Smart Contracts
+Introducción a los Contratos Inteligentes
 ###############################
 
 .. _simple-smart-contract:
 
 ***********************
-A Simple Smart Contract
+Un Contrato Inteligente Simple
 ***********************
 
 Let us begin with a basic example that sets the value of a variable and exposes

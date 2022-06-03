@@ -36,11 +36,9 @@ Los especificadores de licencia que son legibles por las computadoras son import
 
 La siguiente línea especifica que el código fuente está escrito para la versión 0.4.16 de Solidity, o una versión más reciente del lenguaje, hasta la versión 0.9.0 (sin incluir esta versión).
 
-The next line specifies that the source code is written for
-Solidity version 0.4.16, or a newer version of the language up to, but not including version 0.9.0.
-This is to ensure that the contract is not compilable with a new (breaking) compiler version, where it could behave differently.
-:ref:`Pragmas<pragma>` are common instructions for compilers about how to treat the
-source code (e.g. `pragma once <https://en.wikipedia.org/wiki/Pragma_once>`_).
+Esto es para garantizar que el contrato no sea compilable con una nueva versión del compilador, donde podría comportarse de manera diferente.
+
+Los :ref:`Pragmas<pragma>` son instrucciones comunes para los compiladores que indican cómo se debe tratar el código fuente (e.g. `pragma once <https://en.wikipedia.org/wiki/Pragma_once>`_).
 
 A contract in the sense of Solidity is a collection of code (its *functions*) and
 data (its *state*) that resides at a specific address on the Ethereum

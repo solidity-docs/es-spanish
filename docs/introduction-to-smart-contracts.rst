@@ -34,6 +34,8 @@ Ejemplo de Almacenamiento
 La primera línea nos indica que el código fuente está bajo la licencia GPL versión 3.0.
 Los especificadores de licencia que son legibles por las computadoras son importantes en una configuración donde la publicación del código fuente es la predeterminada.
 
+La siguiente línea especifica que el código fuente está escrito para la versión 0.4.16 de Solidity, o una versión más reciente del lenguaje, hasta la versión 0.9.0 (sin incluir esta versión).
+
 The next line specifies that the source code is written for
 Solidity version 0.4.16, or a newer version of the language up to, but not including version 0.9.0.
 This is to ensure that the contract is not compilable with a new (breaking) compiler version, where it could behave differently.

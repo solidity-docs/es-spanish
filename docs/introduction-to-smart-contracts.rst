@@ -11,7 +11,7 @@ Un Contrato Inteligente Simple
 Iniciemos con un ejemplo básico que establece el valor de una variable y la expone para que otros contratos puedan acceder a ella.
 Está bien si no comprende todo en este momento, entraremos en más detalles más adelante.
 
-Storage Example
+Ejemplo de Almacenamiento
 ===============
 
 .. code-block:: solidity

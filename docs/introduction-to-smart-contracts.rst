@@ -8,9 +8,8 @@ Introducción a los Contratos Inteligentes
 Un Contrato Inteligente Simple
 ***********************
 
-Let us begin with a basic example that sets the value of a variable and exposes
-it for other contracts to access. It is fine if you do not understand
-everything right now, we will go into more details later.
+Iniciemos con un ejemplo básico que establece el valor de una variable y la expone para que otros contratos puedan acceder a ella.
+Está bien si no comprende todo en este momento, entraremos en más detalles más adelante.
 
 Storage Example
 ===============

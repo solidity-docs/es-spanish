@@ -42,6 +42,8 @@ Un contrato, en el sentido de Solidity, es una colección de código (sus *funci
 La línea ``uint storedData;`` declara una variable de estado denominada ``storedData``, de tipo ``uint`` (*u*\nsigned *int*\eger de *256* bits).
 Podemos considerarlo como un espacio único en una base de datos que se puede consultar y modificar llamando a funciones del código que administran la base de datos.
 
+==================================================
+
 You can think of it as a single slot
 in a database that you can query and alter by calling functions of the
 code that manages the database. In this example, the contract defines the

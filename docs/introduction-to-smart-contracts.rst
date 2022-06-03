@@ -39,12 +39,10 @@ Esto es para garantizar que el contrato no sea compilable con una nueva versión
 Los :ref:`Pragmas<pragma>` son instrucciones comunes para los compiladores que indican cómo se debe tratar el código fuente (por ejemplo, `pragma once <https://en.wikipedia.org/wiki/Pragma_once>`_).
 
 Un contrato, en el sentido de Solidity, es una colección de código (sus *funciones*) y datos (su *estado*) que reside en una dirección específica en la cadena de bloques de Ethereum.
-La línea ``uint storedData;`` declara una variable de estado denominada ``storedData`` de tipo ``uint`` (*u*\nsigned *int*\eger of *256* bits).
+La línea ``uint storedData;`` declara una variable de estado denominada ``storedData`` de tipo ``uint`` (*u*\nsigned *int*\eger de *256* bits).
+Podemos considerarlo como un espacio único en una base de datos que puede consultar y modificar llamando a funciones del código que administran la base de datos.
 
-A contract in the sense of Solidity is a collection of code (its *functions*) and
-data (its *state*) that resides at a specific address on the Ethereum
-blockchain. The line  declares a state variable called ``storedData`` of
-type ``uint`` (*u*\nsigned *int*\eger of *256* bits). You can think of it as a single slot
+You can think of it as a single slot
 in a database that you can query and alter by calling functions of the
 code that manages the database. In this example, the contract defines the
 functions ``set`` and ``get`` that can be used to modify

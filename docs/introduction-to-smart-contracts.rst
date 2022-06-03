@@ -35,9 +35,7 @@ La primera línea nos indica que el código fuente está bajo la licencia GPL ve
 Los especificadores de licencia que son legibles por las computadoras son importantes en una configuración donde la publicación del código fuente es la predeterminada.
 
 La siguiente línea especifica que el código fuente está escrito para la versión 0.4.16 de Solidity, o una versión más reciente del lenguaje, hasta la versión 0.9.0 (sin incluir esta versión).
-
 Esto es para garantizar que el contrato no sea compilable con una nueva versión del compilador, donde podría comportarse de manera diferente.
-
 Los :ref:`Pragmas<pragma>` son instrucciones comunes para los compiladores que indican cómo se debe tratar el código fuente (e.g. `pragma once <https://en.wikipedia.org/wiki/Pragma_once>`_).
 
 A contract in the sense of Solidity is a collection of code (its *functions*) and

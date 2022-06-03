@@ -1,14 +1,14 @@
 ###############################
-Introducción a los Contratos Inteligentes
+Introducción a los Smart Contracts
 ###############################
 
 .. _simple-smart-contract:
 
 ***********************
-Un Contrato Inteligente Simple
+Un Smart Contract Simple
 ***********************
 
-Iniciemos con un ejemplo básico que establece el valor de una variable y la expone para que otros contratos puedan acceder a ella.
+Iniciemos con un ejemplo básico, que establece el valor de una variable y la expone para que otros contratos puedan acceder a ella.
 Está bien si no comprende todo en este momento, entraremos en más detalles más adelante.
 
 Ejemplo de Almacenamiento
@@ -32,15 +32,15 @@ Ejemplo de Almacenamiento
     }
 
 La primera línea nos indica que el código fuente está bajo la licencia GPL versión 3.0.
-Los especificadores de licencia que son legibles por las computadoras son importantes en una configuración donde la publicación del código fuente es la predeterminada.
+Los especificadores de licencia, que son legibles por las computadoras, son importantes en una configuración donde la publicación del código fuente es la predeterminada.
 
-La siguiente línea especifica que el código fuente está escrito para la versión 0.4.16 de Solidity, o una versión más reciente del lenguaje, hasta la versión 0.9.0 (sin incluir esta versión).
+La siguiente línea especifica que el código fuente está escrito para la versión 0.4.16 de Solidity, o una versión más reciente del lenguaje, hasta, pero sin incluir, la versión 0.9.0.
 Esto es para garantizar que el contrato no sea compilable con una nueva versión del compilador, donde podría comportarse de manera diferente.
-Los :ref:`Pragmas<pragma>` son instrucciones comunes para los compiladores que indican cómo se debe tratar el código fuente (por ejemplo, `pragma once <https://en.wikipedia.org/wiki/Pragma_once>`_).
+Los :ref:`Pragmas<pragma>` son instrucciones comunes para los compiladores, indican cómo se debe tratar el código fuente (por ejemplo, `pragma once <https://en.wikipedia.org/wiki/Pragma_once>`_).
 
-Un contrato, en el sentido de Solidity, es una colección de código (sus *funciones*) y datos (su *estado*) que reside en una dirección específica en la cadena de bloques de Ethereum.
+Un contrato, en el sentido de Solidity, es una colección de código (sus *funciones*) y datos (su *estado*) que reside en una dirección específica en el blockchain de Ethereum.
 La línea ``uint storedData;`` declara una variable de estado denominada ``storedData``, de tipo ``uint`` (*u*\nsigned *int*\eger de *256* bits).
-Podemos considerarlo como un espacio único en una base de datos que se consultar y modificar llamando a funciones del código que administran la base de datos.
+Podemos considerarlo como un espacio único en una base de datos que se puede consultar y modificar llamando a funciones del código que administran la base de datos.
 
 You can think of it as a single slot
 in a database that you can query and alter by calling functions of the

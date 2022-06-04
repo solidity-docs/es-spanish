@@ -76,12 +76,16 @@ La versión en Inglés es tomada como referencia.
 
 Puede elegir entre distintos idiomas haciendo click en el menú desplegable que se encuentra en la esquina inferior izquierda y seleccionando su lenguaje preferido.
 
-* `Francés <https://docs.soliditylang.org/fr/latest/>`_
-* `Indonesio <https://github.com/solidity-docs/id-indonesian>`_
-* `Persa <https://github.com/solidity-docs/fa-persian>`_
-* `Japonés <https://github.com/solidity-docs/ja-japanese>`_
+* `Chino <https://github.com/solidity-docs/zh-chinese>`_
+* `Español <https://github.com/solidity-docs/es-spanish>`_
 * `Coreano <https://github.com/solidity-docs/ko-korean>`_
-* `Chino <https://github.com/solidity-docs/zh-cn-chinese/>`_
+* `Ruso <https://github.com/solidity-docs/ru-russian>`_
+* `Japonés <https://github.com/solidity-docs/ja-japanese>`_
+* `Persa <https://github.com/solidity-docs/fa-persian>`_
+* `Francés <https://github.com/solidity-docs/fr-french>`_
+* `Alemán <https://github.com/solidity-docs/de-german>>`_
+* `Indonesio <https://github.com/solidity-docs/id-indonesian>`_
+* `Portugués <https://github.com/solidity-docs/pt-portuguese>`_
 
 .. Nota::
 

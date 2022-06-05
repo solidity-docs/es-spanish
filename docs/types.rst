@@ -6,12 +6,14 @@
 Tipos
 *****
 
-Solidity es estáticamente escrito, lo que significa que se debe especificar el tipo de cada variable (estado y local).
+Solidity es estáticamente escrito, lo que significa que se debe especificar el tipo de cada variable (de estado y local).
 Solidity proporciona varios tipos elementales que se pueden combinar para formar tipos complejos.
+
+Adicionalmente, los tipos pueden interactuar entre sí en expresiones que contienen operadores.
+Para obtener una referencia rápida de los distintos operadores, consulte :ref:`orden`.
 
 In addition, types can interact with each other in expressions containing
 operators. For a quick reference of the various operators, see :ref:`order`.
-
 The concept of "undefined" or "null" values does not exist in Solidity, but newly
 declared variables always have a :ref:`default value<default-value>` dependent
 on its type. To handle any unexpected values, you should use the :ref:`revert function<assert-and-require>` to revert the whole transaction, or return a

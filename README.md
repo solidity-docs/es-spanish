@@ -12,7 +12,7 @@ Mientras se completa la traducción de esta documentación, puedes encontrar una
 - elijahhampton
 - mektigboy
 
-### Para Participar en la Traducción:
+### Para participar en la traducción:
 
 Por favor, trabaja una página a la vez.
 Debes clonar este repositorio, traducir la página que seleccionaste, y hacer un pull request.

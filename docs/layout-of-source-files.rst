@@ -1,46 +1,33 @@
 ********************************
-Layout of a Solidity Source File
+Composición de un archivo fuente en Solidity
 ********************************
 
-Source files can contain an arbitrary number of
-:ref:`contract definitions<contract_structure>`, import_ ,
-:ref:`pragma<pragma>` and :ref:`using for<using-for>` directives and
+Los archivos fuente pueden contener un número arbitrario de
+:ref:`definiciones de contratos<contract_structure>`, sentencias import_,
+:ref:`pragma<pragma>` y directrices :ref:`using for<using-for>` y
 :ref:`struct<structs>`, :ref:`enum<enums>`, :ref:`function<functions>`, :ref:`error<errors>`
-and :ref:`constant variable<constants>` definitions.
+y definiciones de :ref:`constant variable<constants>`.
 
 .. index:: ! license, spdx
 
-SPDX License Identifier
+Identificador de licencia SPDX
 =======================
 
-Trust in smart contracts can be better established if their source code
-is available. Since making source code available always touches on legal problems
-with regards to copyright, the Solidity compiler encourages the use
-of machine-readable `SPDX license identifiers <https://spdx.org>`_.
-Every source file should start with a comment indicating its license:
+La confianza en los contratos inteligentes se puede establecer mejor si sus código fuente está disponible. Debido a que disponer del código fuente disponible siempre roza problemas legales con respecto a derechos de autor, el compilador de Solidity fomenta el uso de `identificadores de licencia SPDX <https://spdx.org>`_ legibles por máquinas.
+Cada archivo fuente debería comenzar con un comentario que indique su licencia:
 
 ``// SPDX-License-Identifier: MIT``
 
-The compiler does not validate that the license is part of the
-`list allowed by SPDX <https://spdx.org/licenses/>`_, but
-it does include the supplied string in the :ref:`bytecode metadata <metadata>`.
+El compilador no valida que la licencia sea parte de la `lista permitida por SPDX <https://spdx.org/licenses/>`_ pero sí incluye el string provisto en los :ref:`metadatos bytecode <metada>`.  
 
-If you do not want to specify a license or if the source code is
-not open-source, please use the special value ``UNLICENSED``.
-Note that ``UNLICENSED`` (no usage allowed, not present in SPDX license list)
-is different from ``UNLICENSE`` (grants all rights to everyone).
-Solidity follows `the npm recommendation <https://docs.npmjs.com/cli/v7/configuring-npm/package-json#license>`_.
+Si no quiere especificar una licencia o si el código fuente no es de código abierto, por favor use el valor especial ``UNLICENSED``.
+Note que ``UNLICENSED`` (uso no permitido, no presente en la lista de licencias de SPDX) es diferente de ``UNLICENSE`` (concede todos los derechos). Solidity sigue la `recomendación de npm <https://docs.npmjs.com/cli/v7/configuring-npm/package-json#license>`_.
 
-Supplying this comment of course does not free you from other
-obligations related to licensing like having to mention
-a specific license header in each source file or the
-original copyright holder.
+Proporcionar este comentario, por supuesto, no lo exime de otras obligaciones relacionadas con licencias como tener que mencionar un encabezado específico de licencias en cada archivo fuente o el titular de los derechos originales.
 
-The comment is recognized by the compiler anywhere in the file at the
-file level, but it is recommended to put it at the top of the file.
+El comentario es reconocido por el compilador en cualquier parte del archivo al nivel de archivos, pero se recomienda ponerlo en la parte superior del archivo.
 
-More information about how to use SPDX license identifiers
-can be found at the `SPDX website <https://spdx.org/ids-how>`_.
+Más información sobre cómo usar los identificadores de licencias SPDX puede ser encontrado en el `sitio web de SPDX <https://spdx.org/ids-how>`_.
 
 
 .. index:: ! pragma
@@ -50,11 +37,7 @@ can be found at the `SPDX website <https://spdx.org/ids-how>`_.
 Pragmas
 =======
 
-The ``pragma`` keyword is used to enable certain compiler features
-or checks. A pragma directive is always local to a source file, so
-you have to add the pragma to all your files if you want to enable it
-in your whole project. If you :ref:`import<import>` another file, the pragma
-from that file does *not* automatically apply to the importing file.
+La palabra reservada ``pragma`` se usa para permitir ciertas características del compilador o verificaciones. Una directriz pragma siempre es local a un archivo fuente, de modo que tiene que agregar la directriz pragma a todos sus archivos si quiere habilitarlo en el proyecto entero. Si usted :ref:`import<import>` otro archivo, la directriz pragma desde ese archivo *no* se aplica automáticamente al archivo de importación.  
 
 .. index:: ! pragma, version
 
@@ -63,158 +46,101 @@ from that file does *not* automatically apply to the importing file.
 Version Pragma
 --------------
 
-Source files can (and should) be annotated with a version pragma to reject
-compilation with future compiler versions that might introduce incompatible
-changes. We try to keep these to an absolute minimum and
-introduce them in a way that changes in semantics also require changes
-in the syntax, but this is not always possible. Because of this, it is always
-a good idea to read through the changelog at least for releases that contain
-breaking changes. These releases always have versions of the form
-``0.x.0`` or ``x.0.0``.
+Los archivos fuente pueden (y deberían) ser anotados con una versión del pragma para rechazar la compilación con versiones futuras del compilador que podrían introducir cambios incompatibles. Nosotros intentamos mantenerlos al mínimo estrictamente necesario e introducirlos de una manera que los cambios en la semántica también requieran cambios en la sintaxis, pero esto no es siempre posible. Debido a ello, siempre es una buena idea leer el registro de modificaciones al menos para los lanzamientos que contengan cambios de ruptura. Estos lanzamientos siempre tienen versiones de la forma ``0.x.0`` o ``x.0.0``.
 
-The version pragma is used as follows: ``pragma solidity ^0.5.2;``
+La versión del pragma se usa de la siguiente manera: ``pragma solidity ^0.5.2;``
 
-A source file with the line above does not compile with a compiler earlier than version 0.5.2,
-and it also does not work on a compiler starting from version 0.6.0 (this
-second condition is added by using ``^``). Because
-there will be no breaking changes until version ``0.6.0``, you can
-be sure that your code compiles the way you intended. The exact version of the
-compiler is not fixed, so that bugfix releases are still possible.
+Un archivo fuente con la línea de arriba no compila con un compilador anterior a la versión 0.5.2 y tampoco funciona en un compilador que inicie con la versión 0.6.0 (esta segunda condición se agrega al usar ``^``). Debido a que no habrá cambios de ruptura hasta la versión ``0.6.0``, puede estar seguro que su código compila de la forma que esperaba. La versión exacta del compilador no es fija, por lo tanto, las versiones de corrección aun son posibles. 
 
-It is possible to specify more complex rules for the compiler version,
-these follow the same syntax used by `npm <https://docs.npmjs.com/cli/v6/using-npm/semver>`_.
+Es posible especificar reglas más complejas para la versión del compilador, estas siguen la misma sintaxis usaba por `npm <https://docs.npmjs.com/cli/v6/using-npm/semver>`_. 
+
 
 .. note::
-  Using the version pragma *does not* change the version of the compiler.
-  It also *does not* enable or disable features of the compiler. It just
-  instructs the compiler to check whether its version matches the one
-  required by the pragma. If it does not match, the compiler issues
-  an error.
+  El uso de la versión del pragma *no* cambia la versión del compilador *ni* habilita o deshabilita características del compilador.
+  Simplemente indica al compilador que verifique si su versión corresponde a la requerida por el pragma. Si no corresponde, el compilador emite un error.
+
 
 ABI Coder Pragma
 ----------------
 
-By using ``pragma abicoder v1`` or ``pragma abicoder v2`` you can
-select between the two implementations of the ABI encoder and decoder.
+Al usar ``pragma abicoder v1`` o ``pragma abicoder v2`` puedes seleccionar entre las dos implementaciones del codificador y decodificador ABI.
 
-The new ABI coder (v2) is able to encode and decode arbitrarily nested
-arrays and structs. It might produce less optimal code and has not
-received as much testing as the old encoder, but is considered
-non-experimental as of Solidity 0.6.0. You still have to explicitly
-activate it using ``pragma abicoder v2;``. Since it will be
-activated by default starting from Solidity 0.8.0, there is the option to select
-the old coder using ``pragma abicoder v1;``.
+El nuevo codificador ABI (v2) está disponible para codificar y decodificar arrays y structs. Podría producir código menos óptimo y no ha recibido tantas pruebas como el viejo decodificador, pero está considerado no experimental a partir de Solidity 0.6.0. Aún tiene que activarlo explícitamente usando ``pragma abicoder v2;``. Ya que será activado por defecto a partir de Solidity 0.8.0, existe la opción de seleccionar el codificador viejo usando ``pragma abicoder v1;``.      
 
-The set of types supported by the new encoder is a strict superset of
-the ones supported by the old one. Contracts that use it can interact with ones
-that do not without limitations. The reverse is possible only as long as the
-non-``abicoder v2`` contract does not try to make calls that would require
-decoding types only supported by the new encoder. The compiler can detect this
-and will issue an error. Simply enabling ``abicoder v2`` for your contract is
-enough to make the error go away.
+El conjunto de tipos soportados por el nuevo codificador es un superset de aquellos soportados por el viejo. Los contratos que lo usan pueden interactuar con aquellos que no lo usan sin limitaciones. Lo opuesto es posible solo siempre y cuando el contrato no-``abicoder v2`` no intente hacer llamadas que requerirían decodificador tipos solamente soportados por el nuevo codificador. El compilador puede detectar esto y emitirá un error. Simplemente con activar ``abicoder v2`` para su contrato es suficiente para hacer que estos errores desaparezcan.     
+
 
 .. note::
-  This pragma applies to all the code defined in the file where it is activated,
-  regardless of where that code ends up eventually. This means that a contract
-  whose source file is selected to compile with ABI coder v1
-  can still contain code that uses the new encoder
-  by inheriting it from another contract. This is allowed if the new types are only
-  used internally and not in external function signatures.
+
+  Este pragma aplica a todo el código definido en el archivo donde está activado, sin reparar en donde ese código termina finalmente. Esto significa que un contrato cuyo archivo fuente está seleccionado para compilar con ABI coder v1 aun puede contener código que usa el nuevo codificador al heredarlo de otro contrato. Esto se permite si los nuevos tipos son solamente usados internamente y no en signaturas de funciones externas.
 
 .. note::
-  Up to Solidity 0.7.4, it was possible to select the ABI coder v2
-  by using ``pragma experimental ABIEncoderV2``, but it was not possible
-  to explicitly select coder v1 because it was the default.
+
+  Hasta Solidity 0.7.4 fue posible seleccionar el ABI coder v2 al usar ``pragma experimental ABIEncoderV2``, pero no era posible seleccionar el codificador v1 explícitamente porque estaba por defecto. 
 
 .. index:: ! pragma, experimental
 
 .. _experimental_pragma:
 
-Experimental Pragma
+Pragma Experimental
 -------------------
 
-The second pragma is the experimental pragma. It can be used to enable
-features of the compiler or language that are not yet enabled by default.
-The following experimental pragmas are currently supported:
+El segundo pragma es el pragma experimental. Puede ser usado para habilitar características del compilador o lenguaje que todavía no están activadas por defecto. Los siguientes pragmas experimentales están actualmente soportados:
 
 
 ABIEncoderV2
 ~~~~~~~~~~~~
 
-Because the ABI coder v2 is not considered experimental anymore,
-it can be selected via ``pragma abicoder v2`` (please see above)
-since Solidity 0.7.4.
+Debido a que el codificador ABI v2 ya no es considerado experimental, puede ser seleccionado por medio de ``pragma abicoder v2`` desde Solidity 0.7.4 (véase más arriba).  
 
 .. _smt_checker:
 
 SMTChecker
 ~~~~~~~~~~
 
-This component has to be enabled when the Solidity compiler is built
-and therefore it is not available in all Solidity binaries.
-The :ref:`build instructions<smt_solvers_build>` explain how to activate this option.
-It is activated for the Ubuntu PPA releases in most versions,
-but not for the Docker images, Windows binaries or the
-statically-built Linux binaries. It can be activated for solc-js via the
-`smtCallback <https://github.com/ethereum/solc-js#example-usage-with-smtsolver-callback>`_ if you have an SMT solver
-installed locally and run solc-js via node (not via the browser).
+Este componente tiene que ser habilitado cuando el compilador de Solidity es construido y, por lo tanto, no está disponible en todos los binarios Solidity. Las :ref:`instrucciones de construcción<smt_solvers_build>` explican cómo activar esta opción. Está activado para todas los lanzamientos PPA de Ubuntu en la mayoría de las versiones, pero no para las imágenes de Docker, los binarios de Windows o los binarios de Linux construidos estáticamente. Se puede activar para solc-js a través de `smtCallback <https://github.com/ethereum/solc-js#example-usage-with-smtsolver-callback>`_ si tiene un SMT solver instalado localmente y ejecute solc-js por medio de node (no a través del navegador). 
 
-If you use ``pragma experimental SMTChecker;``, then you get additional
-:ref:`safety warnings<formal_verification>` which are obtained by querying an
-SMT solver.
-The component does not yet support all features of the Solidity language and
-likely outputs many warnings. In case it reports unsupported features, the
-analysis may not be fully sound.
+Si usa ``pragma experimental SMTChecker;``, entonces obtiene :ref:`avisos de seguridad<formal_verification>` adicionales los cuales se obtienen al consultar un SMT solver.
+El componente todavía no soporta todas las características del lenguaje Solidity y probablemente genera muchas advertencias. En caso de que señale características no soportadas, el análisis pudiese no ser enteramente sólido.
 
 .. index:: source file, ! import, module, source unit
 
 .. _import:
 
-Importing other Source Files
+Importación de Otros Archivos Fuente
 ============================
 
-Syntax and Semantics
+Sintaxis y Semántica
 --------------------
 
-Solidity supports import statements to help modularise your code that
-are similar to those available in JavaScript
-(from ES6 on). However, Solidity does not support the concept of
-a `default export <https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export#Description>`_.
+Solidity suporta sentencias import para ayudar a modularisar su código, similar a aquellas disponibles en JavaScript (a partir de ES6). Sin embargo, Solidity no soporta el concepto `default export <https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export#Description>`_.
 
-At a global level, you can use import statements of the following form:
+A un nivel global, puede usar sentencias import de la siguiente forma:
 
 .. code-block:: solidity
 
     import "filename";
 
-The ``filename`` part is called an *import path*.
-This statement imports all global symbols from "filename" (and symbols imported there) into the
-current global scope (different than in ES6 but backwards-compatible for Solidity).
-This form is not recommended for use, because it unpredictably pollutes the namespace.
-If you add new top-level items inside "filename", they automatically
-appear in all files that import like this from "filename". It is better to import specific
-symbols explicitly.
+La parte ``filename`` se llama *ruta de importación*. 
+Esta sentencia importa todos los símbolos globales desde "filename" (y símbolos importados allí) a el scope global actual (diferente de ES6 pero retrocompatible para Solidity). No se recomienda usar esta forma porque corrompe de modo impredecible el espacio de nombres. Si agregas nuevos elementos de alto nivel dentro de "filename", aparece autoáticamente en todos los archivos que importan de esta manera desde "filename". Es mejor importar símbolos específicos explícitamente. 
 
-The following example creates a new global symbol ``symbolName`` whose members are all
-the global symbols from ``"filename"``:
+El siguiente ejemplo crea un nuevo símbolo global ``symbolName`` cuyos miembros son todos los símbolos globañes desde "filename":
 
 .. code-block:: solidity
 
     import * as symbolName from "filename";
 
-which results in all global symbols being available in the format ``symbolName.symbol``.
+lo cual resulta en todos los símbolos globales disponibles en el formato ``symbolName.symbol``.
 
-A variant of this syntax that is not part of ES6, but possibly useful is:
+Una variante de esta sintaxis que no es parte de ES6, pero posiblemente útil es:
 
 .. code-block:: solidity
 
   import "filename" as symbolName;
 
-which is equivalent to ``import * as symbolName from "filename";``.
+lo cual es equivalente a ``import * as symbolName from "filename";``.
 
-If there is a naming collision, you can rename symbols while importing. For example,
-the code below creates new global symbols ``alias`` and ``symbol2`` which reference
-``symbol1`` and ``symbol2`` from inside ``"filename"``, respectively.
+Si hay una colisión de nombres, puede renombrar símbolos durante la importación. Por ejemplo, el código debajo crea símbolos globales nuevos ``alias`` y ``symbol2`` los cuales referencian ``symbol1`` y ``symbol2`` desde dentro de "filename" respectivamente. 
 
 .. code-block:: solidity
 
@@ -222,39 +148,25 @@ the code below creates new global symbols ``alias`` and ``symbol2`` which refere
 
 .. index:: virtual filesystem, source unit name, import; path, filesystem path, import callback, Remix IDE
 
-Import Paths
+Rutas de Importación
 ------------
 
-In order to be able to support reproducible builds on all platforms, the Solidity compiler has to
-abstract away the details of the filesystem where source files are stored.
-For this reason import paths do not refer directly to files in the host filesystem.
-Instead the compiler maintains an internal database (*virtual filesystem* or *VFS* for short) where
-each source unit is assigned a unique *source unit name* which is an opaque and unstructured identifier.
-The import path specified in an import statement is translated into a source unit name and used to
-find the corresponding source unit in this database.
+A fin de ser capaz de soportar construcciones reproducibles en todas las plataformas, el compilador de Solidity tiene que abstraer los detalles del sistema de archivos en donde los archivos fuente están almacenados. Por esta razón las rutas de importación no hacen referencia directamente a los archivos en el sistema de archivos host. En lugar de ello, el compilador mantiene una base de datos interna (*sistema de archivos virtual* o *VFS* de forma resumida) donde cada unidad fuente se asigna a un único *nombre de unidad fuente* el cual es un identificador opaco y desestructurado. La ruta de importación especificada en una sentencia import se traduce a un nombre de unidad fuente y usada para encontrar la unidad de fuente correspondiente en esta base de datos.  
 
-Using the :ref:`Standard JSON <compiler-api>` API it is possible to directly provide the names and
-content of all the source files as a part of the compiler input.
-In this case source unit names are truly arbitrary.
-If, however, you want the compiler to automatically find and load source code into the VFS, your
-source unit names need to be structured in a way that makes it possible for an :ref:`import callback
-<import-callback>` to locate them.
-When using the command-line compiler the default import callback supports only loading source code
-from the host filesystem, which means that your source unit names must be paths.
-Some environments provide custom callbacks that are more versatile.
-For example the `Remix IDE <https://remix.ethereum.org/>`_ provides one that
-lets you `import files from HTTP, IPFS and Swarm URLs or refer directly to packages in NPM registry
-<https://remix-ide.readthedocs.io/en/latest/import.html>`_.
+Al usar la API :ref:`Standard JSON <compiler-api>` es posible proveer directamente los nombres y contenido de todos los archivos fuentes como parte de la entrada del compilador. En este caso, los nombres de unidad fuente son verdaderamente arbitrarios. Si, de todas maneras, quiere que el compilador encuentre y cargue el código fuente en el VFS automáticamente, sus nombres de unidad fuente necesitan estar estructurados de una manera que permita a un :ref:`import callback
+<import-callback>` localizarlos.
+Cuando se usa el compilador en la línea de comandos el import callback por defecto soporta solamente el código fuente que se carga desde el sistema de archivos host, lo cual significa que sus nombres de unidad fuente deben ser rutas.
+Algunos ambientes proveen custom callbacks que son más versátiles.
+Por ejemplo, el `Remix IDE <https://remix.ethereum.org/>`_ provee una que te permite `importar archivos desde HTTP, IPFS y Swarm URLs o referir directamente a paquetes el el registro de NPM <https://remix-ide.readthedocs.io/en/latest/import.html>`_.
 
-For a complete description of the virtual filesystem and the path resolution logic used by the
-compiler see :ref:`Path Resolution <path-resolution>`.
+Para una descripción completa del sistema de archivos virtuales y la lógica de resolución de rutas usadas por el compilador véase :ref:`Resolución de Rutas <path-resolution>`. 
 
 .. index:: ! comment, natspec
 
-Comments
+Comentarios
 ========
 
-Single-line comments (``//``) and multi-line comments (``/*...*/``) are possible.
+Comentarios de una sola línea (``//``) y comentarios de múltiples líneas (``/*...*/``) son posibles.
 
 .. code-block:: solidity
 
@@ -266,12 +178,6 @@ Single-line comments (``//``) and multi-line comments (``/*...*/``) are possible
     */
 
 .. note::
-  A single-line comment is terminated by any unicode line terminator
-  (LF, VF, FF, CR, NEL, LS or PS) in UTF-8 encoding. The terminator is still part of
-  the source code after the comment, so if it is not an ASCII symbol
-  (these are NEL, LS and PS), it will lead to a parser error.
+  Un comentario de una sola línea finaliza por cualquier terminador de línea unicode (LF, VF, FF, CR, NEL, LS, o PS) en codificación UTF-8. El terminador es aún parte del código fuente luego del comentario, así que si no es un símbolo ASCII (se trata de NEL, LS y PS), conducirá a un parser error. 
 
-Additionally, there is another type of comment called a NatSpec comment,
-which is detailed in the :ref:`style guide<style_guide_natspec>`. They are written with a
-triple slash (``///``) or a double asterisk block (``/** ... */``) and
-they should be used directly above function declarations or statements.
+Adicionalmente, hay otro tipo de comentario llamado comentario NatSpec, el cual se detalla en la :ref:`guía de estilo<style_guide_natspec>`. Son escritos con una triple barra diagonal (``///``) o un bloque de asteriscos dobles (``/** ... */``) y deberían ser usados directamente sobre las declaraciones de funciones o sentencias.

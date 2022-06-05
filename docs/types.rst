@@ -3,12 +3,11 @@
 .. _types:
 
 *****
-Types
+Tipos
 *****
 
-Solidity is a statically typed language, which means that the type of each
-variable (state and local) needs to be specified.
-Solidity provides several elementary types which can be combined to form complex types.
+Solidity es estáticamente escrito, lo que significa que se debe especificar el tipo de cada variable (estado y local).
+Solidity proporciona varios tipos elementales que se pueden combinar para formar tipos complejos.
 
 In addition, types can interact with each other in expressions containing
 operators. For a quick reference of the various operators, see :ref:`order`.

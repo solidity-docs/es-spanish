@@ -1,4 +1,4 @@
-# Documentación oficial en Español de Solidity
+# Documentación Oficial en Español de Solidity
 
 Bienvenido a la documentación oficial en Español de Solidity. Esta documentación ha sido recién creada y aún está siendo traducida, así que todavía está sujeta a cambios.
 
@@ -6,13 +6,13 @@ Bienvenido a la documentación oficial en Español de Solidity. Esta documentaci
 
 Mientras se completa la traducción de esta documentación, puedes encontrar una versión en: https://solidity-es.readthedocs.io/es/latest/. Por favor, toma en cuenta que esta versión no ha sido actualizada en mucho tiempo.
 
-## Moderadores & colaboradores
+## Moderadores & Colaboradores
 
 - DanielMart-tech
 - elijahhampton
 - mektigboy
 
-### Para participar en la traducción:
+### Para Participar en la Traducción:
 
 Por favor, trabaja una página a la vez.
 Debes clonar este repositorio, traducir la página que seleccionaste, y hacer un pull request.
@@ -23,7 +23,7 @@ Toma en cuenta que debes ser rápido con tus traducciones. En caso de que ya no 
 
 > Nota: Cualquier persona que desee contribuir a la documentación oficial en Español de Solidity es libre de hacerlo.
 
-## Reglas para la traducción
+## Reglas para la Traducción
 
 Si deseas contribuir debes seguir las siguientes reglas:
 

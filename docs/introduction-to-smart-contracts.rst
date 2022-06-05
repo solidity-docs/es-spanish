@@ -1,18 +1,17 @@
 ###############################
-Introduction to Smart Contracts
+Introducción a los Smart Contracts
 ###############################
 
 .. _simple-smart-contract:
 
 ***********************
-A Simple Smart Contract
+Un Smart Contract Simple
 ***********************
 
-Let us begin with a basic example that sets the value of a variable and exposes
-it for other contracts to access. It is fine if you do not understand
-everything right now, we will go into more details later.
+Iniciemos con un ejemplo básico, que establece el valor de una variable y la expone para que otros contratos puedan acceder a ella.
+Está bien si no comprende todo en este momento, entraremos en más detalles más adelante.
 
-Storage Example
+Ejemplo de Almacenamiento
 ===============
 
 .. code-block:: solidity
@@ -32,20 +31,20 @@ Storage Example
         }
     }
 
-The first line tells you that the source code is licensed under the
-GPL version 3.0. Machine-readable license specifiers are important
-in a setting where publishing the source code is the default.
+La primera línea nos indica que el código fuente está bajo la licencia GPL versión 3.0.
+Los especificadores de licencia, que son legibles por las computadoras, son importantes en una configuración donde la publicación del código fuente es la predeterminada.
 
-The next line specifies that the source code is written for
-Solidity version 0.4.16, or a newer version of the language up to, but not including version 0.9.0.
-This is to ensure that the contract is not compilable with a new (breaking) compiler version, where it could behave differently.
-:ref:`Pragmas<pragma>` are common instructions for compilers about how to treat the
-source code (e.g. `pragma once <https://en.wikipedia.org/wiki/Pragma_once>`_).
+La siguiente línea especifica que el código fuente está escrito para la versión 0.4.16 de Solidity, o una versión más reciente del lenguaje, hasta, pero sin incluir, la versión 0.9.0.
+Esto es para garantizar que el contrato no sea compilable con una nueva versión del compilador, donde podría comportarse de manera diferente.
+Los :ref:`Pragmas<pragma>` son instrucciones comunes para los compiladores, indican cómo se debe tratar el código fuente (por ejemplo, `pragma once <https://en.wikipedia.org/wiki/Pragma_once>`_).
 
-A contract in the sense of Solidity is a collection of code (its *functions*) and
-data (its *state*) that resides at a specific address on the Ethereum
-blockchain. The line ``uint storedData;`` declares a state variable called ``storedData`` of
-type ``uint`` (*u*\nsigned *int*\eger of *256* bits). You can think of it as a single slot
+Un contrato, en el sentido de Solidity, es una colección de código (sus *funciones*) y datos (su *estado*) que reside en una dirección específica en el blockchain de Ethereum.
+La línea ``uint storedData;`` declara una variable de estado denominada ``storedData``, de tipo ``uint`` (*u*\nsigned *int*\eger de *256* bits).
+Podemos considerarlo como un espacio único en una base de datos que se puede consultar y modificar llamando a funciones del código que administran la base de datos.
+
+==================================================
+
+You can think of it as a single slot
 in a database that you can query and alter by calling functions of the
 code that manages the database. In this example, the contract defines the
 functions ``set`` and ``get`` that can be used to modify

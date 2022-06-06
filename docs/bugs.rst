@@ -6,9 +6,10 @@
 Lista de Bugs Conocidos
 ##################
 
-Below, you can find a JSON-formatted list of some of the known security-relevant bugs in the
-Solidity compiler. The file itself is hosted in the `Github repository
-<https://github.com/ethereum/solidity/blob/develop/docs/bugs.json>`_.
+A continuación, puede encontrar una lista en formato JSON de algunos de los bugs conocidos, relacionados con la seguridad en el compiladfor de Solidity.
+El archivo se encuentra en el `repositorio de GitHub <https://github.com/ethereum/solidity/blob/develop/docs/bugs.json>`_.
+La lista se remonta a la versión 0.3.0, los errores que se conocen, que están presentes sólo en versiones anteriores, no se enumeran.
+
 The list stretches back as far as version 0.3.0, bugs known to be present only
 in versions preceding that are not listed.
 

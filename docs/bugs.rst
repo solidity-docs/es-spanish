@@ -44,24 +44,20 @@ severity
 conditions
     Condiciones que deben cumplirse para desencadenar el bug.
     Se pueden utilizar las siguientes claves:
-    ``optimizer``, Valor de tipo "boolean", lo que significa que el optimizador debe ser encendido para habilitar el bug.
-    ``evmVersion``, un "string" que indica qué tipo de configuración del compilador de la versión de EVM desencadena el bug.
+    ``optimizer``, Valor de tipo boolean, lo que significa que el optimizador debe ser encendido para habilitar el bug.
+    ``evmVersion``, un string que indica qué tipo de configuración del compilador de la versión de EVM desencadena el bug.
     EL "string" puede contener operadores de comparación.
     Por ejemplo, ``">=constantinople"`` significa que el bug está presente cuando la versión de EVM se establece en "constantinople" o posterior.
     Si no hay condiciones, se debe suponer que el bug está presente.
 check
-    This field contains different checks that report whether the smart contract
-    contains the bug or not. The first type of check are Javascript regular
-    expressions that are to be matched against the source code ("source-regex")
-    if the bug is present.  If there is no match, then the bug is very likely
-    not present. If there is a match, the bug might be present.  For improved
-    accuracy, the checks should be applied to the source code after stripping
-    comments.
-    The second type of check are patterns to be checked on the compact AST of
-    the Solidity program ("ast-compact-json-path"). The specified search query
-    is a `JsonPath <https://github.com/json-path/JsonPath>`_ expression.
-    If at least one path of the Solidity AST matches the query, the bug is
-    likely present.
+    Este campo contiene diferentes comprobaciones que informan si el smart contract contiene el bug o no.
+    El primer tipo de verificación son las expresiones regulares de Javascript que deben compararse con el código fuente ("source-regex") si el bug está presente.
+    Si no hay compatibilidad, es muy probable que el bug no esté presente.
+    Si hay compatibilidad, es probable que el bug esté presente.
+    Para mayor precisión, las comprobaciones deben aplicarse al código fuente después de eliminar los comentarios.
+    El segundo tipo de verificación son patrones que se verificarán en el AST compacto del programa Solidity ("ast-compact-json-path").
+    La consulta de búsqueda especificada es una expresión `JsonPath <https://github.com/json-path/JsonPath>`_.
+    Si al menos una ruta de Solidity AST coincide con la consulta de búsqueda, es probable que el bug esté presente.
 
 .. literalinclude:: bugs.json
    :language: js

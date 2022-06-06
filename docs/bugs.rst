@@ -39,18 +39,16 @@ fixed
 publish
     La fecha en la que el bug se hizo público, opcional.
 severity
-    Gravedad del bug: muy baja, baja, media, alta. Se toma en cuenta la detectabilidad en los tests del contrato, probabilidad de ocurrencia y daños potenciales por exploits.
+    Gravedad del bug: muy baja, baja, media, alta.
+    Se toma en cuenta la detectabilidad en los tests del contrato, probabilidad de ocurrencia y daños potenciales por exploits.
 conditions
-    Conditions that have to be met to trigger the bug. The following
-    keys can be used:
-    ``optimizer``, Boolean value which
-    means that the optimizer has to be switched on to enable the bug.
-    ``evmVersion``, a string that indicates which EVM version compiler
-    settings trigger the bug. The string can contain comparison
-    operators. For example, ``">=constantinople"`` means that the bug
-    is present when the EVM version is set to ``constantinople`` or
-    later.
-    If no conditions are given, assume that the bug is present.
+    Condiciones que deben cumplirse para desencadenar el bug.
+    Se pueden utilizar las siguientes claves:
+    ``optimizer``, Valor de tipo "boolean", lo que significa que el optimizador debe ser encendido para habilitar el bug.
+    ``evmVersion``, un "string" que indica qué tipo de configuración del compilador de la versión de EVM desencadena el bug.
+    EL "string" puede contener operadores de comparación.
+    Por ejemplo, ``">=constantinople"`` significa que el bug está presente cuando la versión de EVM se establece en "constantinople" o posterior.
+    Si no hay condiciones, se debe suponer que el bug está presente.
 check
     This field contains different checks that report whether the smart contract
     contains the bug or not. The first type of check are Javascript regular

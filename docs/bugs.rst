@@ -20,21 +20,18 @@ Herramientas para la verificación del código fuente de un contrato y otras her
   Para los contratos creados a partir de otros contratos, se debe seguir la cadena de creación hasta una transacción y usar la fecha de esa transacción como fecha de creación.
 - Es altamente sospechoso si un contrato se compiló con un compilador que contiene un bug conocido y el contrato se creó en un momento en que ya se había lanzado una versión más reciente del compilador que contenía una corrección.
 
-The JSON file of known bugs below is an array of objects, one for each bug,
-with the following keys:
+El archivo JSON de bugs conocidos, que se encuentra a continuación, es una matriz de objetos, uno por cada error, con las siguientes claves:
 
 uid
-    Unique identifier given to the bug in the form of ``SOL-<year>-<number>``.
-    It is possible that multiple entries exists with the same uid. This means
-    multiple version ranges are affected by the same bug.
+    Identificador único dado al error en forma de ``SOL-<año>-<número>``. Es posible que existan varias entradas con el mismo uid. Esto significa que varios rangos de versiones se ven afectados por el mismo error.
 name
-    Unique name given to the bug
+    Nombre único que se le da al bug.
 summary
-    Short description of the bug
+    Una breve descripción del bug.
 description
-    Detailed description of the bug
+    Una descripción detallada del bug.
 link
-    URL of a website with more detailed information, optional
+    URL del sitio web con información detallada, opcional.
 introduced
     The first published compiler version that contained the bug, optional
 fixed

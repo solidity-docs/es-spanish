@@ -1,5 +1,5 @@
 ****************
-Language Grammar
+Gramática del Lenguaje
 ****************
 
 .. a4:autogrammar:: SolidityParser

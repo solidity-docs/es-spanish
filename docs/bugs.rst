@@ -16,17 +16,9 @@ Herramientas para la verificación del código fuente de un contrato y otras her
 
 - Se puede sospechar levemente si un contrato fue compilado con una versión "nightly" del compilador en vez de un versión publicada.
   Esta lista no realiza un seguimiento de las versiones que no han sido publicadas o versiones "nightly".
-
-- It is mildly suspicious if a contract was compiled with a nightly
-  compiler version instead of a released version. This list does not keep
-  track of unreleased or nightly versions.
-- It is also mildly suspicious if a contract was compiled with a version that was
-  not the most recent at the time the contract was created. For contracts
-  created from other contracts, you have to follow the creation chain
-  back to a transaction and use the date of that transaction as creation date.
-- It is highly suspicious if a contract was compiled with a compiler that
-  contains a known bug and the contract was created at a time where a newer
-  compiler version containing a fix was already released.
+- También se puede sospechar levemente si un contrato se compiló con una versión que no era la más reciente en el momento de la creación del contrato.
+  Para los contratos creados a partir de otros contratos, se debe seguir la cadena de creación hasta una transacción y usar la fecha de esa transacción como fecha de creación.
+- Es altamente sospechoso si un contrato se compiló con un compilador que contiene un bug conocido y el contrato se creó en un momento en que ya se había lanzado una versión más reciente del compilador que contenía una corrección.
 
 The JSON file of known bugs below is an array of objects, one for each bug,
 with the following keys:

@@ -15,8 +15,8 @@ Hay otro archivo llamado `bugs_by_version.json <https://github.com/ethereum/soli
 Herramientas para la verificación del código fuente de un contrato y otras herramientas que interactúen con contratos, deben consultar esta lista de acuerdo a los siguientes criterios:
 
 - Se puede sospechar levemente si un contrato fue compilado con una versión "nightly" del compilador en vez de un versión publicada.
-  Esta lista no realiza un seguimiento de las versiones inéditas o nocturnas.
-  
+  Esta lista no realiza un seguimiento de las versiones que no han sido publicadas o versiones "nightly".
+
 - It is mildly suspicious if a contract was compiled with a nightly
   compiler version instead of a released version. This list does not keep
   track of unreleased or nightly versions.

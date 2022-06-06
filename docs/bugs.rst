@@ -10,16 +10,13 @@ A continuación, puede encontrar una lista en formato JSON de algunos de los bug
 El archivo se encuentra en el `repositorio de GitHub <https://github.com/ethereum/solidity/blob/develop/docs/bugs.json>`_.
 La lista se remonta a la versión 0.3.0, los errores que se conocen, que están presentes sólo en versiones anteriores, no se enumeran.
 
-The list stretches back as far as version 0.3.0, bugs known to be present only
-in versions preceding that are not listed.
+Hay otro archivo llamado `bugs_by_version.json <https://github.com/ethereum/solidity/blob/develop/docs/bugs_by_version.json>`_, que se puede utilizar para comprobar qué errores afectan a una versión específica del compilador.
 
-There is another file called `bugs_by_version.json
-<https://github.com/ethereum/solidity/blob/develop/docs/bugs_by_version.json>`_,
-which can be used to check which bugs affect a specific version of the compiler.
+Herramientas para la verificación del código fuente de un contrato y otras herramientas que interactúen con contratos, deben consultar esta lista de acuerdo a los siguientes criterios:
 
-Contract source verification tools and also other tools interacting with
-contracts should consult this list according to the following criteria:
-
+- Se puede sospechar levemente si un contrato fue compilado con una versión "nightly" del compilador en vez de un versión publicada.
+  Esta lista no realiza un seguimiento de las versiones inéditas o nocturnas.
+  
 - It is mildly suspicious if a contract was compiled with a nightly
   compiler version instead of a released version. This list does not keep
   track of unreleased or nightly versions.

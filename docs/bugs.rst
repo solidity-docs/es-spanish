@@ -33,15 +33,13 @@ description
 link
     URL del sitio web con información detallada, opcional.
 introduced
-    The first published compiler version that contained the bug, optional
+    La primera versión del compilador publicada que contenía el bug, opcional.
 fixed
-    The first published compiler version that did not contain the bug anymore
+    La primera versión del compilador publicada que ya no contenía el bug.
 publish
-    The date at which the bug became known publicly, optional
+    La fecha en la que el bug se hizo público, opcional.
 severity
-    Severity of the bug: very low, low, medium, high. Takes into account
-    discoverability in contract tests, likelihood of occurrence and
-    potential damage by exploits.
+    Gravedad del bug: muy baja, baja, media, alta. Se toma en cuenta la detectabilidad en los tests del contrato, probabilidad de ocurrencia y daños potenciales por exploits.
 conditions
     Conditions that have to be met to trigger the bug. The following
     keys can be used:

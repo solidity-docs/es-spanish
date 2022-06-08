@@ -2,9 +2,9 @@
 
 .. _known_bugs:
 
-##################
+#######################
 Lista de Bugs Conocidos
-##################
+#######################
 
 A continuación, puede encontrar una lista, en formato JSON, de algunos de los bugs más conocidos, relacionados con la seguridad del compilador de Solidity.
 El archivo se encuentra en el `repositorio de GitHub <https://github.com/ethereum/solidity/blob/develop/docs/bugs.json>`_.

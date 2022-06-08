@@ -34,7 +34,7 @@ Licencia del Logo de Solidity
   :width: 88
   :alt: Creative Commons License
 
-El logotipo de Solidity se distribuye y cuenta con una licencia internacional `Creative Commons Attribution 4.0 International License <https://creativecommons.org/licenses/by/4.0/>`_.
+El logotipo de Solidity se distribuye y cuenta con `Creative Commons Attribution 4.0 International License <https://creativecommons.org/licenses/by/4.0/>`_.
 
 Esta es la licencia Creative Commons más permisiva, que permite la reutilización y modificaciones para cualquier propósito.
 

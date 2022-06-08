@@ -31,13 +31,13 @@ summary
 description
     Una descripción detallada del bug.
 link
-    URL del sitio web con información detallada, opcional.
+    URL del sitio web con información detallada. Opcional.
 introduced
-    La primera versión del compilador publicada que contenía el bug, opcional.
+    La primera versión del compilador publicada que contenía el bug. Opcional.
 fixed
     La primera versión del compilador publicada que ya no contenía el bug.
 publish
-    La fecha en la que el bug se hizo público, opcional.
+    La fecha en la que el bug se hizo público. Opcional.
 severity
     Gravedad del bug: muy baja, baja, media, alta.
     Se toma en cuenta la detectabilidad en los tests del contrato, probabilidad de ocurrencia y daños potenciales por exploits.

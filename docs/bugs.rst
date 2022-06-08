@@ -18,7 +18,7 @@ Herramientas para la verificación del código fuente de un contrato, y otras he
   Esta lista no realiza un seguimiento de las versiones que no han sido publicadas o versiones nightly.
 - También se puede sospechar levemente si un contrato se compiló con una versión que no era la más reciente en el momento de la creación del contrato.
   Para los contratos creados a partir de otros contratos, se debe seguir la cadena de creación hasta una transacción, y usar la fecha de esa transacción como fecha de creación.
-- Se puede sospechar altamente si un contrato se compiló con un compilador que contiene un bug conocido y el contrato se creó en un momento en que ya se había lanzado una versión más reciente del compilador que contenía una corrección.
+- Se puede sospechar altamente si un contrato se compiló con un compilador que contiene un bug conocido, y el contrato se creó en un momento en que ya se había lanzado una versión más reciente del compilador que contenía una corrección.
 
 El archivo JSON de bugs conocidos, que se encuentra a continuación, es una matriz de objetos, uno por cada error, con las siguientes claves:
 

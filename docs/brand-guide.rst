@@ -21,14 +21,11 @@ El Nombre de la Marca de Solidity
 
 Por favor, no use "Solidity":
 
-- To refer to any other programming language.
+- Para referirse a cualquier otro lenguaje de programación.
 
-- In a way that is misleading or may imply association of unrelated
-  modules, tools, documentation, or other resources with the Solidity
-  programming language.
+- De una manera que sea engañosa o pueda implicar la asociación de módulos, herramientas, documentación u otros recursos no relacionados con el lenguaje de programación Solidity.
 
-- In ways that confuse the community as to whether the Solidity
-  programming language is open-source and free to use.
+- De maneras que confundan a la comunidad, en cuanto a si el lenguaje de programación Solidity es de código abierto y de uso gratuito.
 
 Solidity Logo License
 =====================

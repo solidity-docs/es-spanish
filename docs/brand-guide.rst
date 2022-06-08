@@ -14,11 +14,10 @@ Este documento tiene como objetivo proporcionar información sobre cómo utiliza
 
 Le invitamos a leer este documento detenidamente antes de utilizar la marca o el logotipo. ¡Su cooperación es altamente apreciada!
 
-Solidity Brand Name
+El Nombre de la Marca de Solidity
 ===================
 
-"Solidity" should be used to refer to the Solidity programming language
-solely.
+"Solidity" debe usarse para referirse únicamente al lenguaje de programación Solidity.
 
 Please do not use "Solidity":
 

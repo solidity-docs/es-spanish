@@ -48,7 +48,7 @@ conditions
     ``evmVersion``, un string que indica qué tipo de configuración del compilador de la versión de EVM desencadena el bug.
     El string puede contener operadores de comparación.
     Por ejemplo, ``">=constantinople"`` significa que el bug está presente cuando la versión de EVM se establece en "constantinople" o posterior.
-    Si no hay condiciones, se debe suponer que el bug está presente.
+    Si no hay condiciones, se debe suponer que el bug aún está presente.
 check
     Este campo contiene diferentes comprobaciones que informan si el smart contract contiene el bug o no.
     El primer tipo de verificación son las expresiones regulares de Javascript que deben compararse con el código fuente ("source-regex") si el bug está presente.

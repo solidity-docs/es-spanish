@@ -44,12 +44,10 @@ Usted es libre de:
 
 - **Adaptar** — Remezclar, transformar y construir sobre el material para cualquier propósito, incluso comercial.
 
-Under the following terms:
+Bajo los siguientes términos:
 
-- **Attribution** — You must give appropriate credit, provide a link to
-  the license, and indicate if changes were made. You may do so in any
-  reasonable manner, but not in any way that suggests that the Solidity
-  core team endorses you or your use.
+- **Atribuir** — Debe otorgar el crédito apropiado, proporcionar un enlace a la licencia e indicar si se realizaron cambios.
+Puede hacerlo de cualquier manera razonable, sin embargo, no de alguna manera que sugiera que el equipo central de Solidity lo respalda a usted o su uso.
 
 When using the Solidity logo, please respect the Solidity logo guidelines.
 

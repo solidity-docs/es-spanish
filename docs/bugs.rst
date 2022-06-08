@@ -53,7 +53,7 @@ check
     Este campo contiene diferentes comprobaciones que informan si el smart contract contiene el bug o no.
     El primer tipo de verificación son las expresiones regulares de Javascript que deben compararse con el código fuente ("source-regex") si el bug está presente.
     Si no hay compatibilidad, es muy probable que el bug no esté presente.
-    Si hay compatibilidad, es probable que el bug esté presente.
+    Si hay compatibilidad, es probable que el bug aún está presente.
     Para mayor precisión, las comprobaciones deben aplicarse al código fuente después de eliminar los comentarios.
     El segundo tipo de verificación son patrones que se verificarán en el AST compacto del programa Solidity ("ast-compact-json-path").
     La consulta de búsqueda especificada es una expresión `JsonPath <https://github.com/json-path/JsonPath>`_.

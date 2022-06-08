@@ -7,9 +7,8 @@ Esta guía de marca presenta información sobre la política de marca de Solidit
 La Marca de Solidity
 ==================
 
-The Solidity programming language is an open-source, community project
-governed by a core team. The core team is sponsored by the `Ethereum
-Foundation <https://ethereum.foundation/>`_.
+El lenguaje de programación Solidity es un proyecto comunitario de código abierto gobernado por un equipo central.
+El equipo central está patrocinado por la `Fundación Ethereum <https://ethereum.foundation/>`_.
 
 This document aims to provide information about how to best use the
 Solidity brand name and logo.

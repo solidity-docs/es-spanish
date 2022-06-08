@@ -1,11 +1,10 @@
 ####################
-Solidity Brand Guide
+Guía de Marca de Solidity
 ####################
 
-This brand guide features information on Solidity's brand policy and
-logo usage guidelines.
+Esta guía de marca presenta información sobre la política de marca de Solidity y pautas de uso del logotipo.
 
-The Solidity Brand
+La Marca de Solidity
 ==================
 
 The Solidity programming language is an open-source, community project

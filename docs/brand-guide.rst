@@ -49,7 +49,7 @@ Bajo los siguientes términos:
 - **Atribuir** — Debe otorgar el crédito apropiado, proporcionar un enlace a la licencia e indicar si se realizaron cambios.
 Puede hacerlo de cualquier manera razonable, sin embargo, no de alguna manera que sugiera que el equipo central de Solidity lo respalda a usted o su uso.
 
-When using the Solidity logo, please respect the Solidity logo guidelines.
+Cuando utilice el logotipo de Solidity, respete las pautas del logotipo de Solidity.
 
 Solidity Logo Guidelines
 ========================

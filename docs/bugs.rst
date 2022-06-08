@@ -57,7 +57,7 @@ check
     Para mayor precisión, las comprobaciones deben aplicarse al código fuente después de eliminar los comentarios.
     El segundo tipo de verificación son patrones que se verificarán en el AST compacto del programa Solidity ("ast-compact-json-path").
     La consulta de búsqueda especificada es una expresión `JsonPath <https://github.com/json-path/JsonPath>`_.
-    Si al menos una ruta de Solidity AST coincide con la consulta de búsqueda, es probable que el bug esté presente.
+    Si al menos una ruta de Solidity AST coincide con la consulta de búsqueda, es probable que el bug aún sigue presente.
 
 .. literalinclude:: bugs.json
    :language: js

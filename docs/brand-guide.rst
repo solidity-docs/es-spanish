@@ -51,7 +51,7 @@ Puede hacerlo de cualquier manera razonable, sin embargo, no de alguna manera qu
 
 Cuando utilice el logotipo de Solidity, respete las pautas del logotipo de Solidity.
 
-Solidity Logo Guidelines
+Guías para el Logo de Solidity
 ========================
 
 .. image:: logo.svg

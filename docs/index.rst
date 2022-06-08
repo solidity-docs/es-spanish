@@ -29,7 +29,7 @@ Ideas para mejorar Solidity o esta misma documentación son siempre bienvenidas,
   Puede descargar esta documentación como PDF, HTML o Epub haciendo click en el menú desplegable que se encuentra en la esquina inferior izquierda y seleccionando su formato preferido de descarga.
 
 Para Comenzar
----------------
+-------------
 
 **1. Comprender los Conceptos Básicos de los Contratos Inteligentes**
 

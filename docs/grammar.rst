@@ -1,6 +1,6 @@
-****************
+**********************
 Gramática del Lenguaje
-****************
+**********************
 
 .. a4:autogrammar:: SolidityParser
    :only-reachable-from: SolidityParser.sourceUnit

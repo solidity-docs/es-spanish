@@ -40,10 +40,9 @@ Esta es la licencia Creative Commons más permisiva, que permite la reutilizaci�
 
 Usted es libre de:
 
-- **Share** — Copy and redistribute the material in any medium or format.
+- **Compatir** — Copiar y redistribuir el material en cualquier medio o formato.
 
-- **Adapt** — Remix, transform, and build upon the material for any
-  purpose, even commercially.
+- **Adaptar** — Remezclar, transformar y construir sobre el material para cualquier propósito, incluso comercial.
 
 Under the following terms:
 

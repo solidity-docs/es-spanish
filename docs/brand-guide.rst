@@ -19,7 +19,7 @@ El Nombre de la Marca de Solidity
 
 "Solidity" debe usarse para referirse únicamente al lenguaje de programación Solidity.
 
-Please do not use "Solidity":
+Por favor, no use "Solidity":
 
 - To refer to any other programming language.
 

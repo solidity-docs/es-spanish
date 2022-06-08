@@ -4,7 +4,7 @@ Guía de Marca de Solidity
 
 Esta guía de marca presenta información sobre la política de marca de Solidity y pautas de uso del logotipo.
 
-La Marca de Solidity
+Marca de Solidity
 ==================
 
 El lenguaje de programación Solidity es un proyecto comunitario de código abierto gobernado por un equipo central.
@@ -14,7 +14,7 @@ Este documento tiene como objetivo proporcionar información sobre cómo utiliza
 
 Le invitamos a leer este documento detenidamente antes de utilizar la marca o el logotipo. ¡Su cooperación es altamente apreciada!
 
-El Nombre de la Marca de Solidity
+Nombre de la Marca de Solidity
 ===================
 
 "Solidity" debe usarse para referirse únicamente al lenguaje de programación Solidity.

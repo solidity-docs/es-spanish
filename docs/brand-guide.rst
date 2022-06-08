@@ -10,8 +10,7 @@ La Marca de Solidity
 El lenguaje de programación Solidity es un proyecto comunitario de código abierto gobernado por un equipo central.
 El equipo central está patrocinado por la `Fundación Ethereum <https://ethereum.foundation/>`_.
 
-This document aims to provide information about how to best use the
-Solidity brand name and logo.
+Este documento tiene como objetivo proporcionar información sobre cómo utilizar de la mejor manera la marca y el logotipo de Solidity.
 
 We encourage you to read this document carefully before using the
 brand name or the logo. Your cooperation is highly appreciated!

@@ -12,8 +12,7 @@ El equipo central está patrocinado por la `Fundación Ethereum <https://ethereu
 
 Este documento tiene como objetivo proporcionar información sobre cómo utilizar de la mejor manera la marca y el logotipo de Solidity.
 
-We encourage you to read this document carefully before using the
-brand name or the logo. Your cooperation is highly appreciated!
+Le invitamos a leer este documento detenidamente antes de utilizar la marca o el logotipo. ¡Su cooperación es altamente apreciada!
 
 Solidity Brand Name
 ===================

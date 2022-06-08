@@ -27,7 +27,7 @@ Por favor, no use "Solidity":
 
 - De maneras que confundan a la comunidad, en cuanto a si el lenguaje de programación Solidity es de código abierto y de uso gratuito.
 
-Solidity Logo License
+Licencia del Logo de Solidity
 =====================
 
 .. image:: https://i.creativecommons.org/l/by/4.0/88x31.png

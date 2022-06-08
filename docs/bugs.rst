@@ -14,8 +14,8 @@ Hay otro archivo llamado `bugs_by_version.json <https://github.com/ethereum/soli
 
 Herramientas para la verificación del código fuente de un contrato y otras herramientas que interactúen con contratos, deben consultar esta lista de acuerdo a los siguientes criterios:
 
-- Se puede sospechar levemente si un contrato fue compilado con una versión "nightly" del compilador en vez de un versión publicada.
-  Esta lista no realiza un seguimiento de las versiones que no han sido publicadas o versiones "nightly".
+- Se puede sospechar levemente si un contrato fue compilado con una versión nightly del compilador en vez de un versión publicada.
+  Esta lista no realiza un seguimiento de las versiones que no han sido publicadas o versiones nightly.
 - También se puede sospechar levemente si un contrato se compiló con una versión que no era la más reciente en el momento de la creación del contrato.
   Para los contratos creados a partir de otros contratos, se debe seguir la cadena de creación hasta una transacción y usar la fecha de esa transacción como fecha de creación.
 - Es altamente sospechoso si un contrato se compiló con un compilador que contiene un bug conocido y el contrato se creó en un momento en que ya se había lanzado una versión más reciente del compilador que contenía una corrección.

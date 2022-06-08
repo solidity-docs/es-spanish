@@ -12,7 +12,7 @@ La lista se remonta a la versión 0.3.0, los errores que se conocen, que están 
 
 Hay otro archivo llamado `bugs_by_version.json <https://github.com/ethereum/solidity/blob/develop/docs/bugs_by_version.json>`_, que se puede utilizar para comprobar qué errores afectan a una versión específica del compilador.
 
-Herramientas para la verificación del código fuente de un contrato y otras herramientas que interactúen con contratos, deben consultar esta lista de acuerdo a los siguientes criterios:
+Herramientas para la verificación del código fuente de un contrato, y otras herramientas que interactúen con contratos, deben consultar esta lista de acuerdo a los siguientes criterios:
 
 - Se puede sospechar levemente si un contrato fue compilado con una versión nightly del compilador, en vez de un versión publicada.
   Esta lista no realiza un seguimiento de las versiones que no han sido publicadas o versiones nightly.

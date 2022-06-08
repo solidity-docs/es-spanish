@@ -38,7 +38,7 @@ El logotipo de Solidity se distribuye y cuenta con una licencia internacional `C
 
 Esta es la licencia Creative Commons más permisiva, que permite la reutilización y modificaciones para cualquier propósito.
 
-You are free to:
+Usted es libre de:
 
 - **Share** — Copy and redistribute the material in any medium or format.
 

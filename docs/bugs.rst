@@ -46,7 +46,7 @@ conditions
     Se pueden utilizar las siguientes claves:
     ``optimizer``, Valor de tipo boolean, lo que significa que el optimizador debe ser encendido para habilitar el bug.
     ``evmVersion``, un string que indica qué tipo de configuración del compilador de la versión de EVM desencadena el bug.
-    EL string puede contener operadores de comparación.
+    El string puede contener operadores de comparación.
     Por ejemplo, ``">=constantinople"`` significa que el bug está presente cuando la versión de EVM se establece en "constantinople" o posterior.
     Si no hay condiciones, se debe suponer que el bug está presente.
 check

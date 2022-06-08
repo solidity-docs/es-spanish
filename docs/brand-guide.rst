@@ -61,7 +61,7 @@ Guías para el Logo de Solidity
 
 Por favor, no:
 
-- Change the ratio of the logo (do not stretch it or cut it).
+- Cambie el tamano y la forma del logo (no se debe estirar, ni cortar).
 
 - Change the colors of the logo, unless it is absolutely necessary.
 

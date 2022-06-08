@@ -59,11 +59,11 @@ Guías para el Logo de Solidity
 
 *(Haga click derecho en el logo para descargarlo.)*
 
-Por favor, no:
+No se debe:
 
-- Cambie el tamano y la forma del logo (no se debe estirar, ni cortar).
+- Cambiar el tamaño y la forma del logo (no se debe estirar, ni cortar).
 
-- Change the colors of the logo, unless it is absolutely necessary.
+- Cambiar los colores del logotipo, a menos que sea absolutamente necesario.
 
 Credits
 =======

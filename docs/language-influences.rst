@@ -6,7 +6,7 @@ Solidity es un `curly-bracket language <https://en.wikipedia.org/wiki/List_of_pr
 que ha sido influenciado y inspirado por varios lenguages programación bien conocidos.
 
 Solidity es más profunda influenciada por C++, pero tambien tomó prestados conceptos de lenguages como
-Python, Javascript, y otros.
+Python, JavaScript, y otros.
 
 La influencia de C++ se puede ver en la sintaxis para declaraciones de variables, para loops, el concepto
 de sobrecarga de funciones, conversiones de tipo implicitas y explicitas y muchos otros detalles.

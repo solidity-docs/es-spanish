@@ -1,6 +1,6 @@
-########################
-Influencias del Lenguaje
-########################
+###################
+Language Influences
+###################
 
 Solidity is a `curly-bracket language <https://en.wikipedia.org/wiki/List_of_programming_languages_by_type#Curly-bracket_languages>`_
 that has been influenced and inspired by several well-known programming languages.

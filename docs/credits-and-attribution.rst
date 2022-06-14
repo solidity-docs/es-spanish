@@ -3,7 +3,7 @@
 :orphan:
 
 #######################
-Credits and Attribution
+Créditos & Atribuciones
 #######################
 
 Website icons

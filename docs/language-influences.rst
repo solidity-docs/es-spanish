@@ -14,7 +14,7 @@ Esto debido al alcance de las variables a nivel de función y al uso de la palab
 La influencia de JavaScript se redujo a partir del versión 0.4.0.
 Ahora, la principal similitud restante con JavaScript es que las funciones se definen usando la palabra clave ``function``.
 Igualmente, en cuanto a importación, Solidity utiliza una sintaxis y semántica muy similar a la de JavaScript.
-Dejando de lado los puntos anteriores, Solidity se parece a la mayoría de lenguajes que utilizan llaves, ya no cuneta con una gran influencia de JavaScript.
+Dejando de lado los puntos anteriores, Solidity se parece a la mayoría de lenguajes que utilizan llaves, ya no cuenta con una gran influencia de JavaScript.
 
 Otra influencia de Solidity fue Python. Los modificadores de Solidity se agregaron intentando modelar
 a los decoradores de Python con una funcionalidad mucho más restringida. Además, la herencia múltiple, la linealización C3

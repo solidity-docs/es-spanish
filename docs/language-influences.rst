@@ -16,4 +16,4 @@ Dejando de lado los puntos anteriores, Solidity se parece a la mayoría de lengu
 
 Otra influencia para Solidity fue Python.
 Los modificadores de Solidity se agregaron tratando de modelar a los decoradores de Python, con una funcionalidad mucho más restringida.
-Además, la herencia múltiple, la linealización C3 y la palabra clave ``super`` se tomaron de Python  así como la asignación general y la semántica de copia de los tipos de valor y referencia.
+Además, la herencia múltiple, la linealización C3 y la palabra clave ``super`` se tomaron de Python, así como la asignación general y la semántica de copia de los tipos de valor y referencia.

@@ -12,8 +12,8 @@ La influencia de C++ se puede ver en la sintaxis de las declaraciones de variabl
 En la etapa más prematura del lenguaje, Solidity solía estar en parte influenciado por JavaScript.
 Esto debido al alcance de las variables a nivel de función y al uso de la palabra clave ``var``.
 La influencia de JavaScript se redujo a partir del versión 0.4.0.
-Ahora, la principal similitud restante con JavaScript es que las funciones son definidas utilizando la palabra clave
-``function``. Solidity también soporta la sintaxis y semántica import que son similares a aquellas disponibles en JavaScript. 
+Ahora, la principal similitud restante con JavaScript es que las funciones se definen usando la palabra clave ``function``.
+Igualmente, en cuanto a importación, Solidity utiliza una sintaxis y semántica similar a la de JavaScript.
 Además de esos puntos, Solidity se parece como la mayoría de lenguajes que usan llaves y ya no tiene más una gran influencia de JavaScript.
 
 Otra influencia de Solidity fue Python. Los modificadores de Solidity se agregaron intentando modelar

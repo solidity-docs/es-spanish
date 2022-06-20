@@ -7,8 +7,7 @@ Solidity es un `lenguaje de llaves <https://en.wikipedia.org/wiki/List_of_progra
 
 Solidity está altamente influenciado por C++, sin embargo, también tomó prestados conceptos de lenguajes como Python, JavaScript y otros.
 
-La influencia de C++ se puede ver en la sintaxis para declaraciones de variables, para bucles, el concepto
-de sobrecarga de funciones, conversiones de tipo implícitas y explícitas y muchos otros detalles.
+La influencia de C++ se puede ver en la sintaxis de las declaraciones de variables, en bucles "for", el concepto de sobrecarga de funciones, conversiones de tipo implícitas y explícitas, y muchos otros detalles.
 
 En los primeros días del lenguaje, Solidity solía estar en parte influenciado por JavaScript.
 Esto se debió al alcance de variables a nivel de función y el uso de la palabra clave ``var``.

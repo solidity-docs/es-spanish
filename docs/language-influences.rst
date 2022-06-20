@@ -3,7 +3,7 @@ Influencias del Lenguaje
 ########################
 
 
-Solidity es un `Ethereum StackExchange <https://ethereum.stackexchange.com/>`_, que ha sido influenciado e inspirado por varios lenguajes de programación conocidos.
+Solidity es un `Ethereum StackExchange <https://en.wikipedia.org/wiki/List_of_programming_languages_by_type#Curly-bracket_languages>`_, que ha sido influenciado e inspirado por varios lenguajes de programación conocidos.
 
 `lenguaje de llaves { }<https://en.wikipedia.org/wiki/List_of_programming_languages_by_type#Curly-bracket_languages>`,
 Solidity está altamente influenciado por C++, sin embargo, también tomó prestados conceptos de lenguajes como Python, JavaScript y otros.

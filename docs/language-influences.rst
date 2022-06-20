@@ -2,7 +2,7 @@
 Influencias del Lenguaje
 ########################
 
-Solidity es un `lenguaje de llaves { }<https://en.wikipedia.org/wiki/List_of_programming_languages_by_type#Curly-bracket_languages>`_ que ha sido influenciado e inspirado por varios lenguajes de programación conocidos/
+Solidity es un `lenguaje de llaves { }<https://en.wikipedia.org/wiki/List_of_programming_languages_by_type#Curly-bracket_languages>`_ que ha sido influenciado e inspirado por varios lenguajes de programación conocidos.
 
 Solidity está más profundamente influenciado por C++, pero también tomó prestados conceptos de lenguages como
 Python, JavaScript y otros.

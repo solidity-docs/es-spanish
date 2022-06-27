@@ -65,5 +65,4 @@ abstract contract to say "any child of mine must implement this method".
 
 .. note::
 
-  Abstract contracts cannot override an implemented virtual function with an
-  unimplemented one.
+  Los contratos abstractos no pueden anular una función virtual implementada con una no implementada.

@@ -23,8 +23,9 @@ but no implementation was provided (no implementation body ``{ }`` was given).
         function utterance() public virtual returns (bytes32);
     }
 
-Such abstract contracts can not be instantiated directly. This is also true, if an abstract contract itself does implement
-all defined functions. The usage of an abstract contract as a base class is shown in the following example:
+Dichos contratos abstractos no pueden instanciarse directamente.
+Esto también es cierto, si un contrato abstracto en sí mismo implementa todas las funciones definidas.
+El uso de un contrato abstracto como clase base se muestra en el siguiente ejemplo:
 
 .. code-block:: solidity
 

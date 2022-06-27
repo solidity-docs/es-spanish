@@ -40,8 +40,7 @@ El uso de un contrato abstracto como clase base se muestra en el siguiente ejemp
         function utterance() public pure override returns (bytes32) { return "miaow"; }
     }
 
-If a contract inherits from an abstract contract and does not implement all non-implemented
-functions by overriding, it needs to be marked as abstract as well.
+Si un contrato hereda partes de un contrato abstracto y no implementa todas las funciones que no fueron implementadas mediante anulación, debe marcarse como abstracto.
 
 Note that a function without implementation is different from
 a :ref:`Function Type <function_types>` even though their syntax looks very similar.

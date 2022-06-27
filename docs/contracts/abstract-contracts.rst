@@ -50,7 +50,7 @@ Ejemplo de función sin implementación (una declaración de función):
 
     function foo(address) external returns (address);
 
-Example of a declaration of a variable whose type is a function type:
+Ejemplo de declaración de una variable cuyo tipo es un tipo función:
 
 .. code-block:: solidity
 

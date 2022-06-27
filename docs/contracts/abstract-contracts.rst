@@ -2,9 +2,9 @@
 
 .. _abstract-contract:
 
-******************
-Abstract Contracts
-******************
+********************
+Contratos Abstractos
+********************
 
 Contracts must be marked as abstract when at least one of their functions is not implemented or when
 they do not provide arguments for all of their base contract constructors.

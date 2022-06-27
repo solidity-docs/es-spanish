@@ -63,7 +63,7 @@ Abstract contracts are useful in the same way that defining methods
 in an interface is useful. It is a way for the designer of the
 abstract contract to say "any child of mine must implement this method".
 
-.. Nota::
+.. note::
 
   Abstract contracts cannot override an implemented virtual function with an
   unimplemented one.

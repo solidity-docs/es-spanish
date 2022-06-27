@@ -10,9 +10,9 @@ Los contratos deben marcarse como abstractos cuando al menos una de sus funcione
 Incluso si este no es el caso, un contrato aún puede marcarse como abstracto cuando no tiene la intención de que ser creado directamente.
 Los contratos abstractos son similares a las :ref:`interfaces`, sin embargo, una interfaz está más limitada en lo que puede declarar.
 
-An abstract contract is declared using the ``abstract`` keyword as shown in the following example.
-Note that this contract needs to be defined as abstract, because the function ``utterance()`` is declared,
-but no implementation was provided (no implementation body ``{ }`` was given).
+Un contrato abstracto se declara utilizando la palabra clave ``abstract``, como se muestra en el siguiente ejemplo.
+Se debe tener en cuenta que este contrato debe definirse como abstracto, porque se declara la función ``utterance()``,
+pero no se proporcionó ninguna implementación (no se proporcionó ninguna implementación dentro del cuerpo de la función  ``{ }``).
 
 .. code-block:: solidity
 

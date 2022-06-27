@@ -56,13 +56,10 @@ Ejemplo de declaración de una variable cuyo tipo es un tipo función:
 
     function(address) external returns (address) foo;
 
-Abstract contracts decouple the definition of a contract from its
-implementation providing better extensibility and self-documentation and
-facilitating patterns like the `Template method <https://en.wikipedia.org/wiki/Template_method_pattern>`_ and removing code duplication.
-Abstract contracts are useful in the same way that defining methods
-in an interface is useful. It is a way for the designer of the
-abstract contract to say "any child of mine must implement this method".
+Los contratos abstractos desacoplan la definición de un contrato de su implementación, proporcionando una mejor extensibilidad y autodocumentación, facilitando patrones como el método de plantilla y eliminando la duplicación de código.
+Los contratos abstractos son útiles de la misma manera que lo es definir métodos en una interfaz.
+Es una forma de que el diseñador del contrato abstracto diga "cualquier hijo mío debe implementar este método".
 
-.. note::
+.. note:: 
 
-  Los contratos abstractos no pueden anular una función virtual implementada con una no implementada.
+    Los contratos abstractos no pueden anular una función virtual implementada con una no implementada.

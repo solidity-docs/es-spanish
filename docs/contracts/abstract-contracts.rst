@@ -42,6 +42,7 @@ El uso de un contrato abstracto como clase base se muestra en el siguiente ejemp
 
 Si un contrato hereda partes de un contrato abstracto y no implementa todas las funciones que no fueron implementadas mediante anulación, debe marcarse como abstracto.
 
+Se debe tener en cuenta que una función sin implementación es diferente de una :ref:`Función Type <function_types>`, aunque su sintaxis sea muy similar.
 Note that a function without implementation is different from
 a :ref:`Function Type <function_types>` even though their syntax looks very similar.
 

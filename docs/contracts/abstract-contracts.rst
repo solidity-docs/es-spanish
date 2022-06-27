@@ -6,6 +6,10 @@
 Contratos Abstractos
 ********************
 
+Los contratos deben marcarse como abstractos cuando al menos una de sus funciones no está implementada o cuando no proporcionan argumentos para todos los constructores en los contratos base.
+Incluso si este no es el caso, un contrato aún puede marcarse como abstracto cuando no tiene la intención de que ser creado directamente.
+Los contratos abstractos son similares a :ref:`interfaces` pero una interfaz está más limitada en lo que puede declarar.
+
 Contracts must be marked as abstract when at least one of their functions is not implemented or when
 they do not provide arguments for all of their base contract constructors.
 Even if this is not the case, a contract may still be marked abstract, such as when you do not intend

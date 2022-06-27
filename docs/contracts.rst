@@ -3,16 +3,14 @@
 .. _contracts:
 
 ##########
-Contracts
+Contractos
 ##########
 
-Contracts in Solidity are similar to classes in object-oriented languages. They
-contain persistent data in state variables, and functions that can modify these
-variables. Calling a function on a different contract (instance) will perform
-an EVM function call and thus switch the context such that state variables
-in the calling contract are
-inaccessible. A contract and its functions need to be called for anything to happen.
-There is no "cron" concept in Ethereum to call a function at a particular event automatically.
+Los contratos en Solidity son similares a las clases en lenguajes orientados a objetos.
+Contienen datos persistentes en variables de estado y funciones que pueden modificar estas variables.
+Llamar a una función en un contrato diferente (una instancia) realizará una llamada a una función en el EVM y, por lo tanto, cambiará el contexto, de modo que las variables de estado en el contrato llamado se vuelven inaccesibles.
+Un contrato y sus funciones deben ser llamados para que algo suceda.
+No existe un concepto "cron" en Ethereum para llamar automáticamente a una función en un evento en particular.
 
 .. include:: contracts/creating-contracts.rst
 

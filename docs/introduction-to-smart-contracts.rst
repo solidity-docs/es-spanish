@@ -32,10 +32,10 @@ Ejemplo de Almacenamiento
     }
 
 La primera línea nos indica que el código fuente está bajo la licencia GPL versión 3.0.
-Los especificadores de licencia, que son legibles por las computadoras, son importantes en una configuración donde la publicación del código fuente es la predeterminada.
+Los especificadores de licencia, que son legibles por las computadoras, son importantes en una configuración donde la publicación del código fuente es predeterminada.
 
 La siguiente línea especifica que el código fuente está escrito para la versión 0.4.16 de Solidity, o una versión más reciente del lenguaje, hasta, pero sin incluir, la versión 0.9.0.
-Esto es para garantizar que el contrato no pueda ser compilado con una versión nueva del compilador, donde podría comportarse de manera diferente.
+Esto es para garantizar que el contrato no pueda ser compilado con una versión nueva del compilador, donde el código podría comportarse de manera diferente.
 Los :ref:`Pragmas<pragma>` son instrucciones comunes para los compiladores, indican cómo se debe tratar el código fuente (por ejemplo, `pragma once <https://en.wikipedia.org/wiki/Pragma_once>`_).
 
 Un contrato, en el sentido de Solidity, es una colección de código (sus *funciones*) y datos (su *estado*) que reside en una dirección específica en el blockchain de Ethereum.

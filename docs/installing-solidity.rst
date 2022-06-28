@@ -57,7 +57,7 @@ completa, ``solc``. El uso de ``solcjs`` está documentado dentro de su propio
 Nota: El proyecto solc-js fue extraído del programa `solc` escrito en C++ usando Emscripten, lo
 que significa que ambos usan el mismo código fuente.
 `solc-js` puede usarse directamente en proyectos JavaScript (como Remix).
-Por favor dirígase al repositorio de solc-js para más instrucciones.
+Por favor diríjase al repositorio de solc-js para más instrucciones.
 
 .. code-block:: bash
 
@@ -159,7 +159,7 @@ con los cambios más recientes, por favor utilice el siguiente comando:
 .. Nota::
 
     El snap de ``solc`` usa confinamiento estricto. Este es el modo más seguro para paquetes
-    de snap pero tiene sus limitaciones, como por ejemplo, el sólo acceder a los archivos en sus
+    de snap pero tiene sus limitaciones, como por ejemplo, el solo acceder a los archivos en sus
     directorios ``/home`` y ``/media``.
     Para más información, vaya a `Demystifying Snap Confinement <https://snapcraft.io/blog/demystifying-snap-confinement>`_.
 
@@ -277,7 +277,7 @@ Esto significa que:
    contiene algunos elementos descontinuados que debería evitar usar al crear herramientas nuevas: 
    
    - Use ``emscripten-wasm32/`` (o en su defecto ``emscripten-asmjs/``) en lugar de ``bin/`` si 
-     quiere el mejor rendimiento. Hasta la versión 0.6.1 sólo proveíamos binarios de asm.js.
+     quiere el mejor rendimiento. Hasta la versión 0.6.1 solo proveíamos binarios de asm.js.
      A partir de la versión 0.6.2 hicimos el cambio a `WebAssembly builds`_ que tiene mucho mejor 
      rendimiento. Hemos recompilado las versiones más antiguas para wasm pero los archivos originales 
      asm.js se mantienen en ``bin/``. Los nuevos tuvieron que ser puestos en un directorio separado 
@@ -410,7 +410,7 @@ Necesitará instalar las siguientes dependencias para compilar Solidity en Windo
 | `Boost`_ (versión 1.77+)          | Librerías de C++                                      |
 +-----------------------------------+-------------------------------------------------------+
 
-Si ya tiene un IDE y sólo necesita instalar el compilador y las librerías, puede instalar
+Si ya tiene un IDE y solo necesita instalar el compilador y las librerías, puede instalar
 solamente Visual Studio 2019 Build Tools.
 
 Visual Studio 2019 provee un IDE y el compilador y librerías necesarias.

@@ -60,10 +60,8 @@ Aplican las mismas reglas de una herencia normal.
         function test() external override(ParentA, ParentB) returns (uint256);
     }
 
-Types defined inside interfaces and other contract-like structures
-can be accessed from other contracts: ``Token.TokenType`` or ``Token.Coin``.
+Se puede acceder a los tipos definidos dentro de las interfaces y otras estructuras similares a contratos desde otros contratos: ``Token.TokenType`` o ``Token.Coin``.
 
 .. warning:
 
-    Interfaces have supported ``enum`` types since :doc:`Solidity version 0.5.0 <050-breaking-changes>`, make
-    sure the pragma version specifies this version as a minimum.
+    Las interfaces admiten tipos ``enum`` desde :doc:`Solidity versión 0.5.0 <050-breaking-changes>`, asegúrese de que la versión pragma especifique esta versión como mínimo.

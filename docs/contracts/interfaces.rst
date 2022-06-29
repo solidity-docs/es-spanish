@@ -9,11 +9,11 @@ Interfaces
 Las interfaces son similares a los contratos abstractos, pero no pueden tener funciones implementadas.
 Cuentan con más restricciones:
 
-- They cannot inherit from other contracts, but they can inherit from other interfaces.
-- All declared functions must be external in the interface, even if they are public in the contract.
-- They cannot declare a constructor.
-- They cannot declare state variables.
-- They cannot declare modifiers.
+- No pueden heredar de otros contratos, pero pueden heredar de otras interfaces.
+- Todas las funciones declaradas deben ser externas en la interfaz, incluso si son públicas en el contrato.
+- No pueden declarar un constructor.
+- No pueden declarar variables de estado.
+- No pueden declarar modificadores.
 
 Some of these restrictions might be lifted in the future.
 

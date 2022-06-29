@@ -38,8 +38,8 @@ Los contratos pueden heredar interfaces como heredarían otros contratos.
 Todas las funciones declaradas en las interfaces son implícitamente ``virtual`` y cualquier función que las invalide no necesita la palabra clave ``override``.
 Esto no significa automáticamente que una función de anulación se pueda anular de nuevo; esto solamente es posible si la función de anulación está marcada como ``virtual``.
 
-Interfaces can inherit from other interfaces. This has the same rules as normal
-inheritance.
+Las interfaces pueden heredar de otras interfaces.
+Aplican las mismas reglas de una herencia normal.
 
 .. code-block:: solidity
 

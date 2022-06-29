@@ -6,21 +6,21 @@
 Interfaces
 **********
 
-Interfaces are similar to abstract contracts, but they cannot have any functions implemented.
-There are further restrictions:
+Las interfaces son similares a los contratos abstractos, pero no pueden tener funciones implementadas.
+Cuentan con más restricciones:
 
-- They cannot inherit from other contracts, but they can inherit from other interfaces.
-- All declared functions must be external in the interface, even if they are public in the contract.
-- They cannot declare a constructor.
-- They cannot declare state variables.
-- They cannot declare modifiers.
+- No pueden heredar de otros contratos, pero pueden heredar de otras interfaces.
+- Todas las funciones declaradas deben ser externas en la interfaz, incluso si son públicas en el contrato.
+- No pueden declarar un constructor.
+- No pueden declarar variables de estado.
+- No pueden declarar modificadores.
 
-Some of these restrictions might be lifted in the future.
+Algunas de estas restricciones podrían dejar de aplicarse en un futuro.
 
-Interfaces are basically limited to what the Contract ABI can represent, and the conversion between the ABI and
-an interface should be possible without any information loss.
+Las interfaces se limitan básicamente a lo que puede representar el ABI del contrato.
+La conversión entre el ABI y una interfaz debería ser posible sin ninguna pérdida de información.
 
-Interfaces are denoted by their own keyword:
+Las interfaces se indican con su propia palabra clave:
 
 .. code-block:: solidity
 
@@ -33,15 +33,13 @@ Interfaces are denoted by their own keyword:
         function transfer(address recipient, uint amount) external;
     }
 
-Contracts can inherit interfaces as they would inherit other contracts.
+Los contratos pueden heredar interfaces como heredarían otros contratos.
 
-All functions declared in interfaces are implicitly ``virtual`` and any
-functions that override them do not need the ``override`` keyword.
-This does not automatically mean that an overriding function can be overridden again -
-this is only possible if the overriding function is marked ``virtual``.
+Todas las funciones declaradas en las interfaces son implícitamente ``virtual`` y cualquier función que las invalide no necesita la palabra clave ``override``.
+Esto no significa automáticamente que una función de anulación se pueda anular de nuevo; esto solamente es posible si la función de anulación está marcada como ``virtual``.
 
-Interfaces can inherit from other interfaces. This has the same rules as normal
-inheritance.
+Las interfaces pueden heredar de otras interfaces.
+Aplican las mismas reglas de una herencia normal.
 
 .. code-block:: solidity
 
@@ -62,10 +60,8 @@ inheritance.
         function test() external override(ParentA, ParentB) returns (uint256);
     }
 
-Types defined inside interfaces and other contract-like structures
-can be accessed from other contracts: ``Token.TokenType`` or ``Token.Coin``.
+Se puede acceder a los tipos definidos dentro de las interfaces y otras estructuras similares a contratos desde otros contratos: ``Token.TokenType`` o ``Token.Coin``.
 
 .. warning:
 
-    Interfaces have supported ``enum`` types since :doc:`Solidity version 0.5.0 <050-breaking-changes>`, make
-    sure the pragma version specifies this version as a minimum.
+    Las interfaces admiten tipos ``enum`` desde :doc:`Solidity versión 0.5.0 <050-breaking-changes>`, asegúrese de que la versión pragma especifique esta versión como mínimo.

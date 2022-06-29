@@ -15,12 +15,12 @@ Cuentan con más restricciones:
 - No pueden declarar variables de estado.
 - No pueden declarar modificadores.
 
-Some of these restrictions might be lifted in the future.
+Algunas de estas restricciones podrían dejar de aplicarse en un futuro.
 
-Interfaces are basically limited to what the Contract ABI can represent, and the conversion between the ABI and
-an interface should be possible without any information loss.
+Las interfaces se limitan básicamente a lo que puede representar el ABI del contrato.
+La conversión entre el ABI y una interfaz debería ser posible sin ninguna pérdida de información.
 
-Interfaces are denoted by their own keyword:
+Las interfaces se indican con su propia palabra clave:
 
 .. code-block:: solidity
 
@@ -33,7 +33,7 @@ Interfaces are denoted by their own keyword:
         function transfer(address recipient, uint amount) external;
     }
 
-Contracts can inherit interfaces as they would inherit other contracts.
+Los contratos pueden heredar interfaces como heredarían otros contratos.
 
 All functions declared in interfaces are implicitly ``virtual`` and any
 functions that override them do not need the ``override`` keyword.

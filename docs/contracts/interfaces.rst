@@ -35,10 +35,8 @@ Las interfaces se indican con su propia palabra clave:
 
 Los contratos pueden heredar interfaces como heredarían otros contratos.
 
-All functions declared in interfaces are implicitly ``virtual`` and any
-functions that override them do not need the ``override`` keyword.
-This does not automatically mean that an overriding function can be overridden again -
-this is only possible if the overriding function is marked ``virtual``.
+Todas las funciones declaradas en las interfaces son implícitamente ``virtual`` y cualquier función que las invalide no necesita la palabra clave ``override``.
+Esto no significa automáticamente que una función de anulación se pueda anular de nuevo; esto solamente es posible si la función de anulación está marcada como ``virtual``.
 
 Interfaces can inherit from other interfaces. This has the same rules as normal
 inheritance.

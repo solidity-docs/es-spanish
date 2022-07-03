@@ -312,12 +312,6 @@ Solidity internamente permite tipos tupla, i.e.: una lista de objetos de,
 potencialmente, diferentes tipos cuyo tamaño es constante en tiempo de compilación. 
 Esas tuplas pueden ser usadas para retornar múltiples valores al mismo tiempo.
 Pueden ser asignarse a variables recién declaradas o variables preexistentes ( o LValues en general).
-    
-Solidity internally allows tuple types, i.e. a list of objects
-of potentially different types whose number is a constant at
-compile-time. Those tuples can be used to return multiple values at the same time.
-These can then either be assigned to newly declared variables
-or to pre-existing variables (or LValues in general).
 
 Tuples no son tipos propios en Solidity, Se pueden usar para formar 
 agrupaciones sintácticas de expresiones.

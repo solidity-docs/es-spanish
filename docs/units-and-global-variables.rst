@@ -37,7 +37,7 @@ después de números literales se pueden utilizar para especificar unidades de t
 
 Tenga cuidado si realiza cálculos de calendario utilizando estas unidades, porque
 no todos los años equivalen a 365 días y ni siquiera todos los días tienen 24 horas debido a `segundos bisiestos <https://en.wikipedia.org/wiki/Leap_second>`_.
-Debido a que segundos bisiestos no se puede predecir, una librería de calendario exacta tiene que ser actualizado por un oráculo externo.
+Debido a que los segundos bisiestos no se pueden predecir, una librería de calendario exacta tiene que ser actualizado por un oráculo externo.
 
 .. note::
     El sufijo ``years`` se ha quitado en la versión 0.5.0 debido a las razones anteriores.
@@ -69,10 +69,10 @@ Propiedades de bloques y transacciones
 - ``blockhash(uint blockNumber) returns (bytes32)``: hash del bloque dado cuando ``blocknumber`` es uno de los 256 bloques más recientes; de lo contrario devuelve cero
 - ``block.basefee`` (``uint``): tarifa base del bloque actual (`EIP-3198 <https://eips.ethereum.org/EIPS/eip-3198>`_ y `EIP-1559 <https://eips.ethereum.org/EIPS/eip-1559>`_)
 - ``block.chainid`` (``uint``): ID de cadena actual
-- ``block.coinbase`` (``address payable``): dirección del menor del bloque actual
+- ``block.coinbase`` (``address payable``): dirección actual del minero del bloque
 - ``block.difficulty`` (``uint``): dificultad del bloque actual
-- ``block.gaslimit`` (``uint``): gaslimit del bloque actual
-- ``block.number`` (``uint``): número  de bloque actual
+- ``block.gaslimit`` (``uint``): límite de gas del bloque actual
+- ``block.number`` (``uint``): número de bloque actual
 - ``block.timestamp`` (``uint``): marca de tiempo de bloque actual como segundos desde la época unix
 - ``gasleft() returns (uint256)``: gas restante
 - ``msg.data`` (``bytes calldata``): calldata completo
@@ -88,19 +88,19 @@ Propiedades de bloques y transacciones
     Esto incluye llamadas a funciones de librería.
 
 .. note::
-    Cuando se evalúan los contratos fuera de la cadena en lugar de en contexto de una transacción incluido en un bloque, no debe asume que ``block.*`` y ``tx.*`` se refieren a valores de cualquier bloque o transacción específica. Estos valores son proporcionados por la implementación de EVM que ejecuta el contrato y pueden ser arbitrarios.
+    Cuando se evalúan los contratos fuera de la cadena en lugar de en contexto de una transacción incluido en un bloque, no debería asumir que ``block.*`` y ``tx.*`` se refieren a valores de cualquier bloque o transacción específica. Estos valores son proporcionados por la implementación de EVM que ejecuta el contrato y pueden ser arbitrarios.
 
 .. note::
     No confíe en ``block.timestamp`` o ``blockhash`` como fuente de aleatoriedad,
     a menos que sepas lo que estás haciendo.
 
     Tanto la marca de tiempo y el hash de bloque pueden ser influenciados por los mineros hasta cierto punto.
-    Malos actores en la comunidad minera pueden, por ejemplo, ejecutar una función de pago de casino en un hash elegido y simplemente vuelva a intentar un hash diferente si no recibieron dinero.
+    Malos actores en la comunidad minera pueden, por ejemplo, ejecutar una función de pago de casino en un hash elegido y simplemente reintentar un hash diferente si no recibieron dinero.
 
-    The current block timestamp must be strictly larger than the timestamp of the last block, but the only guarantee is that it will be somewhere between the timestamps of two consecutive blocks in the canonical chain.
+    La marca de fecha del bloque actual debe ser estrictamente más grande que la marca de fecha del último bloque, pero la única garantía es que estará entre las marcas de fecha de dos bloques consecutivos en la cadena canónica.
 
 .. note::
-    Los hashes de bloque no están disponibles para todos los bloques por razones de escalabilidad. Sólo puede acceso a los hashes de los 256 bloques más recientes, todos los demás valores serán cero.
+    Los hashes de bloque no están disponibles para todos los bloques por razones de escalabilidad. Solo puede acceder a los hashes de los 256 bloques más recientes, todos los demás valores serán cero.
 
 .. note::
     La función ``blockhash`` se conocía anteriormente como ``block.blockhash``, que quedó en desuso en la versión 0.4.22 y eliminado en la versión 0.5.0.
@@ -118,16 +118,16 @@ Funciones de codificación y decodificación ABI
 
 - ``abi.decode(bytes memory encodedData, (...)) returns (...)``: ABI-decodifica los datos dados, mientras que los tipos se dan entre paréntesis como segundo argumento. Ejemplo: ``(uint a, uint[2] memory b, bytes memory c) = abi.decode(data, (uint, uint[2], bytes))``
 - ``abi.encode(...) returns (bytes memory)``: ABI codifica los argumentos dados
-- ``abi.encodePacked(...) returns (bytes memory)``: Realiza :ref:`packed encoding <abi_packed_mode>` de los argumentos dados. ¡Tenga en cuenta que la codificación empaquetada puede ser ambiguo!
+- ``abi.encodePacked(...) returns (bytes memory)``: Realiza :ref:`packed encoding <abi_packed_mode>` de los argumentos dados. ¡Tenga en cuenta que la codificación empaquetada puede ser ambigua!
 - ``abi.encodeWithSelector(bytes4 selector, ...) returns (bytes memory)``: ABI codifica los argumentos dados a partir del segundo y antepone el selector de cuatro bytes dado
 - ``abi.encodeWithSignature(string memory signature, ...) returns (bytes memory)``: Equivalente a ``abi.encodeWithSelector(bytes4(keccak256(bytes(signature))), ...)``
 - ``abi.encodeCall(function functionPointer, (...)) returns (bytes memory)``: ABI codifica una llamada a ``functionPointer`` con los argumentos encontrados en la tupla. Realiza una comprobación de tipo completa, garantizar que los tipos coincidan la firma de la función. El resultado es igual a ``abi.encodeWithSelector(functionPointer.selector, (...))``
 
 .. note::
-    Estas funciones de codificación se pueden utilizar para crear datos para llamadas a funciones externas sin llamar realmente a una función externa. Además, ``keccak256(abi.encodePacked(a, b))`` es una forma de calcular el hash de los datos estructurados (aunque ten en cuenta que es posible crear una "colisión de hash" uso de diferentes tipos de parámetros de función).
+    Estas funciones de codificación se pueden utilizar para crear datos para llamadas a funciones externas sin llamar realmente a una función externa. Además, ``keccak256(abi.encodePacked(a, b))`` es una forma de calcular el hash de los datos estructurados (aunque tenga en cuenta que es posible crear una "colisión de hash" usando diferentes tipos de parámetros de función).
 
 Consulte la documentación sobre la :ref:`ABI <ABI>` y la
-:ref:`codificación apretada <abi_packed_mode>` para obtener más información sobre la codificación.
+:ref:`codificación tightly packed <abi_packed_mode>` para obtener más información sobre la codificación.
 
 .. index:: bytes members
 
@@ -149,7 +149,7 @@ Miembros de cadena
 Manejo de errores
 --------------
 
-Consulte la sección dedicada a :ref:`afirmar y exigir<assert-and-require>` para obtener más información sobre el control de errores y cuándo usar qué función.
+Consulte la sección dedicada a :ref:`assert y require<assert-and-require>` para obtener más información sobre el control de errores y cuándo usar qué función.
 
 ``assert(bool condition)``
     provoca un error de pánico y, por lo tanto, cambiar el estado de reversión si no se cumple la condición - para ser utilizado para errores internos.
@@ -187,20 +187,20 @@ Funciones matemáticas y criptográficas
     Solía haber un alias para ``keccak256`` llamado ``sha3``, que se eliminó en la versión 0.5.0.
 
 ``sha256(bytes memory) returns (bytes32)``
-    computadora el hash SHA-256 de la entrada
+    computa el hash SHA-256 de la entrada
 
 ``ripemd160(bytes memory) returns (bytes20)``
-    computadora el hash RIPEMD-160 de la entrada
+    computa el hash RIPEMD-160 de la entrada
 
 ``ecrecover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) returns (address)``
-    recuperar la dirección asociada con la clave pública de la firma de curva elíptica o devuelva cero en el error.
+    recupera la dirección asociada con la clave pública de la firma de curva elíptica o devuelva cero en el error.
     Los parámetros de la función corresponden a los valores de ECDSA de la firma:
 
     * ``r`` = primeros 32 bytes de firma
     * ``s`` = segundo 32 bytes of signature
     * ``v`` = 1 byte final de firma
 
-    ``ecrecover`` devuelve una ``address``, y no una ``address payable``. Ver :ref:`dirección pagadera<address>` para la conversión, en caso de que necesite transferir fondos a la dirección recuperada.
+    ``ecrecover`` devuelve una ``address``, y no una ``address payable``. Ver :ref:`dirección payable<address>` para la conversión, en caso de que necesite transferir fondos a la dirección recuperada.
 
     Para más detalles, lea `ejemplo de uso <https://ethereum.stackexchange.com/questions/1777/workflow-on-signing-a-string-with-private-key-followed-by-signature-verificatio>`_.
 
@@ -208,7 +208,7 @@ Funciones matemáticas y criptográficas
 
     Si utiliza ``ecrecover``, tenga en cuenta que una firma válida se puede convertir en una firma válida diferente sin requerir el conocimiento de la clave privada correspondiente. En la bifurcación dura de Homestead, este problema se ha corregido para las firmas de _transaction_ (see `EIP-2 <https://eips.ethereum.org/EIPS/eip-2#specification>`_), pero la función ecrecover permaneció sin cambios.
 
-    Por lo general, esto no es un problema a menos que requiera que las firmas sean únicas o utilícelos para identificar elementos. OpenZeppelin tiene una `librería auxiliar de ECDSA <https://docs.openzeppelin.com/contracts/2.x/api/cryptography#ECDSA>`_ que puede usar como envoltorio para ``ecrecover`` sin esta problema.
+    Por lo general, esto no es un problema a menos que requiera que las firmas sean únicas o utilícelos para identificar elementos. OpenZeppelin tiene una `biblioteca auxiliar de ECDSA <https://docs.openzeppelin.com/contracts/2.x/api/cryptography#ECDSA>`_ que puede usar como envoltorio para ``ecrecover`` sin este problema.
 
 .. note::
 
@@ -222,33 +222,33 @@ Miembros de tipos de direcciones
 ------------------------
 
 ``<address>.balance`` (``uint256``)
-    balance del :ref:`dirección` en Wei
+    balance de la :ref:`dirección` en Wei
 
 ``<address>.code`` (``bytes memory``)
-    código en el :ref:`dirección` (puede estar vacío)
+    código en la :ref:`dirección` (puede estar vacío)
 
 ``<address>.codehash`` (``bytes32``)
-    el codehash del :ref:`dirección`
+    el codehash de la :ref:`dirección`
 
 ``<address payable>.transfer(uint256 amount)``
-    enviar la cantidad dada de Wei a :ref:`dirección`, revierte en caso de error, adelanta 2300 estipendios de gas, no ajustable
+    envía la cantidad dada de Wei a :ref:`dirección`, revierte en caso de error, adelanta 2300 estipendios de gas, no ajustable
 
 ``<address payable>.send(uint256 amount) returns (bool)``
-    enviar la cantidad dada de Wei a :ref:`dirección`, devuelve ``false`` en caso de error, adelanta 2300 estipendios de gas, no ajustable
+    envìa la cantidad dada de Wei a :ref:`dirección`, devuelve ``false`` en caso de error, adelanta 2300 estipendios de gas, no ajustable
 
 ``<address>.call(bytes memory) returns (bool, bytes memory)``
-    emitir ``CALL`` de bajo nivel con la carga útil dada, devuelve la condición de éxito y devuelve datos, reenvía todo el gas disponible, ajustable
+    emite ``CALL`` de bajo nivel con la carga útil dada, devuelve la condición de éxito y devuelve datos, reenvía todo el gas disponible, ajustable
 
 ``<address>.delegatecall(bytes memory) returns (bool, bytes memory)``
-    emitir  ``DELEGATECALL`` de bajo nivel con la carga útil dada, devuelve la condición de éxito y devuelve datos, reenvía todo el gas disponible, ajustable
+    emite  ``DELEGATECALL`` de bajo nivel con la carga útil dada, devuelve la condición de éxito y devuelve datos, reenvía todo el gas disponible, ajustable
 
 ``<address>.staticcall(bytes memory) returns (bool, bytes memory)``
-    emitir ``STATICCALL`` de bajo nivel con la carga útil dada, devuelve la condición de éxito y devuelve datos, reenvía todo el gas disponible, ajustable
+    emite ``STATICCALL`` de bajo nivel con la carga útil dada, devuelve la condición de éxito y devuelve datos, reenvía todo el gas disponible, ajustable
 
 Para obtener más información, consulte la sección sobre :ref:`dirección`.
 
 .. warning::
-    Debe evitar usar ``.call()`` siempre que sea posible al ejecutar otra función de contrato, ya que omite la comprobación de tipo, comprobación de existencia de funciones, y empaquetado de argumentos.
+    Debe evitar usar ``.call()`` siempre que sea posible al ejecutar otra función de contrato, ya que omite la comprobación de tipo, comprobación de existencia de funciones y empaquetado de argumentos.
 
 .. warning::
     Hay algunos peligros en el uso de ``send``: La transferencia falla si la profundidad de la pila de llamadas está en 1024 (esto siempre puede ser forzado por el autor de la llamada) y también falla si el receptor se queda sin gasolina. Entonces,
@@ -294,7 +294,7 @@ Relacionados con el contrato
     Tenga en cuenta que ``selfdestruct`` tiene algunas peculiaridades heredadas del EVM:
 
     - la función de recepción del contrato receptor no se ejecuta.
-    - el contrato solo se destruye realmente al final de la transacción y ``revert`` podría "undo" la destrucción.
+    - el contrato solo se destruye realmente al final de la transacción y ``revert`` podría "deshacer" la destrucción.
 
 
 Además, todas las funciones del contrato actual son llamables directamente, incluida la función actual.
@@ -319,8 +319,8 @@ Las siguientes propiedades están disponibles para un tipo de contrato ``C``:
 
 ``type(C).creationCode``
     Matriz de bytes de memoria que contiene el código de bytes de creación del contrato.
-    Esto se puede utilizar en el ensamblaje en línea para crear rutinas de creación personalizadas, especialmente mediante el uso del  ``create2`` opcode.
-    Se puede acceder a esta propiedad **no** en el propio contrato o en cualquier contrato derivado. Hace que el bytecode se incluya en el bytecode del sitio de la llamada y, por lo tanto, las referencias circulares como esa no son posibles.
+    Esto se puede utilizar en el ensamblaje en línea para crear rutinas de creación personalizadas, especialmente mediante el uso del opcode ``create2``.
+    **No** se puede acceder a esta propiedad en el propio contrato o en cualquier contrato derivado. Hace que el bytecode se incluya en el bytecode del sitio de la llamada y, por lo tanto, las referencias circulares como esa no son posibles.
 
 ``type(C).runtimeCode``
     Matriz de bytes de memoria que contiene el código de bytes en tiempo de ejecución del contrato.

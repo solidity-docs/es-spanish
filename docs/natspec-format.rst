@@ -1,84 +1,80 @@
 .. _natspec:
 
 ##############
-NatSpec Format
+Formato NatSpec
 ##############
 
-Solidity contracts can use a special form of comments to provide rich
-documentation for functions, return variables and more. This special form is
-named the Ethereum Natural Language Specification Format (NatSpec).
+Los contratos de Solidity pueden usar una forma especial de comentarios para proveer
+documentación valiosa para funciones, variables de retorno y más. Esta forma especial se denomina
+Ethereum Natural Language Specification Format (NatSpec).
 
 .. note::
 
-  NatSpec was inspired by `Doxygen <https://en.wikipedia.org/wiki/Doxygen>`_.
-  While it uses Doxygen-style comments and tags, there is no intention to keep
-  strict compatibility with Doxygen. Please carefully examine the supported tags
-  listed below.
+  NatSpec se inspiró en `Doxygen <https://en.wikipedia.org/wiki/Doxygen>`_.
+  Aunque usa comentarios y etiquetas al estilo Doxygen, no hay intención de mantener
+  compatibilidad estricta con Doxygen. Por favor, examine cuidadosamente las etiquetas
+  admitidas listadas abajo.
 
-This documentation is segmented into developer-focused messages and end-user-facing
-messages. These messages may be shown to the end user (the human) at the
-time that they will interact with the contract (i.e. sign a transaction).
+Esta documentación se segmenta en mensajes enfocados al desarrollador y mensajes al
+usuario final. Es posible que estos mensajes se muestren al usuario final (el humano) al
+momento que interactue con el contrato (i.e. firma de una transacción). 
 
-It is recommended that Solidity contracts are fully annotated using NatSpec for
-all public interfaces (everything in the ABI).
+Se recomienda que los contratos de Solidity estén completamente comentados usando NatSpec
+para todas las interfaces públicas (todo en el ABI).
 
-NatSpec includes the formatting for comments that the smart contract author will
-use, and which are understood by the Solidity compiler. Also detailed below is
-output of the Solidity compiler, which extracts these comments into a machine-readable
-format.
+NatSpec incluye el formateo para comentarios que el autor del contrato inteligente usará, y
+los cuales son entendidos por el compilador de Solidity. También se detalla debajo la salida 
+del compilador de Solidity el cual extrae estos comentarios a un formato de datos legibles mediante máquina.
 
-NatSpec may also include annotations used by third-party tools. These are most likely
-accomplished via the ``@custom:<name>`` tag, and a good use case is analysis and verification
-tools.
+NatSpec también pudiese incluir anotaciones usadas por herramientas de terceros. Estas se logran 
+muy probablemente por medio de la etiqueta ``@custom:<name>``, y un buen caso de uso es el análisis y las
+herramientas de verificación.
 
 .. _header-doc-example:
 
-Documentation Example
+Ejemplo de Documentación
 =====================
 
-Documentation is inserted above each ``contract``, ``interface``, ``library``,
-``function``, and ``event`` using the Doxygen notation format.
-A ``public`` state variable is equivalent to a ``function``
-for the purposes of NatSpec.
+La documentación se inserta encima de cada ``contrato``, ``interfaz``, ``biblioteca``,
+``función`` y ``evento`` usando el formato de notación Doxygen.
+Una variable de estado ``pública`` es equivalente a una ``función`` para los propósitos de NatSpec.
 
--  For Solidity you may choose ``///`` for single or multi-line
-   comments, or ``/**`` and ending with ``*/``.
+-  Para Solidity puede optar ``///`` para comentarios de una línea o múltiples líneas, 
+   o ``/**`` y finalizar con ``*/``.
 
--  For Vyper, use ``"""`` indented to the inner contents with bare
-   comments. See the `Vyper
-   documentation <https://vyper.readthedocs.io/en/latest/natspec.html>`__.
+-  Para Vyper, use ``"""`` indentado en el contenido interno . Véase la `documentación de Vyper <https://vyper.readthedocs.io/en/latest/natspec.html>`__.
 
-The following example shows a contract and a function using all available tags.
+El siguiente ejemplo muestra un contrato y una función usando todas las etiquetas disponibles.
 
 .. note::
 
-  The Solidity compiler only interprets tags if they are external or
-  public. You are welcome to use similar comments for your internal and
-  private functions, but those will not be parsed.
+  El compilador de Solidity solo interpreta etiquetas si son externas o públicas.
+  Puede usar comentarios similares para sus funciones privadas e internas,
+  pero no serán interpretados. 
 
-  This may change in the future.
+  Esto podría cambiar en el futuro.
 
 .. code-block:: Solidity
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.8.2 < 0.9.0;
 
-    /// @title A simulator for trees
+    /// @title Un simulador para árboles
     /// @author Larry A. Gardner
-    /// @notice You can use this contract for only the most basic simulation
-    /// @dev All function calls are currently implemented without side effects
-    /// @custom:experimental This is an experimental contract.
+    /// @notice Puede usar este contrato solo para la simulación más básica
+    /// @dev Todas las llamadas a funciones están actualmente implementadas sin efectos secundarios
+    /// @custom:experimental Este es un contrato experimental.
     contract Tree {
-        /// @notice Calculate tree age in years, rounded up, for live trees
-        /// @dev The Alexandr N. Tetearing algorithm could increase precision
-        /// @param rings The number of rings from dendrochronological sample
-        /// @return Age in years, rounded up for partial years
+        /// @notice Calcula la edad del árbol en años, redondeado hacia arriba, para los árboles vivos.
+        /// @dev El algoritmo de Alexandr N. Tetearing podría incrementar la precisión
+        /// @param rings El número de anillos de una muestra dendrocronológica
+        /// @return Edad en años, redondeado hacia arriba para años parciales
         function age(uint256 rings) external virtual pure returns (uint256) {
             return rings + 1;
         }
 
-        /// @notice Returns the amount of leaves the tree has.
-        /// @dev Returns only a fixed number.
+        /// @notice Retorna la cantidad de hojas que tiene el árbol.
+        /// @dev Retorna solamente un número fijo.
         function leaves() external virtual pure returns(uint256) {
             return 2;
         }
@@ -95,7 +91,7 @@ The following example shows a contract and a function using all available tags.
             return rings + 2;
         }
 
-        /// Return the amount of leaves that this specific kind of tree has
+        /// Retorna la cantidad de hojas que tiene este tipo específico de árbol
         /// @inheritdoc Tree
         function leaves() external override(Tree, Plant) pure returns(uint256) {
             return 3;
@@ -104,103 +100,103 @@ The following example shows a contract and a function using all available tags.
 
 .. _header-tags:
 
-Tags
+Etiquetas
 ====
 
-All tags are optional. The following table explains the purpose of each
-NatSpec tag and where it may be used. As a special case, if no tags are
-used then the Solidity compiler will interpret a ``///`` or ``/**`` comment
-in the same way as if it were tagged with ``@notice``.
+Todas las etiquetas son opcionales. La siguiente tabla explica el propósito de cada
+etiqueta NatSpec y donde puede ser usada. Como caso especial, si ninguna etiqueta se usa,
+entonces el compilador de Solidity interpretará un comentario con ``///`` o ``/**`` de 
+la misma manera como si fuese etiquetado con ``@notice``.
 
 =============== ====================================================================================== =============================
-Tag                                                                                                    Context
+Etiqueta                                                                                               Contexto
 =============== ====================================================================================== =============================
-``@title``      A title that should describe the contract/interface                                    contract, library, interface
-``@author``     The name of the author                                                                 contract, library, interface
-``@notice``     Explain to an end user what this does                                                  contract, library, interface, function, public state variable, event
-``@dev``        Explain to a developer any extra details                                               contract, library, interface, function, state variable, event
-``@param``      Documents a parameter just like in Doxygen (must be followed by parameter name)        function, event
-``@return``     Documents the return variables of a contract's function                                function, public state variable
-``@inheritdoc`` Copies all missing tags from the base function (must be followed by the contract name) function, public state variable
-``@custom:...`` Custom tag, semantics is application-defined                                           everywhere
+``@title``      Un título que debería describir el contrato o la interfaz                              contrato, biblioteca, interfaz
+``@author``     El nombre del autor                                                                    contrato, biblioteca, interfaz
+``@notice``     Explica a un usuario final lo que esto hace                                            contrato, biblioteca, interfaz, función, variable de estado pública, evento
+``@dev``        Explica a un desarrollador cualquier detalle extra                                     contrato, biblioteca, interfaz, función, variable de estado pública, evento
+``@param``      Documenta un parámetro como en Doxygen (debe ser seguida por un nombre de parámetro)   función, evento
+``@return``     Documenta las variables de retorno de la función de un contrato                        función, variable de estado pública
+``@inheritdoc`` Copia todas las etiquetas faltantes de la función base                                 función, variable de estado pública
+                (debe ser seguida por el nombre del contrato)
+``@custom:...`` Etiqueta personalizada, la semántica se define por la aplicación                       en todas partes
 =============== ====================================================================================== =============================
 
-If your function returns multiple values, like ``(int quotient, int remainder)``
-then use multiple ``@return`` statements in the same format as the ``@param`` statements.
+Si su función retorna múltiples valores, como ``(int quotient, int remainder)``,
+entonces use múltiples declaraciones ``@return`` en el mismo formato como las declaraciones ``@param``.
 
-Custom tags start with ``@custom:`` and must be followed by one or more lowercase letters or hyphens.
-It cannot start with a hyphen however. They can be used everywhere and are part of the developer documentation.
+Las etiquetas personalizadas comienzan con ``@custom:`` y deben ser seguidas por una o más letras minúsculas o guiones.
+Sin embargo, no pueden comenzar con un guion. Se pueden usar en todas partes y forman parte de la documentación del desarrollador.
 
 .. _header-dynamic:
 
-Dynamic expressions
+Expresiones dinámicas
 -------------------
 
-The Solidity compiler will pass through NatSpec documentation from your Solidity
-source code to the JSON output as described in this guide. The consumer of this
-JSON output, for example the end-user client software, may present this to the end-user directly or it may apply some pre-processing.
+El compilador de Solidity pasará a través de la documentación de NatSpec desde su
+código fuente Solidity hasta la salida JSON como se describe en esta guía. El consumidor
+de esta salida JSON, por ejemplo el software cliente del usuario final, puede presentar esto al usuario final directamente
+o podría aplicar algún preprocesamiento.
 
-For example, some client software will render:
+Por ejemplo, algún software cliente presentará: 
 
 .. code:: Solidity
 
-   /// @notice This function will multiply `a` by 7
+   /// @notice Esta función multiplicará `a` por 7
 
-to the end-user as:
+al usuario final como:
 
 .. code:: text
 
-    This function will multiply 10 by 7
+    Esta función multiplicará 10 por 7
 
-if a function is being called and the input ``a`` is assigned a value of 10.
+si una función es invocada y la entrada ``a`` se le asigna un valor de 10.
 
-Specifying these dynamic expressions is outside the scope of the Solidity
-documentation and you may read more at
-`the radspec project <https://github.com/aragon/radspec>`__.
+Específicamente estas expresiones dinámicas están fuera del alcance de la documentación de Solidity
+y puede leer más en `el proyecto radspec <https://github.com/aragon/radspec>`__.
 
 .. _header-inheritance:
 
-Inheritance Notes
+Notas de Herencia
 -----------------
 
-Functions without NatSpec will automatically inherit the documentation of their
-base function. Exceptions to this are:
+Las funciones sin NatSpec automáticamente heredarán la documentación de su función base.
+Excepciones a esto son:
 
-* When the parameter names are different.
-* When there is more than one base function.
-* When there is an explicit ``@inheritdoc`` tag which specifies which contract should be used to inherit.
+* Cuando los nombres de parámetros son diferentes.
+* Cuando hay más de una función base.
+* Cuando hay una etiqueta explícita ``@inheritdoc`` la cual especifica cuál contrato debería ser usado para heredar.
 
 .. _header-output:
 
-Documentation Output
+Salida de la Documentación
 ====================
 
-When parsed by the compiler, documentation such as the one from the
-above example will produce two different JSON files. One is meant to be
-consumed by the end user as a notice when a function is executed and the
-other to be used by the developer.
+Cuando se analiza por el compilador, la documentación como la del ejemplo de arriba
+producirá dos archivos JSON diferentes. Se pretende que uno sea consumido por el usuario final
+como un aviso cuando una función se ejecuta y el otro para ser usado por el desarrollador.
 
-If the above contract is saved as ``ex1.sol`` then you can generate the
-documentation using:
+Si el contrato de arriba se guarda como ``ex1.sol``, entonces puede generar
+la documentación usando:
 
 .. code::
 
    solc --userdoc --devdoc ex1.sol
 
-And the output is below.
+Y la salida está abajo.
 
 .. note::
-    Starting Solidity version 0.6.11 the NatSpec output also contains a ``version`` and a ``kind`` field.
-    Currently the ``version`` is set to ``1`` and ``kind`` must be one of ``user`` or ``dev``.
-    In the future it is possible that new versions will be introduced, deprecating older ones.
+    A partir de la versión de Solidity 0.6.11, la salida NatSpec también contiene un campo ``version`` y un ``kind``.
+    Actualmente ``version`` está establecido en ``1`` y ``kind`` debe ser o ``user`` o ``dev``.
+    En el futuro es posible que nuevas versiones sean introducidas, discontinuando viejas versiones.
 
 .. _header-user-doc:
 
-User Documentation
+Documentación del Usuario
 ------------------
 
-The above documentation will produce the following user documentation
-JSON file as output:
+La documentación de arriba producirá el siguiente archivo JSON 
+de la documentación del usuario como salida:
 
 .. code::
 
@@ -211,24 +207,22 @@ JSON file as output:
       {
         "age(uint256)" :
         {
-          "notice" : "Calculate tree age in years, rounded up, for live trees"
+          "notice" : "Calcula la edad del árbol en años, redondeado hacia arriba, para los árboles vivos"
         }
       },
-      "notice" : "You can use this contract for only the most basic simulation"
+      "notice" : "Puede usar este contrato solo para la simulación más básica"
     }
 
-Note that the key by which to find the methods is the function's
-canonical signature as defined in the :ref:`Contract
-ABI <abi_function_selector>` and not simply the function's
-name.
+Note que la clave por la cual se encuentran los métodos es la signatura canónica de la función
+como se define en el :ref:`Contract ABI <abi_function_selector>` y no simplemente el nombre de la función
 
 .. _header-developer-doc:
 
-Developer Documentation
+Documentación del Desarrollador
 -----------------------
 
-Apart from the user documentation file, a developer documentation JSON
-file should also be produced and should look like this:
+Aparte del archivo de documentación del usuario, un archivo JSON de la documentación del desarrollador
+también se debería producir y debería asemejarse a esto:
 
 .. code::
 
@@ -236,19 +230,19 @@ file should also be produced and should look like this:
       "version" : 1,
       "kind" : "dev",
       "author" : "Larry A. Gardner",
-      "details" : "All function calls are currently implemented without side effects",
-      "custom:experimental" : "This is an experimental contract.",
+      "details" : "Todas las llamadas a funciones están actualmente implementadas sin efectos secundarios",
+      "custom:experimental" : "Este es un contrato experimental.",
       "methods" :
       {
         "age(uint256)" :
         {
-          "details" : "The Alexandr N. Tetearing algorithm could increase precision",
+          "details" : "El algoritmo de Alexandr N. Tetearing podría incrementar la precisión",
           "params" :
           {
-            "rings" : "The number of rings from dendrochronological sample"
+            "rings" : "El número de anillos de una muestra dendrocronológica"
           },
-          "return" : "age in years, rounded up for partial years"
+          "return" : "Edad en años, redondeado hacia arriba para años parciales"
         }
       },
-      "title" : "A simulator for trees"
+      "title" : "Un simulador para árboles"
     }

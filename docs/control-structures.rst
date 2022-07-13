@@ -1,5 +1,5 @@
 ##################################
-Expressiones y Estructuras de Control
+Expresiones y Estructuras de Control
 ##################################
 
 .. index:: ! parameter, parameter;input, parameter;output, function parameter, parameter;function, return variable, variable;return, return
@@ -10,19 +10,19 @@ Expressiones y Estructuras de Control
 Estructuras de Control
 ===================
 
-La mayoría de estructuras de control conocidas de los lenguages cochetes-rizados están disponsible en Solidity:
+La mayoría de estructuras de control conocidas de los lenguages que usan corchetes está disponsible en Solidity:
 
-Hay: ``if``, ``else``, ``while``, ``do``, ``for``, ``break``, ``continue``, ``return``, con
+Existen: ``if``, ``else``, ``while``, ``do``, ``for``, ``break``, ``continue``, ``return``, con
 la semántica habitual conocida de C o JavaScript.
 
-Solidity tambien admite control de excepciones en la forma de ``try``/``catch``-instrucciónes,
-pero solo para :ref:`external function calls <external-function-calls>` y
-las llamadas de la creación de contratos.  Errores se pueden crear usando el :ref:`revert statement <revert-statement>`.
+Solidity tambien admite control de excepciones en la forma de instrucciones ``try``/``catch``,
+pero solo para :ref:`llamadas a funciones externas <external-function-calls>` y
+las llamadas de la creación de contratos.  Errores se pueden crear usando la :ref:`sentencia revert <revert-statement>`.
 
-Los paréntesis no se pueden omitir para condicionales, pero sí las cochetes-rizados
+Los paréntesis no se pueden omitir para condicionales, pero sí los corchetes
 alrededor de los cuerpos de las declaraciones sencillas.
 
-Hay que tener en cuenta que no hay conversión de tipos desde non-boolean a boolean como 
+Hay que tener en cuenta que no hay conversión de tipos no boolean a boolean como 
 hay en C y JavaScript, por lo que ``if (1) { ... }`` *no* es válido 
 en Solidity.
 
@@ -46,7 +46,7 @@ también, recursivamente como se puede ver en este ejemplo sin sentido funcional
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.4.22 <0.9.0;
 
-    // This will report a warning
+    // Esto reportará un aviso
     contract C {
         function g(uint a) public pure returns (uint ret) { return a + f(); }
         function f() internal pure returns (uint ret) { return g(7) + f(); }
@@ -54,25 +54,25 @@ también, recursivamente como se puede ver en este ejemplo sin sentido funcional
 
 Estas llamadas a funciones son traducidas en simples saltos dentro de la máquina virtual de Ethereum (EVM). Esto tiene 
 como consecuencia que la memoria actual no se limpia, así que pasar referencias 
-de memoria a las funciones llamadas internamente es muy eficiente. Sólo las funciones del mismo 
+de memoria a las funciones llamadas internamente es muy eficiente. Solo las funciones del mismo 
 contrato pueden ser llamadas internamente.
 
-Todavía hay que evitar recursion exesivas, como todos las llamadas de funciones internales
-usan hacía al menos una renura de pila y solo hay 1024 ranuras disponible.
+Todavía hay que evitar recursion excesiva, como todos las llamadas de funciones internas
+usan al menos una ranura de pila y solo hay 1024 ranuras disponible.
 
 .. _external-function-calls:
 
 Llamadas a funciones externas
 -----------------------
 
-Las expresiones ``this.g(8);`` and ``c.g(2);`` (donde ``c`` es la instancia de un contrato u ``g`` 
-es la funcion que pertence ``cc``) son también llamadas válidas. Llamando la funcion ``g`` cualquiera 
-manera se resulta en una llamada external, usando una llamada de mensaje y no por saltos directamente.
+Las funciones también pueden llamadas usando la notación this.g(8); and c.g(2); donde c es la instancia de un contrato y g
+es la funcion que pertenece c. Llamando la funcion ``g`` de cualquier
+manera resulta en una llamada externa, usando una llamada de mensaje y no por saltos directamente.
 Hay que tener cuenta que las llamadas de funciones en ``this`` no se puede usar en el constructor,
-como el contrato actual aún no se ha creado.
+ya que el contrato actual aún no se ha creado todavía.
 
-Funciones de otros contratos tienen que ser llamado externamente. Para una llamada external,
-todos los arguments de función deben ser copiarse a la memoria.
+Funciones de otros contratos tienen que ser llamado externamente. Para una llamada externa,
+todos los arguments de función deben copiarse a la memoria.
 
 .. note::
     Una llamada de la función de un contrato a otro no crea su propia transacción,
@@ -81,7 +81,7 @@ todos los arguments de función deben ser copiarse a la memoria.
 Cuando se llama a funciones de otros contratos, la cantidad de Wei enviada 
 con la llamada y el gas pueden especificarse con las opciones especiales ``{value: 10, gas: 10000}``.
 Hay que tener cuenta que se desaconseja especifar valores de gas explícitamente, 
-ya que los costos de gas y opcodes se puede cambiar en el futuro. Cualquier Wei que envíe se agrega
+ya que los costos de gas de opcodes pueden cambiar en el futuro. Cualquier Wei que envíe se agrega
 al saldo total de ese contrato.
 
 .. code-block:: solidity
@@ -105,24 +105,24 @@ de lo contrario la opción ``valor`` no estaría disponible.
 .. warning::
   Hay que tener cuidado que ``feed.info{value: 10, gas: 800}`` solo establezca 
   localmente el ``value`` y la cantidad de ``gas`` enviado con la llamada de la función, y 
-  la paréntesis al final realizan la llamda actual. Por lo tanto,
+  los paréntesis al final realizan la llamda actual. Por lo tanto,
   ``feed.info{value: 10, gas: 800}`` no ejecuta la función y se pierden los ajustes del
   ``value`` y ``gas``, solo  ``feed.info{value: 10, gas: 800}()`` realiza la llamada de la función.
 
-Debido al echo que el EVM considera que una llamada u una contrato inexiste,
-siempre tiene exito, Solitiy utiliza el ``extcodesize`` opcode para comprobar 
-que el contrato que está a punto de ser llamada existe realmente (contiene codigo) 
-y cuasa excepción si no lo hace. Esta comprobación se omite si los datos devueltos se descodifican 
+Debido al hecho que el EVM considera una llamada a un contrato inexistente
+siempre tenga éxito, Solitiy utiliza el ``extcodesize`` opcode para comprobar 
+que el contrato que está a punto de ser llamado existe realmente (contiene codigo) 
+y causa excepción si no lo hace. Esta comprobación se omite si los datos devueltos se descodifican 
 después de la llamada y, por tanto, el descodificador ABI detectará el caso de un contrato no existente.
 
-Hay que tener cuenta que esta comprobación no se realiza en caso de :ref:`low-level calls <address_related>`
+Hay que tener cuenta que esta comprobación no se realiza en caso de :ref:`llamadas de bajo nivel <address_related>`
 que operan en las direcciones en lugar de instancias de contrato.
 
 .. note::
     Hay que tener cuidado al utilizar llamadas de alto nivel para 
-    :ref:`precompiled contracts <precompiledContracts>`, 
+    :ref:`contratos precompilados <precompiledContracts>`, 
     dado que el compilador los considera no existentes según 
-    de la lógica aunque ejecuten código y puedan devolver datos.
+    la lógica de arriba aunque ejecuten código y puedan devolver datos.
 
 Las llamadas a funciones también causan excepciones si el propio contrato llamado 
 arroja una excepción o se queda sin gas.
@@ -130,18 +130,18 @@ arroja una excepción o se queda sin gas.
 .. warning::
     Cualquier interacción con otro contrato supone un peligro potencial, especialmente
     si el código fuente del contrato no se conoce por adelantado. El contrato actual 
-    entrega el control al contrato llamado y que puede potencialmente haga casi cualquier cosa. 
+    entrega el control al contrato llamado y eso puede potencialmente hacer casi cualquier cosa. 
     Incluso si el contrato llamado hereda de un contrato principal conocido, el contrato de herencia 
-    sólo es necesario para tener una interfaz correcta. Sin embargo, la ejecución del contrato puede 
-    ser completamente arbitraria y, por lo tanto, plantee un peligro. Además, esté preparado en caso de que 
-    convoque otros contratos de su sistema o incluso volver al contrato de llamada antes de la primera la llamada vuelve. 
+    solo es necesario para tener una interfaz correcta. Sin embargo, la ejecución del contrato puede 
+    ser completamente arbitraria y, por lo tanto, plantea un peligro. Además, esté preparado en caso de que 
+    convoque otros contratos de su sistema o incluso volver al contrato de llamada antes de que retorne la primera llamada.
     Esto significa que el contrato llamado puede cambiar las variables de estado del contrato de llamada a través de sus funciones. 
-    Escriba sus funciones de forma que, por ejemplo, llame a las funciones externas se producen después de cualquier cambio 
-    en las variables de estado del contrato por lo tanto, su contrato no es vulnerable a una explotación de reentrada.
+    Escriba sus funciones de forma que, por ejemplo, las llamadas a las funciones externas se produzcan después de cualquier cambio 
+    en las variables de estado en su contrato, por lo tanto, su contrato no es vulnerable a una explotación de reentrada.
 
 .. note::
     Antes de Solidity 0.6.2, la forma recomendada de especificar el valor y el gas era 
-    use ``f.value(x).gas(g)()``. Esto fue obsoleto en Solidity 0.6.2 y no es más largo 
+    use ``f.value(x).gas(g)()``. Esto se volvió obsoleto en Solidity 0.6.2 y ya no es 
     posible desde Solidity 0.7.0.
 
 Llamadas con nombre y parámetros de funciones anónimas
@@ -182,7 +182,7 @@ Esos nombres estarán presentes en la pila, pero serán inaccesibles.
     pragma solidity >=0.4.22 <0.9.0;
 
     contract C {
-        // omitted name for parameter
+        // nombre omitido para parámetro
         function func(uint k, uint) public pure returns(uint) {
             return k;
         }
@@ -196,7 +196,7 @@ Esos nombres estarán presentes en la pila, pero serán inaccesibles.
 Creando contratos mediante ``new``
 ==============================
 
-Un contrato puede crear un nuevo contrato usando la palabra reservada ``new``. 
+Un contrato puede crear otros contratos usando la palabra reservada ``new``. 
 El código completo del contrato que se está creando tiene que ser conocido de antemano, 
 por lo que no son posibles las dependencias de creación recursivas.
 
@@ -241,7 +241,7 @@ Si especifica la opción ``salt`` (un valor bytes32), la creación
 de contratos utilizará un mecanismo diferente para encontrar la dirección del nuevo contrato:
 
 Calculará la dirección a partir de la dirección del contrato de 
-creación, el valor de sal dado, el código de bytes (de creación) del contrato creado y los 
+creación, el valor de salt dado, el código de bytes (de creación) del contrato creado y los 
 argumentos del constructor.
 
 En particular, no se utiliza el contador (“nonce”). Esto permite una mayor flexibilidad 
@@ -284,8 +284,8 @@ fuera de la cadena, que solo deben crearse si hay una disputa.
     }
 
 .. warning::
-    Hay algunas peculiaridades en relación con la creación salada. Un contrato puede vuelto 
-    a crear en la misma dirección después de haber sido destruido. Sin embargo, es posible 
+    Hay algunas peculiaridades en relación con la creación salted. Un contrato puede ser recreado
+    en la misma dirección después de haber sido destruido. Sin embargo, es posible 
     que ese contrato recién creado tuviera un código de bytes diferente incluso aunque el código 
     de byte de creación ha sido el mismo (lo que es un requisito porque de lo contrario, la dirección cambiaría). 
     Esto se debe al hecho de que el constructor puede consultar el estado externo que podría haber cambiado entre 
@@ -295,7 +295,7 @@ Orden de la evaluación de expresiones
 ==================================
 El orden de evaluación de expresiones no se especifica (más formalmente, el orden 
 en el que los hijos de un nodo en el árbol de la expresión son evaluados no es especificado. 
-Eso sí, son evaluados antes que el propio nodo). Sólo se garantiza que las sentencias se ejecutan 
+Eso sí, son evaluados antes que el propio nodo). Solo se garantiza que las sentencias se ejecutan 
 en orden y que se hace un cortocircuito para las expresiones booleanas. Ver :ref:`order` para más información.
 
 .. index:: ! assignment
@@ -311,9 +311,9 @@ Asignaciones para desestructurar y retornar múltiples valores
 Solidity internamente permite tipos tupla, i.e.: una lista de objetos de, 
 potencialmente, diferentes tipos cuyo tamaño es constante en tiempo de compilación. 
 Esas tuplas pueden ser usadas para retornar múltiples valores al mismo tiempo.
-Pueden ser asignarse a variables recién declaradas o variables preexistentes ( o LValues en general).
+Pueden asignarse a variables recién declaradas o variables preexistentes ( o LValues en general).
 
-Tuples no son tipos propios en Solidity, Se pueden usar para formar 
+Las tuplas no son tipos propios en Solidity, Se pueden usar para formar 
 agrupaciones sintácticas de expresiones.
 
 .. code-block:: solidity
@@ -349,14 +349,14 @@ i.e., lo siguiente no es válido: ``(x, uint y) = (1, 2);``
 
 .. warning::
     Hay que tener cuidado al asignar a varias variables al mismo tiempo cuando 
-    se involucran de tipos de referencia, ya que podría provocar a un 
+    se involucran tipos de referencia, ya que podría provocar un 
     comportamiento de copia inesperado.
 
 Complicaciones en Arrays y Structs
 ------------------------------------
 
 La sintaxis de asignación es algo más complicada para tipos sin valor como arrays y structs,
-incluyendo ``bytes`` y ``string``, mira :ref:`Data location and assignment behaviour <data-location-assignment>` para detalles.
+incluyendo ``bytes`` y ``string``, mira :ref:`localización de datos y comportamiento de asignaciones <data-location-assignment>` para detalles.
 
 En el siguiente ejemplo la llamada a ``g(x)`` no tiene ningún efecto en ``x`` porque crea 
 una copia independiente del valor de almacenamiento en la memoria. Sin embargo, ``h(x)`` 
@@ -460,7 +460,7 @@ En cualquier caso, recibirá una advertencia sobre la variable externa que se so
     Antes de la versión 0.5.0, Solidity seguía las mismas reglas de ámbito que JavaScript, 
     es decir, una variable declarada en cualquier lugar dentro de una función estaría en el ámbito 
     para toda la función, independientemente de dónde se haya declarado. En el ejemplo siguiente se muestra 
-    un fragmento de código que utilizaba compilar pero conduce a un error a partir de la versión 0.5.0.
+    un fragmento de código que solía compilar pero conduce a un error a partir de la versión 0.5.0.
 
 .. code-block:: solidity
 
@@ -479,7 +479,7 @@ En cualquier caso, recibirá una advertencia sobre la variable externa que se so
 .. index:: ! safe math, safemath, checked, unchecked
 .. _unchecked:
 
-Aritmética comprobada o descomprobada
+Aritmética comprobada o no comprobada
 ===============================
 
 Un desbordamiento o subflujo es la situación en la que el valor resultante de una operación aritmética, 
@@ -614,7 +614,7 @@ de la ejecución. Esto incluye condiciones sobre entradas o valores devueltos de
 El compilador genera una excepción ``Error(string)`` (o una excepción sin datos) en las siguientes situaciones:
 
 #. Llamar a ``require(x)`` donde ``x`` se evalúa como ``false``.
-#. If se utiliza ``revert()`` o ``revert("description")``.
+#. Si se utiliza ``revert()`` o ``revert("description")``.
 #. Si se realiza una llamada de función externa apuntando a un contrato que no contiene código.
 #. Si un contrato recibe Ether mediante una función sin el modificador ``payable`` 
    (incluyendo el constructor y la función de fallback).
@@ -631,7 +631,7 @@ Para los siguientes casos, se reenvían los datos de error de la llamada externa
    ``call``, ``send``, ``delegatecall``, ``callcode`` or ``staticcall``. Las operaciones 
    de bajo nivel nunca arrojan excepciones, sino que indican errores devolviendo ``false``.
 #. Si crea un contrato utilizando la palabra clave ``new`` pero la creación del contrato 
-   :ref:`does not finish properly<creating-contracts>`.
+   :ref:`no finaliza propiamente<creating-contracts>`.
 
 Opcionalmente, puede proporcionar una cadena de mensaje para ``require``, pero no para ``assert``.
 
@@ -665,11 +665,10 @@ Internamente, Solidity realiza una operación de reversión (instrucción ``0xfd
 Esto hace que el EVM revierta todos los cambios realizados en el estado. 
 La razón para revertir es que no hay una forma segura de continuar la ejecución, porque 
 no se produjo un efecto esperado. Debido a que queremos mantener la atomicidad de las transacciones, 
-la acción más segura es revertir todos los cambios y hacer que toda la transacción (o al menos llamar) 
-sin efecto.
+la acción más segura es revertir todos los cambios y dejar (o al menos llamar) sin efecto toda la transacción.
 
-En ambos casos, la persona que llama puede reaccionar ante tales fallos usando ``try``/``catch``, 
-pero los cambios en la persona que llama siempre se revertirán.
+En ambos casos, quien llama puede reaccionar ante tales fallos usando ``try``/``catch``, 
+pero los cambios en quien está siendo llamado siempre se revertirán.
 
 .. note::
 
@@ -684,7 +683,7 @@ pero los cambios en la persona que llama siempre se revertirán.
 
 Se puede activar una reversión directa utilizando la instrucción ``revert`` y la función ``revert``.
 
-El ``revert`` instrucción accepta un error personalizado como argumento directo sin paréntesis:
+La instrucción ``revert`` accepta un error personalizado como argumento directo sin paréntesis:
 
     revert CustomError(arg1, arg2);
 
@@ -776,7 +775,7 @@ Un error en una llamada externa se puede detectar mediante una instrucción try/
         uint errorCount;
         function rate(address token) public returns (uint value, bool success) {
             // Desactivar permanentemente el mecanismo si hay
-            // mas que 10 errores.
+            // mas de 10 errores.
             require(errorCount < 10);
             try feed.getData(token) returns (uint v) {
                 return (v, true);
@@ -801,7 +800,7 @@ Un error en una llamada externa se puede detectar mediante una instrucción try/
         }
     }
 
-La palabra clave ``try`` se debe seguida de una expresión que represente una llamada a una función externa 
+La palabra clave ``try``tiene que ser seguida de una expresión que represente una llamada a una función externa 
 o una creación de contrato (``new ContractName()``). 
 Los errores dentro de la expresión no se detectan (por ejemplo, si se trata de una expresión compleja 
 que también implica llamadas a funciones internas), solo una reversión dentro de la 
@@ -846,10 +845,10 @@ en el ámbito en el bloque que sigue.
 
 .. note::
 
-    Si la ejecución alcanza un bloque catch, entonces los efectos de cambio de estado 
-    se ha revertido la llamada externa. Si la ejecución alcanza el bloque de éxito, los efectos 
+    Si la ejecución alcanza un bloque catch, entonces los efectos de cambio de estado de la llamada externa
+    han sido revertidos. Si la ejecución alcanza el bloque de éxito, los efectos 
     no se revertieron. Si los efectos se han revertido, la ejecución continuará en un bloque 
-    catch o en la ejecución de la propia sentencia try/catch revierte (por ejemplo, 
+    catch o la ejecución de la propia sentencia try/catch se revierte (por ejemplo, 
     debido a errores de descodificación como se ha indicado anteriormente o debido a 
     que no se proporciona una cláusula catch de bajo nivel).
 
@@ -861,5 +860,5 @@ en el ámbito en el bloque que sigue.
     el contrato llamado acaba de reenviarlo. Además, podría deberse a un 
     situación de falta de gas y no una condición de error deliberada: 
     La persona que llama siempre retiene al menos 1/64th del gas en una llamada y, por lo tanto, 
-    incluso si el contrato llamado se queda sin gas, la persona que llama sigue 
+    incluso si el contrato llamado se queda sin gas, la persona que llama aún 
     le queda algo de gas.

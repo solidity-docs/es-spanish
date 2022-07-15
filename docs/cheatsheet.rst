@@ -6,8 +6,7 @@ Apuntes para repaso
 
 Orden de Precedencia de Operadores
 ================================
-
-:ref:`order`
+.. include:: types/operator-precedence-table.rst
 
 .. index:: assert, block, coinbase, difficulty, number, block;number, timestamp, block;timestamp, msg, data, gas, sender, value, gas price, origin, revert, require, keccak256, ripemd160, sha256, ecrecover, addmod, mulmod, cryptography, this, super, selfdestruct, balance, codehash, send
 
@@ -101,6 +100,7 @@ Modificadores
 - ``virtual`` para funciones y modificadores: Permite que el comportamiento de las funciones y modificadores se modifique en contratos derivados.
 - ``override``: Establece que esta función, modificador o variable de estado pública cambia el comportamiento de una función o modificador en un contrato de base.
 
+<<<<<<< HEAD
 Palabras Claves Reservadas
 =================
 
@@ -111,3 +111,5 @@ Estas palabras están reservadas en Solidity. Podrían llegar a ser partes de la
 ``mutable``, ``null``, ``of``, ``partial``, ``promise``, ``reference``, ``relocatable``,
 ``sealed``, ``sizeof``, ``static``, ``supports``, ``switch``, ``typedef``, ``typeof``,
 ``var``.
+=======
+>>>>>>> 800088e38b5835ebdc71e9ba5299a70a5accd7c2

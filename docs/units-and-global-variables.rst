@@ -341,4 +341,19 @@ Las siguientes propiedades están disponibles para un tipo entero ``T``:
     El valor más pequeño representable por el tipo ``T``.
 
 ``type(T).max``
+<<<<<<< HEAD
     El valor más grande representable por el tipo ``T``.
+=======
+    The largest value representable by type ``T``.
+
+Reserved Keywords
+=================
+
+These keywords are reserved in Solidity. They might become part of the syntax in the future:
+
+``after``, ``alias``, ``apply``, ``auto``, ``byte``, ``case``, ``copyof``, ``default``,
+``define``, ``final``, ``implements``, ``in``, ``inline``, ``let``, ``macro``, ``match``,
+``mutable``, ``null``, ``of``, ``partial``, ``promise``, ``reference``, ``relocatable``,
+``sealed``, ``sizeof``, ``static``, ``supports``, ``switch``, ``typedef``, ``typeof``,
+``var``.
+>>>>>>> 454603e17051cc9f7e2351d3dd7e79133f7ed6ba

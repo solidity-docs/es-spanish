@@ -8,9 +8,16 @@ Mientras se completa la traducción de esta documentación, puedes encontrar una
 
 ## Moderadores & Colaboradores
 
+Moderadores:
+
 - DanielMart-tech
 - elijahhampton
 - mektigboy
+
+Colaboradores:
+
+- garosan
+- natastro
 
 ### Para participar en la traducción:
 

@@ -101,6 +101,7 @@ Modificadores
 - ``override``: Establece que esta función, modificador o variable de estado pública cambia el comportamiento de una función o modificador en un contrato de base.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Palabras Claves Reservadas
 =================
 
@@ -113,3 +114,5 @@ Estas palabras están reservadas en Solidity. Podrían llegar a ser partes de la
 ``var``.
 =======
 >>>>>>> 454603e17051cc9f7e2351d3dd7e79133f7ed6ba
+=======
+>>>>>>> 9f34322f394fc939fac0bf8b683fd61c45173674

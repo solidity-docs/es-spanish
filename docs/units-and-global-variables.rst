@@ -355,5 +355,9 @@ These keywords are reserved in Solidity. They might become part of the syntax in
 ``define``, ``final``, ``implements``, ``in``, ``inline``, ``let``, ``macro``, ``match``,
 ``mutable``, ``null``, ``of``, ``partial``, ``promise``, ``reference``, ``relocatable``,
 ``sealed``, ``sizeof``, ``static``, ``supports``, ``switch``, ``typedef``, ``typeof``,
+<<<<<<< HEAD
 ``var``.
 >>>>>>> 454603e17051cc9f7e2351d3dd7e79133f7ed6ba
+=======
+``var``.
+>>>>>>> ce5da7dbdc13f1ec37a52e9eb76a36bb16af427c

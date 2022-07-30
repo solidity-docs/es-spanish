@@ -5,8 +5,7 @@
 Diseño en memoria
 ****************
 
-Solidity reserva cuatro ranuras de 32 bytes, con rangos de bytes específicos (incluidos los extremos) que se utilizan 
-de la siguiente manera:
+Solidity reserva cuatro ranuras de 32 bytes, con rangos de bytes específicos (incluidos los extremos) que se utilizan de la siguiente manera:
 
 - ``0x00`` - ``0x3f`` (64 bytes): espacio de memoria virtual para métodos hash
 - ``0x40`` - ``0x5f`` (32 bytes): tamaño de memoria asignado actualmente (aka. puntero de memoria libre)

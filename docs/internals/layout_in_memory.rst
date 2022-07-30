@@ -41,7 +41,7 @@ Diferencias con el diseño en el almacenamiento
 ================================
 
 Como se describió anteriormente, el diseño en la memoria es diferente del diseño 
-en :ref:'almacenamiento<storage-inplace-encoding>'. A continuación hay algunos ejemplos.
+en :ref:'storage<storage-inplace-encoding>'. A continuación hay algunos ejemplos.
 
 Ejemplo de diferencia en matrices
 --------------------------------

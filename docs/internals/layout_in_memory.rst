@@ -2,52 +2,51 @@
 .. index: memory layout
 
 ****************
-Layout in Memory
+Diseño en memoria
 ****************
 
-Solidity reserves four 32-byte slots, with specific byte ranges (inclusive of endpoints) being used as follows:
+Solidity reserva cuatro ranuras de 32 bytes, con rangos de bytes específicos (incluidos los extremos) que se utilizan de la siguiente manera:
 
-- ``0x00`` - ``0x3f`` (64 bytes): scratch space for hashing methods
-- ``0x40`` - ``0x5f`` (32 bytes): currently allocated memory size (aka. free memory pointer)
-- ``0x60`` - ``0x7f`` (32 bytes): zero slot
+- ``0x00`` - ``0x3f`` (64 bytes): espacio de desecho para métodos hash
+- ``0x40`` - ``0x5f`` (32 bytes): tamaño de memoria asignado actualmente (aka. puntero de memoria libre)
+- ``0x60`` - ``0x7f`` (32 bytes): ranura cero
 
-Scratch space can be used between statements (i.e. within inline assembly). The zero slot
-is used as initial value for dynamic memory arrays and should never be written to
-(the free memory pointer points to ``0x80`` initially).
+El espacio de desecho se puede utilizar entre instrucciones (es decir, dentro de un assembly en línea). La ranura cero 
+se utiliza como valor inicial para matrices de memoria dinámica y nunca debe escribirse en 
+(el puntero de memoria libre apunta inicialmente a ``0x80`').
 
-Solidity always places new objects at the free memory pointer and
-memory is never freed (this might change in the future).
+Solidity siempre coloca nuevos objetos en el puntero de memoria libre y 
+la memoria nunca se libera (esto podría cambiar en el futuro).
 
-Elements in memory arrays in Solidity always occupy multiples of 32 bytes (this
-is even true for ``bytes1[]``, but not for ``bytes`` and ``string``).
-Multi-dimensional memory arrays are pointers to memory arrays. The length of a
-dynamic array is stored at the first slot of the array and followed by the array
-elements.
+Los elementos en matrices de memoria en Solidity siempre ocupan múltiplos de 32 bytes (esto 
+es incluso cierto para ``bytes1[]``, pero no para ``bytes`` y ``string``). 
+Las matrices de memoria multidimensionales son punteros a matrices de memoria. La longitud de 
+una matriz dinámica se almacena en la primera ranura de la matriz y seguida de los elementos 
+de la matriz.
 
 .. warning::
-  There are some operations in Solidity that need a temporary memory area
-  larger than 64 bytes and therefore will not fit into the scratch space.
-  They will be placed where the free memory points to, but given their
-  short lifetime, the pointer is not updated. The memory may or may not
-  be zeroed out. Because of this, one should not expect the free memory
-  to point to zeroed out memory.
+  Hay algunas operaciones en Solidity que necesitan un área de memoria temporal 
+  superior a 64 bytes y, por lo tanto, no cabe en el espacio de desecho. Se colocarán donde 
+  apunta la memoria libre, pero dado su corta duración, el puntero no se actualiza. Es posible 
+  que la memoria se ponga a cero o no. Debido a esto, uno no debería esperar que la memoria libre 
+  apunte a cero.
 
-  While it may seem like a good idea to use ``msize`` to arrive at a
-  definitely zeroed out memory area, using such a pointer non-temporarily
-  without updating the free memory pointer can have unexpected results.
+  Aunque puede parecer una idea buena usar ``msize`` para llegar a un área 
+  de memoria puesta a cero definitivamente, el uso de tal puntero no-temporalmente 
+  sin actualizar el puntero de memoria libre puede tener resultados inesperados.
 
 
-Differences to Layout in Storage
+Diferencias con el diseño en el almacenamiento
 ================================
 
-As described above the layout in memory is different from the layout in
-:ref:`storage<storage-inplace-encoding>`. Below there are some examples.
+Como se describió anteriormente, el diseño en la memoria es diferente del diseño 
+en :ref:`storage<storage-inplace-encoding>`. A continuación hay algunos ejemplos.
 
-Example for Difference in Arrays
+Ejemplo de diferencia en matrices
 --------------------------------
 
-The following array occupies 32 bytes (1 slot) in storage, but 128
-bytes (4 items with 32 bytes each) in memory.
+La siguiente matriz ocupa 32 bytes (1 ranura) en almacenamiento, pero 128 
+bytes (4 elementos con 32 bytes cada uno) en memoria.
 
 .. code-block:: solidity
 
@@ -55,11 +54,11 @@ bytes (4 items with 32 bytes each) in memory.
 
 
 
-Example for Difference in Struct Layout
+Ejemplo de diferencia en el diseño de estructura
 ---------------------------------------
 
-The following struct occupies 96 bytes (3 slots of 32 bytes) in storage,
-but 128 bytes (4 items with 32 bytes each) in memory.
+La siguiente estructura ocupa 96 bytes (3 ranuras de 32 bytes) en almacenamiento, 
+pero 128 bytes (4 elementos con 32 bytes cada uno) en memoria.
 
 
 .. code-block:: solidity

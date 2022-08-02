@@ -7,11 +7,11 @@ Diseño en memoria
 
 Solidity reserva cuatro ranuras de 32 bytes, con rangos de bytes específicos (incluidos los extremos) que se utilizan de la siguiente manera:
 
-- ``0x00`` - ``0x3f`` (64 bytes): espacio de memoria virtual para métodos hash
+- ``0x00`` - ``0x3f`` (64 bytes): espacio de desecho para métodos hash
 - ``0x40`` - ``0x5f`` (32 bytes): tamaño de memoria asignado actualmente (aka. puntero de memoria libre)
 - ``0x60`` - ``0x7f`` (32 bytes): ranura cero
 
-El memoria virtual se puede utilizar entre instrucciones (es decir, dentro de un assembly en línea). La ranura cero 
+El espacio de desecho se puede utilizar entre instrucciones (es decir, dentro de un assembly en línea). La ranura cero 
 se utiliza como valor inicial para matrices de memoria dinámica y nunca debe escribirse en 
 (el puntero de memoria libre apunta inicialmente a ``0x80`').
 
@@ -26,7 +26,7 @@ de la matriz.
 
 .. warning::
   Hay algunas operaciones en Solidity que necesitan un área de memoria temporal 
-  superior a 64 bytes y, por lo tanto, no cabe en el memoria virtual. Se colocarán donde 
+  superior a 64 bytes y, por lo tanto, no cabe en el espacio de desecho. Se colocarán donde 
   apunta la memoria libre, pero dado su corta duración, el puntero no se actualiza. Es posible 
   que la memoria se ponga a cero o no. Debido a esto, uno no debería esperar que la memoria libre 
   apunte a cero.

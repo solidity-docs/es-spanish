@@ -343,10 +343,10 @@ Las siguientes propiedades están disponibles para un tipo entero ``T``:
 ``type(T).max``
     El valor más grande representable por el tipo ``T``.
 
-Reserved Keywords
+Palabras clave reservadas
 =================
 
-These keywords are reserved in Solidity. They might become part of the syntax in the future:
+Estas palabras clave están reservadas en Solidity. Podrían formar parte de la sintaxis en el futuro:
 
 ``after``, ``alias``, ``apply``, ``auto``, ``byte``, ``case``, ``copyof``, ``default``,
 ``define``, ``final``, ``implements``, ``in``, ``inline``, ``let``, ``macro``, ``match``,

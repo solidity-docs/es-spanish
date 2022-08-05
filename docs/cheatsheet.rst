@@ -90,7 +90,6 @@ Especificadores de la Visibilidad de Funciones
 Modificadores
 =========
 
-<<<<<<< HEAD
 - ``pure`` para funciones: No acepta la modificación o acceso al estado.
 - ``view`` para funciones: No acepta la modificación del estado.
 - ``payable`` para funciones: Permite recibir Ether junto con una llamada.  
@@ -100,17 +99,3 @@ Modificadores
 - ``indexed`` para parámetros de eventos: Almacena el parámetro como tema. 
 - ``virtual`` para funciones y modificadores: Permite que el comportamiento de las funciones y modificadores se modifique en contratos derivados.
 - ``override``: Establece que esta función, modificador o variable de estado pública cambia el comportamiento de una función o modificador en un contrato de base.
-=======
-- ``pure`` for functions: Disallows modification or access of state.
-- ``view`` for functions: Disallows modification of state.
-- ``payable`` for functions: Allows them to receive Ether together with a call.
-- ``constant`` for state variables: Disallows assignment (except initialisation), does not occupy storage slot.
-- ``immutable`` for state variables: Allows exactly one assignment at construction time and is constant afterwards. Is stored in code.
-- ``anonymous`` for events: Does not store event signature as topic.
-- ``indexed`` for event parameters: Stores the parameter as topic.
-- ``virtual`` for functions and modifiers: Allows the function's or modifier's
-  behaviour to be changed in derived contracts.
-- ``override``: States that this function, modifier or public state variable changes
-  the behaviour of a function or modifier in a base contract.
-
->>>>>>> 19ad8b115e3fc2241d7db4f821c663adfdf0459c

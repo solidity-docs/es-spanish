@@ -2,15 +2,14 @@
 .. index: calldata layout
 
 *******************
-Layout of Call Data
+Diseño de los datos de llamadas
 *******************
 
-The input data for a function call is assumed to be in the format defined by the :ref:`ABI
-specification <ABI>`. Among others, the ABI specification requires arguments to be padded to multiples of 32
-bytes. The internal function calls use a different convention.
+Se supone que los datos de entrada para una llamada a función están en el formato definido por 
+:ref:`especificación ABI <ABI>`. Entre otros, la especificación ABI requiere que los argumentos 
+se rellenen en múltiplos de 32 bytes. Las llamadas a funciones internas utilizan una convención diferente.
 
-Arguments for the constructor of a contract are directly appended at the end of the
-contract's code, also in ABI encoding. The constructor will access them through a hard-coded offset, and
-not by using the ``codesize`` opcode, since this of course changes when appending
-data to the code.
+Los argumentos para el constructor de un contrato se anexan directamente al final del código del contrato, 
+también en codificación ABI. El constructor accederá a ellos a través de un desplazamiento codificado, 
+y no utilizando el opcode de codificación, ya que esto cambia por supuesto al anexar datos al código.
 

@@ -11,5 +11,5 @@ se rellenen en múltiplos de 32 bytes. Las llamadas a funciones internas utiliza
 
 Los argumentos para el constructor de un contrato se anexan directamente al final del código del contrato, 
 también en codificación ABI. El constructor accederá a ellos a través de un desplazamiento codificado, 
-y no utilizando el opcode de codificación, ya que esto cambia por supuesto al anexar datos al código.
+y no utilizando el opcode ``codesize``, ya que esto cambia por supuesto al anexar datos al código.
 

@@ -1,7 +1,7 @@
 .. index: variable cleanup
 
 *********************
-Cleaning Up Variables
+Limpieza de Variables
 *********************
 
 Cuando un valor es inferior que a 256 bits, en algunos casos se deben limpiar los

@@ -6,7 +6,7 @@ Diseño de los datos de llamadas
 *******************
 
 Se supone que los datos de entrada para una llamada a función están en el formato definido por 
-:ref:`especificación ABI <ABI>`. Entre otros, la especificación ABI requiere que los argumentos 
+:ref:`specification ABI <ABI>`. Entre otros, la especificación ABI requiere que los argumentos 
 se rellenen en múltiplos de 32 bytes. Las llamadas a funciones internas utilizan una convención diferente.
 
 Los argumentos para el constructor de un contrato se anexan directamente al final del código del contrato, 

@@ -7,7 +7,7 @@ Limpieza de Variables
 Cuando un valor es inferior que a 256 bits, en algunos casos se deben limpiar los
 bits restantes.
 El compilador Solidity está diseñado para limpiar los bits restantes antes de cualquier operacion
-que pueda verse afectada negativamente por la basura potencial es los bits restantes.
+que pueda verse afectada negativamente por la basura potencial en los bits restantes.
 Por ejemplo, antes de escribir un valor en la memoria, los bits restantes deben borrarse 
 porque el contenido de la memoria se puede usar para calcular hashes o enviarse como datos de 
 una llamada de mensaje. Del mismo modo, antes de almacenar un valor en el almacenamiento, 

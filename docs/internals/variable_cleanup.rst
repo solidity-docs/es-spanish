@@ -14,7 +14,7 @@ una llamada de mensaje. Del mismo modo, antes de almacenar un valor en el almace
 es necesario limpiar los bits restantes porque de lo contrario se puede observar el valor ilegible.
 
 Tenga en cuenta que el acceso a través del ensamblado en línea no se considera una operación de este tipo: 
-Si utiliza un ensamblado en línea para acceder a variables de solidez inferiores a 256 bits, 
+Si utiliza un ensamblado en línea para acceder a variables de Solidity inferiores a 256 bits, 
 el compilador no garantiza que el valor se limpie correctamente.
 
 Además, no limpiamos los bits si la operación inmediatamente siguiente no se ve afectada.  

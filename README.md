@@ -14,11 +14,6 @@ Moderadores:
 - elijahhampton
 - mektigboy
 
-Colaboradores:
-
-- garosan
-- natastro
-
 ### Para participar en la traducción:
 
 Por favor, trabaja una página a la vez.

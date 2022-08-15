@@ -28,7 +28,7 @@ Los diferentes tipos tienen diferentes reglas para limpiar valores no válidos:
 +---------------+------------------+-----------------------------+
 |Tipo           |Valores Validos   |Valores no Válidos Significan|
 +===============+==================+=============================+
-|enum of n      |0 until n - 1     |exception                    |
+|enum of n      |0 hasta n - 1     |excepción                    |
 |miembros       |                  |                             |
 +---------------+------------------+-----------------------------+
 |bool           |0 or 1            |1                            |

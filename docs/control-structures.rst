@@ -144,8 +144,13 @@ arroja una excepción o se queda sin gas.
     use ``f.value(x).gas(g)()``. Esto se volvió obsoleto en Solidity 0.6.2 y ya no es 
     posible desde Solidity 0.7.0.
 
+<<<<<<< HEAD
 Llamadas con nombre y parámetros de funciones anónimas
 ---------------------------------------------
+=======
+Function Calls with Named Parameters
+------------------------------------
+>>>>>>> 3497e2b2ec12059ceacf04c647a47dbe6cf5b43e
 
 Los argumentos de llamada a funciones pueden darse por nombre, en cualquier orden, 
 si están encerrados entre ``{ }``, como se puede ver en el siguiente ejemplo. La lista 
@@ -170,11 +175,21 @@ pero puede estar en orden arbitrario.
 
     }
 
+<<<<<<< HEAD
 Nombres de parámetros de función omitidos
 --------------------------------
 
 Los nombres de parámetros no usados (especialmente los de retorno) se pueden omitir.
 Esos nombres estarán presentes en la pila, pero serán inaccesibles.
+=======
+Omitted Names in Function Definitions
+-------------------------------------
+
+The names of parameters and return values in the function declaration can be omitted.
+Those items with omitted names will still be present on the stack, but they are
+inaccessible by name. An omitted return value name
+can still return a value to the caller by use of the ``return`` statement.
+>>>>>>> 3497e2b2ec12059ceacf04c647a47dbe6cf5b43e
 
 .. code-block:: solidity
 

@@ -185,7 +185,9 @@ transactions.
 
 To listen for this event, you could use the following
 JavaScript code, which uses `web3.js <https://github.com/ethereum/web3.js/>`_ to create the ``Coin`` contract object,
-and any user interface calls the automatically generated ``balances`` function from above::
+and any user interface calls the automatically generated ``balances`` function from above:
+
+.. code-block:: javascript
 
     Coin.Sent().watch({}, '', function(error, result) {
         if (!error) {
@@ -503,10 +505,10 @@ operations, loops should be preferred over recursive calls. Furthermore,
 only 63/64th of the gas can be forwarded in a message call, which causes a
 depth limit of a little less than 1000 in practice.
 
-.. index:: delegatecall, callcode, library
+.. index:: delegatecall, library
 
-Delegatecall / Callcode and Libraries
-=====================================
+Delegatecall and Libraries
+==========================
 
 There exists a special variant of a message call, named **delegatecall**
 which is identical to a message call apart from the fact that

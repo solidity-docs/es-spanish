@@ -39,7 +39,7 @@ Pragmas
 
 La palabra reservada ``pragma`` se usa para permitir ciertas características del compilador o verificaciones. Una directriz pragma siempre es local a un archivo fuente, de modo que tiene que agregar la directriz pragma a todos sus archivos si quiere habilitarlo en el proyecto entero. Si usted :ref:`import<import>` otro archivo, la directriz pragma desde ese archivo *no* se aplica automáticamente al archivo de importación.  
 
-.. index:: ! pragma, version
+.. index:: ! pragma;version
 
 .. _version_pragma:
 
@@ -60,14 +60,26 @@ Es posible especificar reglas más complejas para la versión del compilador, es
   Simplemente indica al compilador que verifique si su versión corresponde a la requerida por el pragma. Si no corresponde, el compilador emite un error.
 
 
+.. index:: ! ABI coder, ! pragma; abicoder, pragma; ABIEncoderV2
+.. _abi_coder:
+
 ABI Coder Pragma
 ----------------
 
 Al usar ``pragma abicoder v1`` o ``pragma abicoder v2`` puedes seleccionar entre las dos implementaciones del codificador y decodificador ABI.
 
+<<<<<<< HEAD
 El nuevo codificador ABI (v2) está disponible para codificar y decodificar arrays y structs. Podría producir código menos óptimo y no ha recibido tantas pruebas como el viejo decodificador, pero está considerado no experimental a partir de Solidity 0.6.0. Aún tiene que activarlo explícitamente usando ``pragma abicoder v2;``. Ya que será activado por defecto a partir de Solidity 0.8.0, existe la opción de seleccionar el codificador viejo usando ``pragma abicoder v1;``.      
 
 El conjunto de tipos soportados por el nuevo codificador es un superset de aquellos soportados por el viejo. Los contratos que lo usan pueden interactuar con aquellos que no lo usan sin limitaciones. Lo opuesto es posible solo siempre y cuando el contrato no-``abicoder v2`` no intente hacer llamadas que requerirían decodificador tipos solamente soportados por el nuevo codificador. El compilador puede detectar esto y emitirá un error. Simplemente con activar ``abicoder v2`` para su contrato es suficiente para hacer que estos errores desaparezcan.     
+=======
+The new ABI coder (v2) is able to encode and decode arbitrarily nested
+arrays and structs. Apart from supporting more types, it involves more extensive
+validation and safety checks, which may result in higher gas costs, but also heightened
+security. It is considered
+non-experimental as of Solidity 0.6.0 and it is enabled by default starting
+with Solidity 0.8.0. There old coder can still be selected using ``pragma abicoder v1;``.
+>>>>>>> f802eafc679541cc1d3ba0ca5bc7c12b4bdaf939
 
 
 .. note::
@@ -78,8 +90,7 @@ El conjunto de tipos soportados por el nuevo codificador es un superset de aquel
 
   Hasta Solidity 0.7.4 fue posible seleccionar el ABI coder v2 al usar ``pragma experimental ABIEncoderV2``, pero no era posible seleccionar el codificador v1 explícitamente porque estaba por defecto. 
 
-.. index:: ! pragma, experimental
-
+.. index:: ! pragma; experimental
 .. _experimental_pragma:
 
 Pragma Experimental
@@ -87,12 +98,14 @@ Pragma Experimental
 
 El segundo pragma es el pragma experimental. Puede ser usado para habilitar características del compilador o lenguaje que todavía no están activadas por defecto. Los siguientes pragmas experimentales están actualmente soportados:
 
+.. index:: ! pragma; ABIEncoderV2
 
 ABIEncoderV2
 ~~~~~~~~~~~~
 
 Debido a que el codificador ABI v2 ya no es considerado experimental, puede ser seleccionado por medio de ``pragma abicoder v2`` desde Solidity 0.7.4 (véase más arriba).  
 
+.. index:: ! pragma; SMTChecker
 .. _smt_checker:
 
 SMTChecker

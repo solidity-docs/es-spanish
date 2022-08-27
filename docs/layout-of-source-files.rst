@@ -39,7 +39,7 @@ Pragmas
 
 La palabra reservada ``pragma`` se usa para permitir ciertas características del compilador o verificaciones. Una directriz pragma siempre es local a un archivo fuente, de modo que tiene que agregar la directriz pragma a todos sus archivos si quiere habilitarlo en el proyecto entero. Si usted :ref:`import<import>` otro archivo, la directriz pragma desde ese archivo *no* se aplica automáticamente al archivo de importación.  
 
-.. index:: ! pragma, version
+.. index:: ! pragma;version
 
 .. _version_pragma:
 
@@ -60,6 +60,9 @@ Es posible especificar reglas más complejas para la versión del compilador, es
   Simplemente indica al compilador que verifique si su versión corresponde a la requerida por el pragma. Si no corresponde, el compilador emite un error.
 
 
+.. index:: ! ABI coder, ! pragma; abicoder, pragma; ABIEncoderV2
+.. _abi_coder:
+
 ABI Coder Pragma
 ----------------
 
@@ -69,7 +72,6 @@ El nuevo codificador ABI (v2) está disponible para codificar y decodificar arra
 
 El conjunto de tipos soportados por el nuevo codificador es un superset de aquellos soportados por el viejo. Los contratos que lo usan pueden interactuar con aquellos que no lo usan sin limitaciones. Lo opuesto es posible solo siempre y cuando el contrato no-``abicoder v2`` no intente hacer llamadas que requerirían decodificador tipos solamente soportados por el nuevo codificador. El compilador puede detectar esto y emitirá un error. Simplemente con activar ``abicoder v2`` para su contrato es suficiente para hacer que estos errores desaparezcan.     
 
-
 .. note::
 
   Este pragma aplica a todo el código definido en el archivo donde está activado, sin reparar en donde ese código termina finalmente. Esto significa que un contrato cuyo archivo fuente está seleccionado para compilar con ABI coder v1 aun puede contener código que usa el nuevo codificador al heredarlo de otro contrato. Esto se permite si los nuevos tipos son solamente usados internamente y no en signaturas de funciones externas.
@@ -78,8 +80,7 @@ El conjunto de tipos soportados por el nuevo codificador es un superset de aquel
 
   Hasta Solidity 0.7.4 fue posible seleccionar el ABI coder v2 al usar ``pragma experimental ABIEncoderV2``, pero no era posible seleccionar el codificador v1 explícitamente porque estaba por defecto. 
 
-.. index:: ! pragma, experimental
-
+.. index:: ! pragma; experimental
 .. _experimental_pragma:
 
 Pragma Experimental
@@ -87,12 +88,14 @@ Pragma Experimental
 
 El segundo pragma es el pragma experimental. Puede ser usado para habilitar características del compilador o lenguaje que todavía no están activadas por defecto. Los siguientes pragmas experimentales están actualmente soportados:
 
+.. index:: ! pragma; ABIEncoderV2
 
 ABIEncoderV2
 ~~~~~~~~~~~~
 
 Debido a que el codificador ABI v2 ya no es considerado experimental, puede ser seleccionado por medio de ``pragma abicoder v2`` desde Solidity 0.7.4 (véase más arriba).  
 
+.. index:: ! pragma; SMTChecker
 .. _smt_checker:
 
 SMTChecker

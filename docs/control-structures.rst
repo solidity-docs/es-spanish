@@ -144,7 +144,7 @@ arroja una excepción o se queda sin gas.
     use ``f.value(x).gas(g)()``. Esto se volvió obsoleto en Solidity 0.6.2 y ya no es 
     posible desde Solidity 0.7.0.
 
-Llamadas con nombre y parámetros de funciones anónimas
+Llamadas a funciones con parámetros con nombre
 ---------------------------------------------
 
 Los argumentos de llamada a funciones pueden darse por nombre, en cualquier orden, 
@@ -170,11 +170,13 @@ pero puede estar en orden arbitrario.
 
     }
 
-Nombres de parámetros de función omitidos
+Nombres omitidos en definiciones de funciones
 --------------------------------
 
-Los nombres de parámetros no usados (especialmente los de retorno) se pueden omitir.
-Esos nombres estarán presentes en la pila, pero serán inaccesibles.
+Se pueden omitir los nombres de los parámetros y los valores retornos en la declaración de la función. 
+Los elementos con nombres omitidos seguirán presentes en la pila, pero 
+no se puede acceder a ellos por su nombre. Un nombre de valor retorno omitido 
+todavía puede devolver un valor al llamador mediante la instrucción `return'.
 
 .. code-block:: solidity
 

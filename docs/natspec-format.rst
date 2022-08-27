@@ -179,7 +179,7 @@ como un aviso cuando una función se ejecuta y el otro para ser usado por el des
 Si el contrato de arriba se guarda como ``ex1.sol``, entonces puede generar
 la documentación usando:
 
-.. code::
+.. code-block:: shell
 
    solc --userdoc --devdoc ex1.sol
 
@@ -198,7 +198,7 @@ Documentación del Usuario
 La documentación de arriba producirá el siguiente archivo JSON 
 de la documentación del usuario como salida:
 
-.. code::
+.. code-block:: json
 
     {
       "version" : 1,
@@ -224,7 +224,7 @@ Documentación del Desarrollador
 Aparte del archivo de documentación del usuario, un archivo JSON de la documentación del desarrollador
 también se debería producir y debería asemejarse a esto:
 
-.. code::
+.. code-block:: json
 
     {
       "version" : 1,

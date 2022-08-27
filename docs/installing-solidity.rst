@@ -365,8 +365,22 @@ A continuación las dependencias para todas las compilaciones de Solidity:
     compilar con cualquier versión que satisfaga los requerimientos de la tabla de arriba. Si hace esto,
     sin embargo, recuerde pasar la opción ``--no-smt`` a ``scripts/tests.sh`` para saltar las pruebas SMT.
 
+
 Versiones Mínimas del Compilador
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+==============================
+
+.. Nota::
+    De forma predeterminada, la compilación se realiza en *modo pedante*, lo que activa advertencias 
+    adicionales y le indica al compilador para tratar todas las advertencias como errores. 
+    Esto obliga a los desarrolladores a corregir las advertencias a medida que surgen, de modo que no 
+    acumulen que se solucionen más tarde. 
+    Si sólo le interesa crear una versión de lanzamiento y no desea modificar el código fuente 
+    para tratar estas advertencias, puede pasar la opción ``-DPEDANTIC=OFF` a CMake para deshabilitar 
+    este modo. No se recomienda hacerlo para uso general, pero puede ser necesario cuando se utiliza 
+    una cadena de herramientas que estamos no probar o intentar crear una versión anterior con 
+    herramientas más recientes. Si encuentra este tipo de advertencias, tenga en cuenta `reporting them 
+    <https://github.com/ethereum/solidity/issues/new>`_.
+    
 
 Los siguientes compiladores de C++ y sus versiones mínimas pueden compilar el código de Solidity:
 

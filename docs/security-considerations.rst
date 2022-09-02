@@ -83,8 +83,13 @@ por defecto:
         }
     }
 
+<<<<<<< HEAD
 Para evitar un ataque de re-entrancy, puede usar el patrón Verificaciones-Efectos-Interacción
 como se esboza más abajo:
+=======
+To avoid re-entrancy, you can use the Checks-Effects-Interactions pattern as
+demonstrated below:
+>>>>>>> 51929652291a833889c2f3132b2ca6f037c02a56
 
 .. code-block:: solidity
 
@@ -102,9 +107,23 @@ como se esboza más abajo:
         }
     }
 
+<<<<<<< HEAD
 Note que el ataque por re-entrancy no solo es un efecto de la transferencia de Ether
 sino de cualquier llamada de función sobre otro contrato. Además, también tiene que
 tener en cuenta situaciones de contratos múltiples. Una llamada a un contrato podría modificar el estado de otro contrato del cual depende.
+=======
+The Checks-Effects-Interactions pattern ensures that all code paths through a contract complete all required checks
+of the supplied parameters before modifying the contract's state (Checks); only then it makes any changes to the state (Effects);
+it may make calls to functions in other contracts *after* all planned state changes have been written to
+storage (Interactions). This is a common foolproof way to prevent *re-entrancy attacks*, where an externally called
+malicious contract is able to double-spend an allowance, double-withdraw a balance, among other things, by using logic that calls back into the
+original contract before it has finalized its transaction.
+
+Note that re-entrancy is not only an effect of Ether transfer but of any
+function call on another contract. Furthermore, you also have to take
+multi-contract situations into account. A called contract could modify the
+state of another contract you depend on.
+>>>>>>> 51929652291a833889c2f3132b2ca6f037c02a56
 
 Límite de Gas y Bucles
 ===================

@@ -83,7 +83,7 @@ por defecto:
         }
     }
 
-Para evitar un ataque de re-entrancy, puede usar el patrón Verificaciones-Efectos-Interacción
+Para evitar un ataque de re-entrancy, puede usar el patrón Verificaciónes-Efectos-Interacción
 como se esboza más abajo:
 
 .. code-block:: solidity
@@ -101,6 +101,10 @@ como se esboza más abajo:
             payable(msg.sender).transfer(share);
         }
     }
+
+El patrón Verificaciónes-Efectos-Interaccion garantiza que todas las rutas de código a través de un contrato completen todas las comprobaciones necesarias de los parámetros suministrados antes de modificar el estado del contrato (Verificación); solo entonces realiza cambios en el estado (Efectos); puede hacer llamadas a funciones en otros contratos *después* de que todos los cambios de estado planificados se hayan escrito en
+almacenamiento (interacciones). Esta es una forma común e infalible de prevenir *ataques de reingreso*, donde una llamada externa
+contrato malicioso es capaz de gastar dos veces una asignación, retirar dos veces un saldo, entre otras cosas, mediante el uso de la lógica que vuelve a llamar a la contrato original antes de que haya finalizado su transacción.
 
 Note que el ataque por re-entrancy no solo es un efecto de la transferencia de Ether
 sino de cualquier llamada de función sobre otro contrato. Además, también tiene que

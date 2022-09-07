@@ -68,16 +68,7 @@ ABI Coder Pragma
 
 Al usar ``pragma abicoder v1`` o ``pragma abicoder v2`` puedes seleccionar entre las dos implementaciones del codificador y decodificador ABI.
 
-<<<<<<< HEAD
-El nuevo codificador ABI (v2) está disponible para codificar y decodificar arrays y structs. Podría producir código menos óptimo y no ha recibido tantas pruebas como el viejo decodificador, pero está considerado no experimental a partir de Solidity 0.6.0. Aún tiene que activarlo explícitamente usando ``pragma abicoder v2;``. Ya que será activado por defecto a partir de Solidity 0.8.0, existe la opción de seleccionar el codificador viejo usando ``pragma abicoder v1;``.      
-=======
-The new ABI coder (v2) is able to encode and decode arbitrarily nested
-arrays and structs. Apart from supporting more types, it involves more extensive
-validation and safety checks, which may result in higher gas costs, but also heightened
-security. It is considered
-non-experimental as of Solidity 0.6.0 and it is enabled by default starting
-with Solidity 0.8.0. The old ABI coder can still be selected using ``pragma abicoder v1;``.
->>>>>>> e0b2162bf9a4542c6b85af752e6493d6a51df3e7
+El nuevo codificador ABI (v2) es capaz de codificar y decodificar arrays y structs anidadas arbitrariamente. Además de admitir más tipos, implica una validación y comprobaciones de seguridad más amplias, lo que puede dar como resultado mayores costes de gas, pero también una mayor seguridad. Se considera no experimental a partir de Solidity 0.6.0 y está habilitado de forma predeterminada iniciando con Solidity 0.8.0. El antiguo codificador ABI todavía puede ser seleccionado usando ``pragma abicoder v1;``.
 
 El conjunto de tipos soportados por el nuevo codificador es un superset de aquellos soportados por el viejo. Los contratos que lo usan pueden interactuar con aquellos que no lo usan sin limitaciones. Lo opuesto es posible solo siempre y cuando el contrato no-``abicoder v2`` no intente hacer llamadas que requerirían decodificador tipos solamente soportados por el nuevo codificador. El compilador puede detectar esto y emitirá un error. Simplemente con activar ``abicoder v2`` para su contrato es suficiente para hacer que estos errores desaparezcan.     
 

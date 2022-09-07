@@ -83,13 +83,8 @@ por defecto:
         }
     }
 
-<<<<<<< HEAD
-Para evitar un ataque de re-entrancy, puede usar el patrón Verificaciones-Efectos-Interacción
+Para evitar un ataque de re-entrancy, puede usar el patrón Verificaciónes-Efectos-Interacción
 como se esboza más abajo:
-=======
-To avoid re-entrancy, you can use the Checks-Effects-Interactions pattern as
-demonstrated below:
->>>>>>> e0b2162bf9a4542c6b85af752e6493d6a51df3e7
 
 .. code-block:: solidity
 
@@ -107,23 +102,13 @@ demonstrated below:
         }
     }
 
-<<<<<<< HEAD
+El patrón Verificaciónes-Efectos-Interaccion garantiza que todas las rutas de código a través de un contrato completen todas las comprobaciones necesarias de los parámetros suministrados antes de modificar el estado del contrato (Verificación); solo entonces realiza cambios en el estado (Efectos); puede hacer llamadas a funciones en otros contratos *después* de que todos los cambios de estado planificados se hayan escrito en
+almacenamiento (interacciones). Esta es una forma común e infalible de prevenir *ataques de reingreso*, donde una llamada externa
+contrato malicioso es capaz de gastar dos veces una asignación, retirar dos veces un saldo, entre otras cosas, mediante el uso de la lógica que vuelve a llamar a la contrato original antes de que haya finalizado su transacción.
+
 Note que el ataque por re-entrancy no solo es un efecto de la transferencia de Ether
 sino de cualquier llamada de función sobre otro contrato. Además, también tiene que
 tener en cuenta situaciones de contratos múltiples. Una llamada a un contrato podría modificar el estado de otro contrato del cual depende.
-=======
-The Checks-Effects-Interactions pattern ensures that all code paths through a contract complete all required checks
-of the supplied parameters before modifying the contract's state (Checks); only then it makes any changes to the state (Effects);
-it may make calls to functions in other contracts *after* all planned state changes have been written to
-storage (Interactions). This is a common foolproof way to prevent *re-entrancy attacks*, where an externally called
-malicious contract is able to double-spend an allowance, double-withdraw a balance, among other things, by using logic that calls back into the
-original contract before it has finalized its transaction.
-
-Note that re-entrancy is not only an effect of Ether transfer but of any
-function call on another contract. Furthermore, you also have to take
-multi-contract situations into account. A called contract could modify the
-state of another contract you depend on.
->>>>>>> e0b2162bf9a4542c6b85af752e6493d6a51df3e7
 
 Límite de Gas y Bucles
 ===================

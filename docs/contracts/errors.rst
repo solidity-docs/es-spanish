@@ -67,8 +67,8 @@ La frase ``require(condition, "description");`` sería equivalente a
 ``error Error(string)``. 
 Tenga en cuenta, sin embargo, que ``Error`` es un tipo integrado y no se puede definir en código proporcionado por el usuario.
 
-Similarly, a failing ``assert`` or similar conditions will revert with an error
-of the built-in type ``Panic(uint256)``.
+De manera similar, un ``assert`` o condiciones similares se revertirán con un error
+del tipo integrado ``Panic(uint256)``
 
 .. note::
     Los datos de error sólo se deben utilizar para indicar un fallo, pero 

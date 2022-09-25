@@ -2,16 +2,14 @@
 .. _errors:
 
 *******************************
-Errors and the Revert Statement
+Errores y Instrucción Revert
 *******************************
 
-Errors in Solidity provide a convenient and gas-efficient way to explain to the
-user why an operation failed. They can be defined inside and outside of contracts (including interfaces and libraries).
+Los errores de solidez proporcionan una forma conveniente y eficiente de la eficiencia del gas de explicar al usuario 
+por qué ha fallado una operación. Se pueden definir dentro y fuera de los contratos (incluidas las interfaces y bibliotecas).
 
-They have to be used together with the :ref:`revert statement <revert-statement>`
-which causes
-all changes in the current call to be reverted and passes the error data back to the
-caller.
+Deben utilizarse junto con la instrucción :ref:`revert statement <revert-statement>` 
+que hace que se reviertan todos los cambios en la llamada actual y que los datos de error se devuelvan al llamador.
 
 .. code-block:: solidity
 
@@ -38,49 +36,49 @@ caller.
         // ...
     }
 
-Errors cannot be overloaded or overridden but are inherited.
-The same error can be defined in multiple places as long as the scopes are distinct.
-Instances of errors can only be created using ``revert`` statements.
+Los errores no se pueden sobrecargar ni anular, pero se heredan. 
+El mismo error se puede definir en varios lugares, siempre y cuando los ámbitos sean distintos. 
+Las instancias de errores solo se pueden crear utilizando instrucciones ``revert``.
 
-The error creates data that is then passed to the caller with the revert operation
-to either return to the off-chain component or catch it in a :ref:`try/catch statement <try-catch>`.
-Note that an error can only be caught when coming from an external call,
-reverts happening in internal calls or inside the same function cannot be caught.
+El error crea datos que luego se pasan al llamador con la operación de reversión 
+para volver al componente fuera de la cadena o capturarlo en una instrucción :ref:`try/catch <try-catch>`. 
+Tenga en cuenta que un error solo se puede detectar cuando proviene de una llamada externa, 
+las reversiones que ocurren en llamadas internas o dentro de la misma función no se pueden capturar.
 
-If you do not provide any parameters, the error only needs four bytes of
-data and you can use :ref:`NatSpec <natspec>` as above
-to further explain the reasons behind the error, which is not stored on chain.
-This makes this a very cheap and convenient error-reporting feature at the same time.
+Si no proporciona ningún parámetro, el error sólo necesita cuatro bytes de datos 
+y puede utilizar :ref:`NatSpec <natspec>` como se indica anteriormente 
+para explicar más a fondo las razones del error, que no se almacena en cadena. 
+Esto hace que esta sea una función de informe de errores muy barata y conveniente al mismo tiempo.
 
-More specifically, an error instance is ABI-encoded in the same way as
-a function call to a function of the same name and types would be
-and then used as the return data in the ``revert`` opcode.
-This means that the data consists of a 4-byte selector followed by :ref:`ABI-encoded<abi>` data.
-The selector consists of the first four bytes of the keccak256-hash of the signature of the error type.
+Más específicamente, una instancia de error está codificada en ABI de la misma manera que 
+una llamada a una función del mismo nombre y tipos sería 
+y luego utilizada como los datos devueltos en el opcode ``revert``. 
+Esto significa que los datos consisten en un selector de 4 bytes seguido por datos de :ref:`ABI-encoded<abi>`. 
+El selector consiste en los primeros 4 bytes del hash keccak256 de la firma del tipo de error.
 
 .. note::
-    It is possible for a contract to revert
-    with different errors of the same name or even with errors defined in different places
-    that are indistinguishable by the caller. For the outside, i.e. the ABI,
-    only the name of the error is relevant, not the contract or file where it is defined.
+    Es posible que un contrato se revierta 
+    con diferentes errores del mismo nombre o incluso con errores definidos en diferentes lugares 
+    que no son identificables por el llamante. Para el exterior, es decir, el ABI, 
+    sólo el nombre del error es relevante, no el contrato o el archivo donde está definido.
 
-The statement ``require(condition, "description");`` would be equivalent to
-``if (!condition) revert Error("description")`` if you could define
-``error Error(string)``.
-Note, however, that ``Error`` is a built-in type and cannot be defined in user-supplied code.
+La frase ``require(condition, "description");`` sería equivalente a 
+``if (!condition) revert Error("description")`` si pudiera definir 
+``error Error(string)``. 
+Tenga en cuenta, sin embargo, que ``Error`` es un tipo integrado y no se puede definir en código proporcionado por el usuario.
 
 Similarly, a failing ``assert`` or similar conditions will revert with an error
 of the built-in type ``Panic(uint256)``.
 
 .. note::
-    Error data should only be used to give an indication of failure, but
-    not as a means for control-flow. The reason is that the revert data
-    of inner calls is propagated back through the chain of external calls
-    by default. This means that an inner call
-    can "forge" revert data that looks like it could have come from the
-    contract that called it.
+    Los datos de error sólo se deben utilizar para indicar un fallo, pero 
+    no como un medio para el control-flujo. El motivo es que los datos de reversión 
+    de llamadas internas se propaga de vuelta a través de la cadena de llamadas externas 
+    de forma predeterminada. Esto significa que una llamada interna 
+    puede “forjar” datos de reversión que parecen haber venido del 
+    contrato que lo llamó.
 
-Members of Errors
+Miembros de Errores
 =================
 
-- ``error.selector``: A ``bytes4`` value containing the error selector.
+- ``error.selector``: Un valor de ``bytes4`` que contiene el selector de errores.

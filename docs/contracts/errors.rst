@@ -2,10 +2,10 @@
 .. _errors:
 
 *******************************
-Errores y Instrucción Revert
+Errores e Instrucción Revert
 *******************************
 
-Los errores de solidez proporcionan una forma conveniente y eficiente de la eficiencia del gas de explicar al usuario 
+Los errores en Solidity proporcionan una forma conveniente y eficiente en gas de explicar al usuario 
 por qué ha fallado una operación. Se pueden definir dentro y fuera de los contratos (incluidas las interfaces y bibliotecas).
 
 Deben utilizarse junto con la instrucción :ref:`revert statement <revert-statement>` 
@@ -45,13 +45,13 @@ para volver al componente fuera de la cadena o capturarlo en una instrucción :r
 Tenga en cuenta que un error solo se puede detectar cuando proviene de una llamada externa, 
 las reversiones que ocurren en llamadas internas o dentro de la misma función no se pueden capturar.
 
-Si no proporciona ningún parámetro, el error sólo necesita cuatro bytes de datos 
+Si no proporciona ningún parámetro, el error solo necesita cuatro bytes de datos 
 y puede utilizar :ref:`NatSpec <natspec>` como se indica anteriormente 
-para explicar más a fondo las razones del error, que no se almacena en cadena. 
+para explicar más a fondo las razones del error, que no se almacena en la cadena. 
 Esto hace que esta sea una función de informe de errores muy barata y conveniente al mismo tiempo.
 
 Más específicamente, una instancia de error está codificada en ABI de la misma manera que 
-una llamada a una función del mismo nombre y tipos sería 
+sería una llamada a una función del mismo nombre y tipos 
 y luego utilizada como los datos devueltos en el opcode ``revert``. 
 Esto significa que los datos consisten en un selector de 4 bytes seguido por datos de :ref:`ABI-encoded<abi>`. 
 El selector consiste en los primeros 4 bytes del hash keccak256 de la firma del tipo de error.
@@ -62,7 +62,7 @@ El selector consiste en los primeros 4 bytes del hash keccak256 de la firma del 
     que no son identificables por el llamante. Para el exterior, es decir, el ABI, 
     sólo el nombre del error es relevante, no el contrato o el archivo donde está definido.
 
-La frase ``require(condition, "description");`` sería equivalente a 
+La sentencia ``require(condition, "description");`` sería equivalente a 
 ``if (!condition) revert Error("description")`` si pudiera definir 
 ``error Error(string)``. 
 Tenga en cuenta, sin embargo, que ``Error`` es un tipo integrado y no se puede definir en código proporcionado por el usuario.
@@ -72,7 +72,7 @@ del tipo integrado ``Panic(uint256)``
 
 .. note::
     Los datos de error sólo se deben utilizar para indicar un fallo, pero 
-    no como un medio para el control-flujo. El motivo es que los datos de reversión 
+    no como un medio para el control de flujo. El motivo es que los datos de reversión 
     de llamadas internas se propaga de vuelta a través de la cadena de llamadas externas 
     de forma predeterminada. Esto significa que una llamada interna 
     puede “forjar” datos de reversión que parecen haber venido del 

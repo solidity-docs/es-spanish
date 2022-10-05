@@ -30,9 +30,9 @@ Team Calls
 If you have issues or pull requests to discuss, or are interested in hearing what
 the team and contributors are working on, you can join our public team calls:
 
-- Mondays and Wednesdays at 3pm CET/CEST.
+- Mondays and Wednesdays at 3PM CET/CEST.
 
-Both calls take place on `Jitsi <https://meet.ethereum.org/solidity>`_.
+Both calls take place on `Jitsi <https://meet.soliditylang.org/>`_.
 
 How to Report Issues
 ====================
@@ -76,6 +76,11 @@ Finally, please make sure you respect the `coding style
 <https://github.com/ethereum/solidity/blob/develop/CODING_STYLE.md>`_
 for this project. Also, even though we do CI testing, please test your code and
 ensure that it builds locally before submitting a pull request.
+
+We highly recommend going through our `review checklist <https://github.com/ethereum/solidity/blob/develop/ReviewChecklist.md>`
+before submitting the pull request.
+We thoroughly review every PR and will help you get it right, but there are many
+common problems that can be easily avoided, making the review much smoother.
 
 Thank you for your help!
 

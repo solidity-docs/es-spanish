@@ -31,8 +31,13 @@ Información privada y Aleatoriedad
 Todo lo que use en un contrato inteligente es públicamente visible, incluso
 variables locales y variables de estado marcados como ``private``.
 
+<<<<<<< HEAD
 El uso de números aleatorios en contratos inteligentes es bastante complicado si no quiere
 que los mineros sean capaces de hacer trampa.
+=======
+Using random numbers in smart contracts is quite tricky if you do not want
+block builders to be able to cheat.
+>>>>>>> 75a74cd43fed972519dc15854b4183f1c266f608
 
 Re-Entrancy
 ===========

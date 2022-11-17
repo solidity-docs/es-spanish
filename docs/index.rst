@@ -76,6 +76,7 @@ La versión en Inglés es tomada como referencia.
 
 Puede elegir entre distintos idiomas haciendo click en el menú desplegable que se encuentra en la esquina inferior izquierda y seleccionando su lenguaje preferido.
 
+<<<<<<< HEAD
 * `Chino <https://github.com/solidity-docs/zh-chinese>`_
 * `Español <https://github.com/solidity-docs/es-spanish>`_
 * `Coreano <https://github.com/solidity-docs/ko-korean>`_
@@ -86,11 +87,28 @@ Puede elegir entre distintos idiomas haciendo click en el menú desplegable que 
 * `Alemán <https://github.com/solidity-docs/de-german>>`_
 * `Indonesio <https://github.com/solidity-docs/id-indonesian>`_
 * `Portugués <https://github.com/solidity-docs/pt-portuguese>`_
+=======
+* `Chinese <https://github.com/solidity-docs/zh-cn-chinese/>`_
+* `French <https://docs.soliditylang.org/fr/latest/>`_
+* `Indonesian <https://github.com/solidity-docs/id-indonesian>`_
+* `Japanese <https://github.com/solidity-docs/ja-japanese>`_
+* `Korean <https://github.com/solidity-docs/ko-korean>`_
+* `Persian <https://github.com/solidity-docs/fa-persian>`_
+* `Russian <https://github.com/solidity-docs/ru-russian>`_
+* `Spanish <https://github.com/solidity-docs/es-spanish>`_
+* `Turkish <https://github.com/solidity-docs/tr-turkish>`_
+>>>>>>> 75a74cd43fed972519dc15854b4183f1c266f608
 
 .. Nota::
 
+<<<<<<< HEAD
   Recientemente se creó una nueva organización en GitHub y un flujo de trabajo para las traducciones, con el motivo de agilizar los esfuerzos de la comunidad.
   Por favor, consulte la `guía de traducción <https://github.com/solidity-docs/translation-guide>`_ para obtener información sobre cómo iniciar un nuevo idioma o contribuir en las traducciones de la comunidad.
+=======
+   We set up a GitHub organization and translation workflow to help streamline the
+   community efforts. Please refer to the translation guide in the `solidity-docs org <https://github.com/solidity-docs>`_
+   for information on how to start a new language or contribute to the community translations.
+>>>>>>> 75a74cd43fed972519dc15854b4183f1c266f608
 
 
 :ref:`Índice de Palabras Clave <genindex>`, :ref:`Página de Búsqueda <search>`

@@ -152,9 +152,12 @@ al usuario final como:
 
 si una función es invocada y la entrada ``a`` se le asigna un valor de 10.
 
+<<<<<<< HEAD
 Específicamente estas expresiones dinámicas están fuera del alcance de la documentación de Solidity
 y puede leer más en `el proyecto radspec <https://github.com/aragon/radspec>`__.
 
+=======
+>>>>>>> 75a74cd43fed972519dc15854b4183f1c266f608
 .. _header-inheritance:
 
 Notas de Herencia

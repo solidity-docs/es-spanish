@@ -208,12 +208,7 @@ Funciones matemáticas y criptográficas
 
     Si utiliza ``ecrecover``, tenga en cuenta que una firma válida se puede convertir en una firma válida diferente sin requerir el conocimiento de la clave privada correspondiente. En la bifurcación dura de Homestead, este problema se ha corregido para las firmas de _transaction_ (see `EIP-2 <https://eips.ethereum.org/EIPS/eip-2#specification>`_), pero la función ecrecover permaneció sin cambios.
 
-<<<<<<< HEAD
     Por lo general, esto no es un problema a menos que requiera que las firmas sean únicas o utilícelos para identificar elementos. OpenZeppelin tiene una `biblioteca auxiliar de ECDSA <https://docs.openzeppelin.com/contracts/2.x/api/cryptography#ECDSA>`_ que puede usar como envoltorio para ``ecrecover`` sin este problema.
-=======
-    This is usually not a problem unless you require signatures to be unique or use them to identify items.
-    OpenZeppelin have a `ECDSA helper library <https://docs.openzeppelin.com/contracts/4.x/api/utils#ECDSA>`_ that you can use as a wrapper for ``ecrecover`` without this issue.
->>>>>>> 0b4b1045cf3e78065f446714872926cde72e5135
 
 .. note::
 

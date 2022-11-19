@@ -77,7 +77,7 @@ El motivo por el cual se permiten efectos secundarios sobre las asignaciones de 
 es que sea posible construir objetos complejos como, por ejemplo, lookup-tables.
 Aunque esta característica todavía no está totalmente disponible para ser usada.
 
-Immutables
+Inmutables
 ==========
 
 Las variables declaradas como ``immutable`` son un poco menos restrictivas que las

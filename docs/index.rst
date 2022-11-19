@@ -82,16 +82,16 @@ Puede elegir entre distintos idiomas haciendo click en el menú desplegable que 
 * `Ruso <https://github.com/solidity-docs/ru-russian>`_
 * `Japonés <https://github.com/solidity-docs/ja-japanese>`_
 * `Persa <https://github.com/solidity-docs/fa-persian>`_
-* `Francés <https://github.com/solidity-docs/fr-french>`_
-* `Alemán <https://github.com/solidity-docs/de-german>>`_
+* `Francés <https://docs.soliditylang.org/fr/latest/>`_
+* `Alemán <https://github.com/solidity-docs/de-german>`_
 * `Indonesio <https://github.com/solidity-docs/id-indonesian>`_
 * `Portugués <https://github.com/solidity-docs/pt-portuguese>`_
+* `Turco <https://github.com/solidity-docs/tr-turkish>`_
 
 .. Nota::
 
-  Recientemente se creó una nueva organización en GitHub y un flujo de trabajo para las traducciones, con el motivo de agilizar los esfuerzos de la comunidad.
-  Por favor, consulte la `guía de traducción <https://github.com/solidity-docs/translation-guide>`_ para obtener información sobre cómo iniciar un nuevo idioma o contribuir en las traducciones de la comunidad.
-
+  Recientemente se creó una nueva organización en GitHub y un flujo de trabajo para las traducciones, con el motivo de agilizar los esfuerzos de la comunidad. Por favor, consulte la `guía de traducción <https://github.com/solidity-docs/translation-guide>`_ para obtener información sobre cómo iniciar un nuevo idioma o contribuir en las traducciones de la comunidad.
+  Hemos establecido una organización de Github y flujo de trabajo de traducción para ayudar a optimizar los esfuerzos de la comunidad. Consulte la guīa de traducción en `solidity-docs org <https://github.com/solidity-docs>`_ para obtener información sobre cómo iniciar una nuevo idioma o contribuir a la traducciones de la comunidad.
 
 :ref:`Índice de Palabras Clave <genindex>`, :ref:`Página de Búsqueda <search>`
 

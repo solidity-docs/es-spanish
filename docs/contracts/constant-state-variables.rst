@@ -80,7 +80,7 @@ Aunque esta característica todavía no está totalmente disponible para ser usa
 Immutables
 ==========
 
-Las variables declaradas como ``ìmmutable`` son un poco menos restrictivas que las
+Las variables declaradas como ``immutable`` son un poco menos restrictivas que las
 declaradas como ``constant``: Las variables inmutables pueden tener un valor
 arbitrario en el constructor del contracto o en el lugar de su declaración.
 Eso sí, su valor solo puede ser asignado una vez. Pero a partir de ahí, ese valor 

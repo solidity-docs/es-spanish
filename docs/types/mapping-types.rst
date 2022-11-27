@@ -1,44 +1,46 @@
 .. index:: !mapping
 .. _mapping-types:
 
-Mapping Types
+Tipos Mapping
 =============
 
-Mapping types use the syntax ``mapping(KeyType => ValueType)`` and variables
-of mapping type are declared using the syntax ``mapping(KeyType => ValueType) VariableName``.
-The ``KeyType`` can be any
-built-in value type, ``bytes``, ``string``, or any contract or enum type. Other user-defined
-or complex types, such as mappings, structs or array types are not allowed.
-``ValueType`` can be any type, including mappings, arrays and structs.
+Los tipos mapping usan la sintaxis ``mapping(KeyType => ValueType)`` y las variables
+del tipo mapping son declaradas usando la sintaxis ``mapping(KeyType => ValueType) VariableName``.
+Donde  ``KeyType`` puede ser cualquier tipo estándar, ``bytes``, ``string``, cualquier contrato 
+o un tipo enum. Sin embargo, tipos definidos por el propio usuario o tipos complejos, como 
+mappings, structs o arrays no están permitidos para ``KeyType``. Por otro lado, para ``ValueType``,
+puede ser cualquier tipo, incluyendo mappings, arrays o structs.
 
-You can think of mappings as `hash tables <https://en.wikipedia.org/wiki/Hash_table>`_, which are virtually initialised
-such that every possible key exists and is mapped to a value whose
-byte-representation is all zeros, a type's :ref:`default value <default-value>`.
-The similarity ends there, the key data is not stored in a
-mapping, only its ``keccak256`` hash is used to look up the value.
+Puedes pensar en los mappings como `tablas hash <https://es.wikipedia.org/wiki/Tabla_hash>`_, las
+cuales se inicializan virtualmente, asumiendo que ya existen todas las posibles claves, y donde 
+se mapea cada clave a un valor cuya representación byte está formada por todo ceros, equivalente al 
+:ref:`valor por defecto <default-value>` de un tipo. Aunque la similitud termina aquí, 
+dado que las claves no se almacenan realmente en el mapping, sino tan solo su hash ``keccak256``, 
+el cual se usa para buscar su valor.
 
-Because of this, mappings do not have a length or a concept of a key or
-value being set, and therefore cannot be erased without extra information
-regarding the assigned keys (see :ref:`clearing-mappings`).
+Por esto mismo, los mappings no tienen una longitud (length), ni tampoco son exactamente 
+una tabla la cual relaciona claves con valores. Por tanto, no puede eliminarse información
+respecto a cada clave asociada. (ver :ref:`clearing-mappings`).
 
-Mappings can only have a data location of ``storage`` and thus
-are allowed for state variables, as storage reference types
-in functions, or as parameters for library functions.
-They cannot be used as parameters or return parameters
-of contract functions that are publicly visible.
-These restrictions are also true for arrays and structs that contain mappings.
+Los mappings solo pueden almacenar información en el ``storage``, por lo que solo están
+permitidos para variables de estado, como tipos que referencian al storage en funciones, 
+o como parámetros de funciones de librerías. Pero no se pueden usar como parámetros o 
+como retorno de funciones públicamente visibles de un contrato. Y estas mismas 
+restricciones también se aplican para arrays y structs los cuales contengan mappings.
 
-You can mark state variables of mapping type as ``public`` and Solidity creates a
-:ref:`getter <visibility-and-getters>` for you. The ``KeyType`` becomes a parameter for the getter.
-If ``ValueType`` is a value type or a struct, the getter returns ``ValueType``.
-If ``ValueType`` is an array or a mapping, the getter has one parameter for
-each ``KeyType``, recursively.
+Puedes marcar variables de estado de tipo mapping como ``public`` y así Solidity creará una
+:ref:`función get (getter) <visibility-and-getters>` por ti. El ``KeyType`` se convertirá en
+un parámetro de la función get.
+Si ``ValueType`` es un tipo de valor o un struct, la función get retornará ``ValueType``.
+Si ``ValueType`` es un array o un mapping, la función get tendrá un parámetro por cada
+``KeyType``, recursivamente.
 
-In the example below, the ``MappingExample`` contract defines a public ``balances``
-mapping, with the key type an ``address``, and a value type a ``uint``, mapping
-an Ethereum address to an unsigned integer value. As ``uint`` is a value type, the getter
-returns a value that matches the type, which you can see in the ``MappingUser``
-contract that returns the value at the specified address.
+En el siguiente ejemplo, el contrato ``MappingExample`` define un mapping público ``balances``,
+donde el tipo de clave es un tipo ``address``, y el tipo de valor es un tipo ``uint``,
+mapeando así una dirección Ethereum a un número entero sin signo. Como ``uint`` es un 
+tipo de valor, la función get devolverá un valor que encajará con este tipo, tal como
+puedes ver aquí en el contrato ``MappingUser``, el cual retorna el valor para la address 
+especificada.
 
 .. code-block:: solidity
 
@@ -61,10 +63,11 @@ contract that returns the value at the specified address.
         }
     }
 
-The example below is a simplified version of an
-`ERC20 token <https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol>`_.
-``_allowances`` is an example of a mapping type inside another mapping type.
-The example below uses ``_allowances`` to record the amount someone else is allowed to withdraw from your account.
+El siguiente ejemplo es una versión simplificada de un 
+`Token ERC20 <https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol>`_.
+``_allowances`` es un ejemplo de un tipo mapping dentro de otro tipo mapping.
+El ejemplo de a continuación usa ``_allowances`` para registrar el importe total que otra persona puede retirar 
+desde su cuenta.
 
 .. code-block:: solidity
 
@@ -113,14 +116,14 @@ The example below uses ``_allowances`` to record the amount someone else is allo
 .. index:: !iterable mappings
 .. _iterable-mappings:
 
-Iterable Mappings
+Iterar un Mapping
 -----------------
 
-You cannot iterate over mappings, i.e. you cannot enumerate their keys.
-It is possible, though, to implement a data structure on
-top of them and iterate over that. For example, the code below implements an
-``IterableMapping`` library that the ``User`` contract then adds data to, and
-the ``sum`` function iterates over to sum all the values.
+No puedes iterar un mapping. Es decir, no puedes numerar las claves.
+Sin embargo, sí es posible implementar una estructura de datos por encima para
+poder iterar esta estructura contenedora. Por ejemplo, el siguiente código implementa
+una librería ``IterableMapping`` donde luego el contrato ``User`` añade información,
+y la función ``sum`` puede iterar sobre la suma de todos los valores.
 
 .. code-block:: solidity
     :force:
@@ -193,23 +196,23 @@ the ``sum`` function iterates over to sum all the values.
         }
     }
 
-    // How to use it
+    // Modo de funcionamiento
     contract User {
-        // Just a struct holding our data.
+        // Un simple struct mantiene nuestros datos
         itmap data;
-        // Apply library functions to the data type.
+        // Se aplican las funciones de la librería para este tipo de datos
         using IterableMapping for itmap;
-
-        // Insert something
+        
+        // Añadimos algo
         function insert(uint k, uint v) public returns (uint size) {
-            // This calls IterableMapping.insert(data, k, v)
+            // Esto llama a IterableMapping.insert(data, k, v)
             data.insert(k, v);
-            // We can still access members of the struct,
-            // but we should take care not to mess with them.
+            // Todavía podemos acceder a las partes del struct
+            // pero debemos hacerlo con cuidado para no desorganizar la lógica
             return data.size;
         }
 
-        // Computes the sum of all stored data.
+        // Se calcula la suma de todos los datos almacenados
         function sum() public view returns (uint s) {
             for (
                 Iterator i = data.iterateStart();
@@ -221,3 +224,28 @@ the ``sum`` function iterates over to sum all the values.
             }
         }
     }
+
+.. tip::
+      **Nota del traductor:**
+      En la documentación oficial en inglés no se explica literalmente,
+      pero creo que es conveniente aclarar la diferencia que existe entre arrays y mappings,
+      dado que si no estás muy familiarizado con el desarrollo de smart contracts, te
+      puede parecer extraño qué sentido tiene la existencia de mappings, cuando ya
+      tenemos arrays, los cuales sirven aparentemente para lo mismo, y además con menos
+      limitaciones, por poder almacenar claves tanto en el storage como en la memoria,
+      la posibilidad de ser iterados, etc. En la documentación oficial, tan solo se indica
+      la existencia del tipo mapping, y cómo funciona, pero obvia su razón de ser, y el
+      motivo por el cual se creó este tipo.
+      
+      La razón es muy sencilla. En el mundo de Ethereum, todo cuesta gas, el cálculo de expresiones,
+      el almacenamiento, etc. Y por eso se han creado los mappings, pues son una solución mucho más
+      económica y eficiente, en términos de gas, respecto de los arrays. Al no tener que guardar 
+      realmente las claves en la blockchain, ahorramos gas. Al no tener la necesidad de recorrer 
+      los valores, también ahorramos gas. Y al no tener que crear un índice para funciones de búsqueda, 
+      nuevamente ahorramos gas.
+      
+      Obviamente, no son siempre la mejor solución, dado que también tienen las limitaciones explicadas
+      en este apartado, pero siempre que estas limitaciones no nos supongan un problema, los 
+      mappings serán una mejor opción. El ejemplo de uso inteligente de mappings más común, es la relación 
+      de unos datos determinados con una address concreta. Por ejemplo, un posible balance que pueda estar
+      asociado a cada dirección.

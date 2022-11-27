@@ -12,13 +12,14 @@ mappings, structs o arrays no están permitidos para ``KeyType``. Por otro lado,
 puede ser cualquier tipo, incluyendo mappings, arrays o structs.
 
 Puedes pensar en los mappings como `tablas hash <https://es.wikipedia.org/wiki/Tabla_hash>`_, las
-cuales se inicializan virtualmente, y donde cada clave existente se mapea a un valor cuya 
-representación byte está formada por todo ceros, siendo esto el :ref:`valor por defecto <default-value>`
-de un tipo. Aunque la similitud termina aquí, dado que la información de las claves no se almacena
-realmente en el mapping, sino solo su hash ``keccak256``, el cual se usa para buscar su valor.
+cuales se inicializan virtualmente, asumiendo que ya existen todas las posibles claves, y donde 
+se mapea cada clave a un valor cuya representación byte está formada por todo ceros, equivalente al 
+:ref:`valor por defecto <default-value>` de un tipo. Aunque la similitud termina aquí, 
+dado que las claves no se almacenan realmente en el mapping, sino tan solo su hash ``keccak256``, 
+el cual se usa para buscar su valor.
 
 Por esto mismo, los mappings no tienen una longitud (length), ni tampoco son exactamente 
-un establecimiento estricto de claves con valores, y por tanto, no puede eliminarse información
+una tabla la cual relaciona claves con valores. Por tanto, no puede eliminarse información
 respecto a cada clave asociada. (ver :ref:`clearing-mappings`).
 
 Los mappings solo pueden almacenar información en el ``storage``, por lo que solo están
@@ -115,10 +116,10 @@ desde su cuenta.
 .. index:: !iterable mappings
 .. _iterable-mappings:
 
-Mapping iterables
+Iterar un Mapping
 -----------------
 
-No puedes iterar mappings. Es decir, no puedes numerar las claves.
+No puedes iterar un mapping. Es decir, no puedes numerar las claves.
 Sin embargo, sí es posible implementar una estructura de datos por encima para
 poder iterar esta estructura contenedora. Por ejemplo, el siguiente código implementa
 una librería ``IterableMapping`` donde luego el contrato ``User`` añade información,
@@ -223,3 +224,28 @@ y la función ``sum`` puede iterar sobre la suma de todos los valores.
             }
         }
     }
+
+.. tip::
+      **Nota del traductor:**
+      En la documentación oficial en inglés no se explica literalmente,
+      pero creo que es conveniente aclarar la diferencia que existe entre arrays y mappings,
+      dado que si no estás muy familiarizado con el desarrollo de smart contracts, te
+      puede parecer extraño qué sentido tiene la existencia de mappings, cuando ya
+      tenemos arrays, los cuales sirven aparentemente para lo mismo, y además con menos
+      limitaciones, por poder almacenar claves tanto en el storage como en la memoria,
+      la posibilidad de ser iterados, etc. En la documentación oficial, tan solo se indica
+      la existencia del tipo mapping, y cómo funciona, pero obvia su razón de ser, y el
+      motivo por el cual se creó este tipo.
+      
+      La razón es muy sencilla. En el mundo de Ethereum, todo cuesta gas, el cálculo de expresiones,
+      el almacenamiento, etc. Y por eso se han creado los mappings, pues son una solución mucho más
+      económica y eficiente, en términos de gas, respecto de los arrays. Al no tener que guardar 
+      realmente las claves en la blockchain, ahorramos gas. Al no tener la necesidad de recorrer 
+      los valores, también ahorramos gas. Y al no tener que crear un índice para funciones de búsqueda, 
+      nuevamente ahorramos gas.
+      
+      Obviamente, no son siempre la mejor solución, dado que también tienen las limitaciones explicadas
+      en este apartado, pero siempre que estas limitaciones no nos supongan un problema, los 
+      mappings serán una mejor opción. El ejemplo de uso inteligente de mappings más común, es la relación 
+      de unos datos determinados con una address concreta. Por ejemplo, un posible balance que pueda estar
+      asociado a cada dirección.

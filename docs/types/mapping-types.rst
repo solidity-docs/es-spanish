@@ -225,10 +225,10 @@ y la función ``sum`` puede iterar sobre la suma de todos los valores.
         }
     }
 
-.. tip::
+.. note::
       **Nota del traductor:**
-      En la documentación oficial en inglés no se explica literalmente,
-      pero creo que es conveniente aclarar la diferencia que existe entre arrays y mappings,
+      En la documentación oficial en inglés no se explica literalmente. Sin embargo,
+      sería conveniente aclarar la diferencia que existe entre arrays y mappings,
       dado que si no estás muy familiarizado con el desarrollo de smart contracts, te
       puede parecer extraño qué sentido tiene la existencia de mappings, cuando ya
       tenemos arrays, los cuales sirven aparentemente para lo mismo, y además con menos

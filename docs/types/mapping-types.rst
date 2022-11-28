@@ -224,28 +224,4 @@ y la función ``sum`` puede iterar sobre la suma de todos los valores.
             }
         }
     }
-
-.. note::
-      **Nota del traductor:**
-      En la documentación oficial en inglés no se explica literalmente. Sin embargo,
-      sería conveniente aclarar la diferencia que existe entre arrays y mappings,
-      dado que si no estás muy familiarizado con el desarrollo de smart contracts, te
-      puede parecer extraño qué sentido tiene la existencia de mappings, cuando ya
-      tenemos arrays, los cuales sirven aparentemente para lo mismo, y además con menos
-      limitaciones, por poder almacenar claves tanto en el storage como en la memoria,
-      la posibilidad de ser iterados, etc. En la documentación oficial, tan solo se indica
-      la existencia del tipo mapping, y cómo funciona, pero obvia su razón de ser, y el
-      motivo por el cual se creó este tipo.
-      
-      La razón es muy sencilla. En el mundo de Ethereum, todo cuesta gas, el cálculo de expresiones,
-      el almacenamiento, etc. Y por eso se han creado los mappings, pues son una solución mucho más
-      económica y eficiente, en términos de gas, respecto de los arrays. Al no tener que guardar 
-      realmente las claves en la blockchain, ahorramos gas. Al no tener la necesidad de recorrer 
-      los valores, también ahorramos gas. Y al no tener que crear un índice para funciones de búsqueda, 
-      nuevamente ahorramos gas.
-      
-      Obviamente, no son siempre la mejor solución, dado que también tienen las limitaciones explicadas
-      en este apartado, pero siempre que estas limitaciones no nos supongan un problema, los 
-      mappings serán una mejor opción. El ejemplo de uso inteligente de mappings más común, es la relación 
-      de unos datos determinados con una address concreta. Por ejemplo, un posible balance que pueda estar
-      asociado a cada dirección.
+    

@@ -11,7 +11,7 @@ o un tipo enum. Sin embargo, tipos definidos por el propio usuario o tipos compl
 mappings, structs o arrays no están permitidos para ``KeyType``. Por otro lado, para ``ValueType``,
 puede ser cualquier tipo, incluyendo mappings, arrays o structs.
 
-Puedes pensar en los mappings como `tablas hash <https://es.wikipedia.org/wiki/Tabla_hash>`_, las
+Puede pensar en los mappings como `tablas hash <https://es.wikipedia.org/wiki/Tabla_hash>`_, las
 cuales se inicializan virtualmente, asumiendo que ya existen todas las posibles claves, y donde 
 se mapea cada clave a un valor cuya representación byte está formada por todo ceros, equivalente al 
 :ref:`valor por defecto <default-value>` de un tipo. Aunque la similitud termina aquí, 
@@ -28,7 +28,7 @@ o como parámetros de funciones de librerías. Pero no se pueden usar como pará
 como retorno de funciones públicamente visibles de un contrato. Y estas mismas 
 restricciones también se aplican para arrays y structs los cuales contengan mappings.
 
-Puedes marcar variables de estado de tipo mapping como ``public`` y así Solidity creará una
+Puede marcar variables de estado de tipo mapping como ``public`` y así Solidity creará una
 :ref:`función get (getter) <visibility-and-getters>` por ti. El ``KeyType`` se convertirá en
 un parámetro de la función get.
 Si ``ValueType`` es un tipo de valor o un struct, la función get retornará ``ValueType``.
@@ -39,7 +39,7 @@ En el siguiente ejemplo, el contrato ``MappingExample`` define un mapping públi
 donde el tipo de clave es un tipo ``address``, y el tipo de valor es un tipo ``uint``,
 mapeando así una dirección Ethereum a un número entero sin signo. Como ``uint`` es un 
 tipo de valor, la función get devolverá un valor que encajará con este tipo, tal como
-puedes ver aquí en el contrato ``MappingUser``, el cual retorna el valor para la address 
+puede ver aquí en el contrato ``MappingUser``, el cual retorna el valor para la address 
 especificada.
 
 .. code-block:: solidity
@@ -116,10 +116,10 @@ desde su cuenta.
 .. index:: !iterable mappings
 .. _iterable-mappings:
 
-Iterar un Mapping
------------------
+Mappings iterables
+------------------
 
-No puedes iterar un mapping. Es decir, no puedes numerar las claves.
+No se puede iterar un mapping. Es decir, no se puede numerar las claves.
 Sin embargo, sí es posible implementar una estructura de datos por encima para
 poder iterar esta estructura contenedora. Por ejemplo, el siguiente código implementa
 una librería ``IterableMapping`` donde luego el contrato ``User`` añade información,

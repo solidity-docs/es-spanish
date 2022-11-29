@@ -35,6 +35,8 @@ Si deseas contribuir debes seguir las siguientes reglas:
 2. Para nombres específicos del vocabulario de Solidity o Ethereum, si es posible, traduce la palabra fonéticamente, o simplemente no la modifiques.
 3. Usa los respectivos tipos de fuente, acorde al documento.
 4. Los nombres asignados al código no deben ser modificados, incluyendo: variables, funciones, parámetros, etc. Sin embargo, los comentarios sí deben ser traducidos al Español.
+5. Ante la duda sobre cómo traducir algo se prefiere un estilo de traducción más literal.
+6. Se está usando la redacción en tercera persona a la hora de dirigirnos al lector.
 
 ## Extensión .rst(reStructuredText)
 

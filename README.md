@@ -4,7 +4,9 @@ Bienvenido a la documentación oficial en Español de Solidity. Esta documentaci
 
 ## Documentación
 
-Mientras se completa la traducción de esta documentación, puedes encontrar una versión en: https://solidity-es.readthedocs.io/es/latest/. Por favor, toma en cuenta que esta versión no ha sido actualizada en mucho tiempo.
+Mientras se completa la traducción de esta documentación, puedes encontrar una versión completamente en español pero antigua en: https://solidity-es.readthedocs.io/es/latest/. Por favor, toma en cuenta que esta versión no ha sido actualizada en mucho tiempo.
+
+Por otro lado, también puedes encontrar la versión más actualizada de toda la documentación oficial de Solidity, traducida parcialmente al español, en: https://soliditylang.readthedocs.io. Esta versión es la versión más moderna y que se mantiene al día, con respecto a este repositorio. Contiene toda la documentación oficial al completo. Sin embargo, como se trata de una traducción la cual todavía tenemos en proceso, aún encontrarás partes en español y partes en inglés. Pero a medida que vayamos avanzando en esta traducción, se irán actualizando automáticamente todas las partes al español.
 
 ## Moderadores & Colaboradores
 
@@ -33,6 +35,8 @@ Si deseas contribuir debes seguir las siguientes reglas:
 2. Para nombres específicos del vocabulario de Solidity o Ethereum, si es posible, traduce la palabra fonéticamente, o simplemente no la modifiques.
 3. Usa los respectivos tipos de fuente, acorde al documento.
 4. Los nombres asignados al código no deben ser modificados, incluyendo: variables, funciones, parámetros, etc. Sin embargo, los comentarios sí deben ser traducidos al Español.
+5. Ante la duda sobre cómo traducir algo se prefiere un estilo de traducción más literal.
+6. Se está usando la redacción en tercera persona a la hora de dirigirnos al lector.
 
 ## Extensión .rst(reStructuredText)
 

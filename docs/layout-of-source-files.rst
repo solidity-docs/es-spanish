@@ -116,7 +116,7 @@ Importación de Otros Archivos Fuente
 Sintaxis y Semántica
 --------------------
 
-Solidity suporta sentencias import para ayudar a modularisar su código, similar a aquellas disponibles en JavaScript (a partir de ES6). Sin embargo, Solidity no soporta el concepto `default export <https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export#Description>`_.
+Solidity soporta sentencias import para ayudar a modularizar su código, similar a aquellas disponibles en JavaScript (a partir de ES6). Sin embargo, Solidity no soporta el concepto `default export <https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export#Description>`_.
 
 A un nivel global, puede usar sentencias import de la siguiente forma:
 
@@ -173,11 +173,11 @@ Comentarios de una sola línea (``//``) y comentarios de múltiples líneas (``/
 
 .. code-block:: solidity
 
-    // This is a single-line comment.
+    // Esto es un comentario de una sola línea.
 
     /*
-    This is a
-    multi-line comment.
+    Esto es un
+    comentario de múltiples líneas.
     */
 
 .. note::

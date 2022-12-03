@@ -2,21 +2,22 @@
 
 .. _reference-types:
 
-Reference Types
-===============
+Tipos de Referencia
+===================
 
-Values of reference type can be modified through multiple different names.
-Contrast this with value types where you get an independent copy whenever
-a variable of value type is used. Because of that, reference types have to be handled
-more carefully than value types. Currently, reference types comprise structs,
-arrays and mappings. If you use a reference type, you always have to explicitly
-provide the data area where the type is stored: ``memory`` (whose lifetime is limited
-to an external function call), ``storage`` (the location where the state variables
-are stored, where the lifetime is limited to the lifetime of a contract)
-or ``calldata`` (special data location that contains the function arguments).
+El valor de los "tipos de referencia" (reference type) puede ser modificado a través de distintos nombres.
+Esto contrasta con los "tipos de valor" (value type) donde obtienes una copia independiente siempre que
+se usan estos tipos de valor. Por esta razón, los tipos de referencia tienen que ser manejados con más
+cuidado que los tipos de valor. Actualmente, existen los siguientes tipos de referencia: structs, 
+arrays y mappings. Si usas un tipo de referencia, siempre tienes que indicar de forma explícita
+el lugar en el que está almacenado el tipo: ``memory`` (cuyo tiempo de almacenamiento está limitado
+a una llamada externa que se hace a una función), ``storage`` (el lugar en el cual se alojan las variables
+de estado, y cuyo tiempo de almacenamiento está limitado a la propia vida del contrato) or ``calldata`` (un lugar
+especial para el guardado de datos que contiene los argumentos de una función).
 
-An assignment or type conversion that changes the data location will always incur an automatic copy operation,
-while assignments inside the same data location only copy in some cases for storage types.
+Una asignación o una conversión de un tipo, el cual implique un cambio en la localización de los datos, siempre
+incurrirá en una operación de copia automática. Por otro lado, las asignaciones hechas sobre la misma localización
+de los datos, tan solo se copiarán en algunos casos de tipos almacenados en el storage.
 
 .. _data-location:
 

@@ -1,17 +1,16 @@
-********************************
-Solidity v0.8.0 Breaking Changes
-********************************
+***************************************
+Cambios introducidos en Solidity v0.8.0
+***************************************
 
-This section highlights the main breaking changes introduced in Solidity
-version 0.8.0.
-For the full list check
-`the release changelog <https://github.com/ethereum/solidity/releases/tag/v0.8.0>`_.
+Esta sección versa sobre los principales cambios introducidos en la versión 0.8.0 de Solidity.
+Para ver la lista completa 
+`registro de cambios de lanzamiento <https://github.com/ethereum/solidity/releases/tag/v0.8.0>`_.
 
-Silent Changes of the Semantics
-===============================
+Cambios silenciosos de la semántica
+===================================
 
-This section lists changes where existing code changes its behaviour without
-the compiler notifying you about it.
+Esta sección enumera los cambios en los que el código existente cambia su comportamiento sin
+que el compilador le notifique nada al respecto.
 
 * Arithmetic operations revert on underflow and overflow. You can use ``unchecked { ... }`` to use
   the previous wrapping behaviour.

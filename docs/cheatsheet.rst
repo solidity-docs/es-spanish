@@ -67,18 +67,17 @@ Variables Globales
 - ``type(T).min`` (``T``): el valor mínimo representable por el tipo entero ``T``, véase :ref:`Información de Tipos<meta-type>`.
 - ``type(T).max`` (``T``): el valor máximo representable por el tipo entero ``T``, véase :ref:`Información de Tipos<meta-type>`.
 =======
-- ``abi.decode(bytes memory encodedData, (...)) returns (...)``: :ref:`ABI <ABI>`-decodes
-  the provided data. The types are given in parentheses as second argument.
+- ``abi.decode(bytes memory encodedData, (...)) returns (...)``: :ref:`ABI <ABI>`-decodifica 
+los datos proporcionados. Los tipos se dan entre paréntesis como segundo argumento.
   Example: ``(uint a, uint[2] memory b, bytes memory c) = abi.decode(data, (uint, uint[2], bytes))``
-- ``abi.encode(...) returns (bytes memory)``: :ref:`ABI <ABI>`-encodes the given arguments
-- ``abi.encodePacked(...) returns (bytes memory)``: Performs :ref:`packed encoding <abi_packed_mode>` of
-  the given arguments. Note that this encoding can be ambiguous!
-- ``abi.encodeWithSelector(bytes4 selector, ...) returns (bytes memory)``: :ref:`ABI <ABI>`-encodes
-  the given arguments starting from the second and prepends the given four-byte selector
-- ``abi.encodeCall(function functionPointer, (...)) returns (bytes memory)``: ABI-encodes a call to ``functionPointer`` with the arguments found in the
-  tuple. Performs a full type-check, ensuring the types match the function signature. Result equals ``abi.encodeWithSelector(functionPointer.selector, (...))``
-- ``abi.encodeWithSignature(string memory signature, ...) returns (bytes memory)``: Equivalent
-  to ``abi.encodeWithSelector(bytes4(keccak256(bytes(signature))), ...)``
+- ``abi.encode(...) returns (bytes memory)``: :ref:`ABI <ABI>`-codifica los argumentos dados
+- ``abi.encodePacked(...) returns (bytes memory)``: Realice :ref:`packed encoding <abi_packed_mode>` de 
+los argumentos dados. Tenga en cuenta que esta codificación puede ser ambigua!
+- ``abi.encodeWithSelector(bytes4 selector, ...) returns (bytes memory)``: :ref:`ABI <ABI>`-codifica 
+los argumentos dados a partir del segundo y antepone el selector de cuatro bytes dado
+- ``abi.encodeCall(function functionPointer, (...)) returns (bytes memory)``: ABI codifica una llamada a ``functionPointer`` con los argumentos encontrados en la tupla. Realiza una comprobación de tipo completa, asegurándose de que los tipos coinciden con la firma de la función. El resultado es igual a  ``abi.encodeWithSelector(functionPointer.selector, (...))``
+- ``abi.encodeWithSignature(string memory signature, ...) returns (bytes memory)``: Equivalante
+a ``abi.encodeWithSelector(bytes4(keccak256(bytes(signature))), ...)``
 - ``bytes.concat(...) returns (bytes memory)``: :ref:`Concatenates variable number of
   arguments to one byte array<bytes-concat>`
 - ``string.concat(...) returns (string memory)``: :ref:`Concatenates variable number of

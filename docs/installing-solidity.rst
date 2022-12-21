@@ -335,7 +335,11 @@ A continuación las dependencias para todas las compilaciones de Solidity:
 | `Git`_                            | Software de línea de comandos para obtener código     |
 |                                   | fuente.                                               |
 +-----------------------------------+-------------------------------------------------------+
+<<<<<<< HEAD
 | `z3`_ (versión 4.8+, Opcional)    | Para usar con SMT checker.                            |
+=======
+| `z3`_ (version 4.8.16+, Optional) | For use with SMT checker.                             |
+>>>>>>> english/develop
 +-----------------------------------+-------------------------------------------------------+
 | `cvc4`_ (Opcional)                | Para usar con SMT checker.                            |
 +-----------------------------------+-------------------------------------------------------+

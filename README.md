@@ -4,9 +4,9 @@ Bienvenido a la documentación oficial en Español de Solidity. Esta documentaci
 
 ## Documentación
 
-Mientras se completa la traducción de esta documentación, puedes encontrar una versión completamente en español pero antigua en: https://solidity-es.readthedocs.io/es/latest/. Por favor, toma en cuenta que esta versión no ha sido actualizada en mucho tiempo.
+Mientras se completa la traducción de esta documentación, puedes encontrar una versión completamente en Español, pero antigua, en: https://solidity-es.readthedocs.io/es/latest/. Por favor, toma en cuenta que esta versión no ha sido actualizada en mucho tiempo.
 
-Por otro lado, también puedes encontrar la versión más actualizada de toda la documentación oficial de Solidity, traducida parcialmente al español, en: https://soliditylang.readthedocs.io. Esta versión es la versión más moderna y que se mantiene al día, con respecto a este repositorio. Contiene toda la documentación oficial al completo. Sin embargo, como se trata de una traducción la cual todavía tenemos en proceso, aún encontrarás partes en español y partes en inglés. Pero a medida que vayamos avanzando en esta traducción, se irán actualizando automáticamente todas las partes al español.
+Por otro lado, también puedes encontrar la versión más actualizada de toda la documentación oficial de Solidity, traducida parcialmente al Español, en: https://soliditylang.readthedocs.io. Esta versión es la versión más moderna y que se mantiene al día, con respecto a este repositorio. Contiene toda la documentación oficial al completo. Sin embargo, como se trata de una traducción la cual todavía tenemos en proceso, aún encontrarás partes en Español y partes en Inglés. A medida que vayamos avanzando en esta traducción, se irán actualizando automáticamente todas las partes al Español.
 
 ## Moderadores & Colaboradores
 

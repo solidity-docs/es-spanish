@@ -19,8 +19,7 @@ Variables Globales
 - ``abi.encodePacked(...) returns (bytes memory)``: Realiza :ref:`la codificación empaquetada <abi_packed_mode>` de
   los argumentos dados. ¡Note que esta codificación puede ser ambigua!
 - ``abi.encodeWithSelector(bytes4 selector, ...) returns (bytes memory)``: :ref:`ABI <ABI>`-codifica los argumentos dados comenzando desde el segundo y antepone el selector dado de cuatro bytes
-- ``abi.encodeCall(function functionPointer, (...)) returns (bytes memory)``: ABI-codifica a llamada a ``functionPointer`` con los argumentos encontrados en la tupla. Realiza un completa verificación de tipos asegurándose que los tipos coincidan con la signatura de la función. El resultado equivale a
-   ``abi.encodeWithSelector(functionPointer.selector, (...))``
+- ``abi.encodeCall(function functionPointer, (...)) returns (bytes memory)``: ABI-codifica a llamada a ``functionPointer`` con los argumentos encontrados en la tupla. Realiza un completa verificación de tipos asegurándose que los tipos coincidan con la signatura de la función. El resultado equivale a ``abi.encodeWithSelector(functionPointer.selector, (...))``
 - ``abi.encodeWithSignature(string memory signature, ...) returns (bytes memory)``: Equivalente
   a ``abi.encodeWithSelector(bytes4(keccak256(bytes(signature)), ...)``
 - ``bytes.concat(...) returns (bytes memory)``: :ref:`Concatena un número variable de argumentos a un array de un byte<bytes-concat>`

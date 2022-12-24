@@ -336,6 +336,7 @@ A continuación las dependencias para todas las compilaciones de Solidity:
 |                                   | fuente.                                               |
 +-----------------------------------+-------------------------------------------------------+
 | `z3`_ (versión 4.8+, Opcional)    | Para usar con SMT checker.                            |
+| `z3`_ (version 4.8.16+, Opcional) | Para usar con SMT checker.                            |
 +-----------------------------------+-------------------------------------------------------+
 | `cvc4`_ (Opcional)                | Para usar con SMT checker.                            |
 +-----------------------------------+-------------------------------------------------------+

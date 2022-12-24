@@ -30,7 +30,7 @@ como valores individuales.
 
 .. warning::
     Cuando se utilizan elementos de menos de 32 bytes, el uso de gas de su contrato puede ser mayor.
-    Esto de debe a que EVM funciona con 32 bytes a la vez. Por lo tanto, si el elemento es más pequeño
+    Esto se debe a que EVM funciona con 32 bytes a la vez. Por lo tanto, si el elemento es más pequeño
     ademos, el EVM debe utilizar mas operaciones para reducir el tamaño del elemento de 32 bytes hasta el tamaño deseado.
 
     Puede ser beneficioso utilizar tipos de tamaño reducido se se trata de valores de almacenamiento 
@@ -42,7 +42,7 @@ como valores individuales.
     se destruyan otros datos de la misma ranura.
 
     Cuando se trata de argumentos de función o valores de memoria,
-    no hay nigún beneficio inherente porque el compilador no empaqueta estos valores.
+    no hay ningún beneficio inherente porque el compilador no empaqueta estos valores.
 
     Finalmente, para permitir que el EVM se optimice para esto, asegúrese de que intenta solicitar
     su variables de almacenamiento y miembros ``struct`` de tal forma que puedan ser empaquetados herméticamente.

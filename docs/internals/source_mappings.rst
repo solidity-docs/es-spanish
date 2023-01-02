@@ -1,70 +1,71 @@
-.. index:: source mappings
+.. index:: asignaciones de origen
 
-***************
-Source Mappings
-***************
+**********************
+Asignaciones de origen
+**********************
 
-As part of the AST output, the compiler provides the range of the source
-code that is represented by the respective node in the AST. This can be
-used for various purposes ranging from static analysis tools that report
-errors based on the AST and debugging tools that highlight local variables
-and their uses.
+Como parte de la salida de AST, el compilador proporciona el rango del código
+fuente que está representado por el nodo respectivo en el AST. Esto se puede usar
+para varios propósitos, desde herramientas de análisis estático que informan errores
+en función del AST hasta herramientas de depuración que resaltan las variables
+locales y sus usos.
 
-Furthermore, the compiler can also generate a mapping from the bytecode
-to the range in the source code that generated the instruction. This is again
-important for static analysis tools that operate on bytecode level and
-for displaying the current position in the source code inside a debugger
-or for breakpoint handling. This mapping also contains other information,
-like the jump type and the modifier depth (see below).
+Además, el compilador también puede generar una asignación desde el código de
+bytes hasta el rango en el código fuente que generó la instrucción. Esto es de nuevo
+importante para las herramientas de análisis estático que operan a nivel de
+bytecode y para mostrar la posición actual en el código fuente dentro de un
+depurador o para el manejo de puntos de interrupción. Este mapeo también
+contiene otra información, como el tipo de salto y la profundidad del modificador (ver
+más abajo).
 
-Both kinds of source mappings use integer identifiers to refer to source files.
-The identifier of a source file is stored in
-``output['sources'][sourceName]['id']`` where ``output`` is the output of the
-standard-json compiler interface parsed as JSON.
-For some utility routines, the compiler generates "internal" source files
-that are not part of the original input but are referenced from the source
-mappings. These source files together with their identifiers can be
-obtained via ``output['contracts'][sourceName][contractName]['evm']['bytecode']['generatedSources']``.
+Ambos tipos de asignaciones de origen utilizan identificadores integer para referirse
+a los archivos de origen. El identificador de un archivo de origen se almacena en
+``output['sources'][sourceName]['id']`` donde ``output`` es la salida del
+compilador standard-json analizada como JSON.
+Para algunas rutinas de utilidad, el compilador genera archivos de origen "internos"
+que no forman parte de la entrada original, pero a los que se hace referencia desde las
+asignaciones de origen. Estos archivos de origen junto con sus identificadores pueden
+obtenerse a través de ``output['contracts'][sourceName][contractName]['evm']['bytecode']['generatedSources']``.
 
-.. note ::
-    In the case of instructions that are not associated with any particular source file,
-    the source mapping assigns an integer identifier of ``-1``. This may happen for
-    bytecode sections stemming from compiler-generated inline assembly statements.
+.. nota ::
+    En el caso de instrucciones que no están asociadas a ningún archivo fuente en particular,
+    la asignación de origen asigna un identificador integer de ``-1``. Esto puede ocurrir
+    para secciones de código de bytes que provienen de sentencias de ensamblaje en línea generadas por el compilador.
 
-The source mappings inside the AST use the following
-notation:
+Las asignaciones de origen dentro del AST utilizan la siguiente
+notación:
 
 ``s:l:f``
 
-Where ``s`` is the byte-offset to the start of the range in the source file,
-``l`` is the length of the source range in bytes and ``f`` is the source
-index mentioned above.
+Donde ``s`` es el byte-offset al inicio del rango en el archivo de origen,
+``l`` es la longitud del rango de origen en bytes y ``f`` es el índice de
+origen mencionado anteriormente.
 
-The encoding in the source mapping for the bytecode is more complicated:
-It is a list of ``s:l:f:j:m`` separated by ``;``. Each of these
-elements corresponds to an instruction, i.e. you cannot use the byte offset
-but have to use the instruction offset (push instructions are longer than a single byte).
-The fields ``s``, ``l`` and ``f`` are as above. ``j`` can be either
-``i``, ``o`` or ``-`` signifying whether a jump instruction goes into a
-function, returns from a function or is a regular jump as part of e.g. a loop.
-The last field, ``m``, is an integer that denotes the "modifier depth". This depth
-is increased whenever the placeholder statement (``_``) is entered in a modifier
-and decreased when it is left again. This allows debuggers to track tricky cases
-like the same modifier being used twice or multiple placeholder statements being
-used in a single modifier.
+La codificación en la asignación de origen para el código de bytes es más
+complicada: Es una lista de ``s:l:f:j:m`` separados por ``;``. Cada uno de estos
+elementos corresponde a una instrucción, es decir, no se puede utilizar el offset de
+bytes, sino que hay que utilizar el offset de instrucciones (las instrucciones push son
+más largas que un solo byte). Los campos ``s``, ``l`` y ``f`` son como los anteriores. ``j`` puede ser
+``i``, ``o`` o ``-`` lo que significa que una instrucción de salto entra en una
+función, vuelve de una función o es un salto normal como parte de, por ejemplo, un loop.
+El último campo, ``m``, es un integer que denota la "profundidad del modificador". Esta profundidad
+se incrementa cada vez que se introduce el marcador de posición (``_``)
+y disminuye cuando se vuelve a dejar. Esto permite a los debuggers rastrear casos complicados
+como el mismo modificador siendo utilizado dos o múltiples veces en marcadores de posición
+siendo usadas en un solo modificador.
 
-In order to compress these source mappings especially for bytecode, the
-following rules are used:
+Para comprimir estas asignaciones de origen, especialmente para bytecode, se
+utilizan las siguientes reglas:
 
-- If a field is empty, the value of the preceding element is used.
-- If a ``:`` is missing, all following fields are considered empty.
+- Si un campo está vacío, se utiliza el valor del elemento precedente.
+- Si falta un ``:``, todos los campos siguientes se consideran vacíos.
 
-This means the following source mappings represent the same information:
+Esto significa que las siguientes asignaciones de origen representan la misma información:
 
 ``1:2:1;1:9:1;2:1:2;2:1:2;2:1:2``
 
 ``1:2:1;:9;2:1:2;;``
 
-Important to note is that when the :ref:`verbatim <yul-verbatim>` builtin is used,
-the source mappings will be invalid: The builtin is considered a single
-instruction instead of potentially multiple.
+Es importante tener en cuenta que cuando se utiliza :ref:`verbatim <yul-verbatim>`,
+las asignaciones de origen no serán válidas: El builtin se considera una única
+instrucción en lugar de potencialmente múltiples.

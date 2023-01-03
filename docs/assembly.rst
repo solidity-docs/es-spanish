@@ -15,7 +15,7 @@ El lenguaje utilizado para el ensamblado en línea en Solidity se llama :ref:`Yu
     El ensamblado en línea es una forma de acceder a la Máquina Virtual de Ethereum aun nivel bajo. Esto evita varias características y comprobacionoes de seguridad importantes de Solidity. Solo debes usarlo para tareas que lo necesiten y solo si tienes confianza en su uso.
 
 
-Un bloque de ensamblado en línea está marcado con ``assembly { ... }``, donode el código dentro de las llaves es código en el lenguaje :ref:`Yul <yul>`.
+Un bloque de ensamblado en línea está marcado con ``assembly { ... }``, donde el código dentro de las llaves es código en el lenguaje :ref:`Yul <yul>`.
 
 El código de ensablado en línea puede acceder variables locales de solidity como se explica a continuación.
 
@@ -24,10 +24,7 @@ Los diferentes bloques de ensamblado en línea no comparten ningún espacio de n
 Ejemplo
 -------
 
-The following example provides library code to access the code of another contract and
-load it into a ``bytes`` variable. This is possible with "plain Solidity" too, by using
-``<address>.code``. But the point here is that reusable assembly libraries can enhance the
-Solidity language without a compiler change.
+El siguiente ejemplo proporciona código de la librería para acceder al código de otro contrato y cargarlo en una variable ``bytes``. Esto también es posible con "Solidity plano" usando ``<dirección>.code``. Pero el punto aquí es que las librerías de ensablado reutilizables pueden mejorar Solidity sin un cambio en el compilador.
 
 .. code-block:: solidity
 
@@ -52,8 +49,7 @@ Solidity language without a compiler change.
         }
     }
 
-Inline assembly is also beneficial in cases where the optimizer fails to produce
-efficient code, for example:
+El ensamblado en línea también es beneficioso en casos en los que el optimizador no logra producir código eficiente, por ejemplo:
 
 .. code-block:: solidity
 
@@ -108,28 +104,20 @@ efficient code, for example:
 
 .. index:: selector; of a function
 
-Access to External Variables, Functions and Libraries
+Acceso a variables, funciones y librerías externas
 -----------------------------------------------------
 
-You can access Solidity variables and other identifiers by using their name.
+Puedes acceder a las variables y otros identificadores de Solidity utilizando su nombre.
 
-Local variables of value type are directly usable in inline assembly.
-They can both be read and assigned to.
+Las variables locales de tipo valor son directamente utilizables en el ensamblado en línea.
+Ambas se pueden leer y asignar.
 
-Local variables that refer to memory evaluate to the address of the variable in memory, not the value itself.
-Such variables can also be assigned to, but note that an assignment will only change the pointer and not the data
-and that it is your responsibility to respect Solidity's memory management.
-See :ref:`Conventions in Solidity <conventions-in-solidity>`.
+Las variables locales que hacen referencia a memoria evalúan la dirección de la variable en memoria, no el valor en sí.
+Tales variables también se peuden asignar, pero ten en cuenta que una asignación solo cambiará hacia donde apunta y no los datos, también que es tu responsabilidad respetar la gestión de memoria de Solidity. Ver :ref:`Conventions in Solidity <conventions-in-solidity>`.
 
-Similarly, local variables that refer to statically-sized calldata arrays or calldata structs
-evaluate to the address of the variable in calldata, not the value itself.
-The variable can also be assigned a new offset, but note that no validation is performed to ensure that
-the variable will not point beyond ``calldatasize()``.
+Del mismo modo, las variables locales que hacen referencia a arreglos de calldata de tamaño estático o estructuras calldata evalúan la dirección de la variable en calldata, no el valor en sí. También se le puede asignar un nuevo offset a la variable, pero ten en cuenta que no se realiza ninguna validacióno para asegurar que la variable no apunte más allá de ``calldatasize()``.
 
-For external function pointers the address and the function selector can be
-accessed using ``x.address`` and ``x.selector``.
-The selector consists of four right-aligned bytes.
-Both values can be assigned to. For example:
+Para los punteros de función externos, la dirección y el selector de función pueden accederse usando ``x.address`` y ``x.selector``. El selector consiste de cuatro bytes alineados a la derecha. Ambos valores se peuden asignar. Por ejemplo:
 
 .. code-block:: solidity
     :force:
@@ -147,24 +135,13 @@ Both values can be assigned to. For example:
         }
     }
 
-For dynamic calldata arrays, you can access
-their calldata offset (in bytes) and length (number of elements) using ``x.offset`` and ``x.length``.
-Both expressions can also be assigned to, but as for the static case, no validation will be performed
-to ensure that the resulting data area is within the bounds of ``calldatasize()``.
+Para los arreglos dinámicos de calldata, puedes acceder a su offset de calldata (en bytes) y longitud (número de elementos) utilizando ``x.offset`` y ``x.length``. Ambas expresiones también pueden ser asignadas, pero como en el caso estático, no se realizará ninguna validación para asegurarse que el área de datos resultante esté dentro de los límites de ``calldatasize()``.
 
-For local storage variables or state variables, a single Yul identifier
-is not sufficient, since they do not necessarily occupy a single full storage slot.
-Therefore, their "address" is composed of a slot and a byte-offset
-inside that slot. To retrieve the slot pointed to by the variable ``x``, you
-use ``x.slot``, and to retrieve the byte-offset you use ``x.offset``.
-Using ``x`` itself will result in an error.
+Para las variables de almacenamiento local, o variables de estado, un identificador único Yul no es suficiente ya que no necesariamente ocupan un solo espacio de almacenamiento completo. Por lo tanto, su "dirección" está compuesta por un espacio y un offset de bytes dentro del espacio. Para recuperar el espacio apuntado por la variable `x`, utiliza `x.slot` y para recuperar el offset de bytes utiliza `x.offset`. El uso de `x` en sí mismo resultará en un error.
 
-You can also assign to the ``.slot`` part of a local storage variable pointer.
-For these (structs, arrays or mappings), the ``.offset`` part is always zero.
-It is not possible to assign to the ``.slot`` or ``.offset`` part of a state variable,
-though.
+También puedes asignar a la parte ``.slot`` de un puntero de variable de almacenamiento local. Para estos (estructuras, arreglos o mapeos), la parte ``.offset`` siempre es cero. Sin embargo, no es posible asignar a la parte ``.slot`` o ``.offset`` de una variable de estado.
 
-Local Solidity variables are available for assignments, for example:
+Las variables locales en Solidity están disponibles para asignaciones, por ejemplo:
 
 .. code-block:: solidity
     :force:

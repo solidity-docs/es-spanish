@@ -1,37 +1,27 @@
 .. _inline-assembly:
 
 ###############
-Inline Assembly
+Ensamblado en línea
 ###############
 
 .. index:: ! assembly, ! asm, ! evmasm
 
+Puedes intercalar declaraciones de Solidity con ensamblado en línea en un lenguaje cercano al de la Máquina Virtual de EThereum. Esto te brinda un control más preciso, especialmente útil cuando estás mejorando el lenguaje escribiendo librerías.
 
-You can interleave Solidity statements with inline assembly in a language close
-to the one of the Ethereum Virtual Machine. This gives you more fine-grained control,
-which is especially useful when you are enhancing the language by writing libraries.
-
-The language used for inline assembly in Solidity is called :ref:`Yul <yul>`
-and it is documented in its own section. This section will only cover
-how the inline assembly code can interface with the surrounding Solidity code.
+El lenguaje utilizado para el ensamblado en línea en Solidity se llama :ref:`Yul <yul>` y está documentado en su propia sección. Esta sección solo cubre cómo el código de ensamblado en línea puede interactuar con el código en Solidity que lo rodea.
 
 
 .. warning::
-    Inline assembly is a way to access the Ethereum Virtual Machine
-    at a low level. This bypasses several important safety
-    features and checks of Solidity. You should only use it for
-    tasks that need it, and only if you are confident with using it.
+    El ensamblado en línea es una forma de acceder a la Máquina Virtual de Ethereum aun nivel bajo. Esto evita varias características y comprobacionoes de seguridad importantes de Solidity. Solo debes usarlo para tareas que lo necesiten y solo si tienes confianza en su uso.
 
 
-An inline assembly block is marked by ``assembly { ... }``, where the code inside
-the curly braces is code in the :ref:`Yul <yul>` language.
+Un bloque de ensamblado en línea está marcado con ``assembly { ... }``, donode el código dentro de las llaves es código en el lenguaje :ref:`Yul <yul>`.
 
-The inline assembly code can access local Solidity variables as explained below.
+El código de ensablado en línea puede acceder variables locales de solidity como se explica a continuación.
 
-Different inline assembly blocks share no namespace, i.e. it is not possible
-to call a Yul function or access a Yul variable defined in a different inline assembly block.
+Los diferentes bloques de ensamblado en línea no comparten ningún espacio de nombres, por ejemplo, no es posible llamar a una función Yul o acceder a una variable Yul definida en un bloque de ensamblado en línea diferente.
 
-Example
+Ejemplo
 -------
 
 The following example provides library code to access the code of another contract and

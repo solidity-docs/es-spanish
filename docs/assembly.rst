@@ -161,66 +161,36 @@ Las variables locales en Solidity están disponibles para asignaciones, por ejem
     }
 
 .. warning::
-    If you access variables of a type that spans less than 256 bits
-    (for example ``uint64``, ``address``, or ``bytes16``),
-    you cannot make any assumptions about bits not part of the
-    encoding of the type. Especially, do not assume them to be zero.
-    To be safe, always clear the data properly before you use it
-    in a context where this is important:
-    ``uint32 x = f(); assembly { x := and(x, 0xffffffff) /* now use x */ }``
-    To clean signed types, you can use the ``signextend`` opcode:
-    ``assembly { signextend(<num_bytes_of_x_minus_one>, x) }``
+    Si accedes a variables de un tipo que abarque menos de 256 bits (por ejemplo, ``uint64``, ``address``, o ``bytes16``), no puedes hacer ninguna suposicón acerca de bits que no son parte de la codificación del tipo. Especialmente, no debes suponer que son cero. Para estar seguro, siempre limpia de forma adecuada los datos antes de utilizarlos en un contexto en el que esto sea importante: ``uint32 x = f(); assembly { x := and(x, 0xffffffff) /* now use x */ }`` Para limpiar tipoos firmados, puedes usar el código de operación: ``assembly { signextend(<num_bytes_of_x_minus_one>, x) }``
 
 
-Since Solidity 0.6.0, the name of a inline assembly variable may not
-shadow any declaration visible in the scope of the inline assembly block
-(including variable, contract and function declarations).
+Desde Solidity 0.6.0, puede que el nombre de una variable de ensamblado en línea no oculte ninguna declaración visible en el ámbito del bloque de ensamblado en línea (incluyendo declaraciones de variables, contratos y funciones).
 
-Since Solidity 0.7.0, variables and functions declared inside the
-inline assembly block may not contain ``.``, but using ``.`` is
-valid to access Solidity variables from outside the inline assembly block.
+Desde Solidity 0.7.0, puede que las variables y funciones declaradas dentro del bloque de ensamblado en línea no contengan ``.``, pero usar ``.`` es válido para acceder a las variables de Solidity desde fuera del bloque de ensamblado en línea.
 
-Things to Avoid
+Cosas a evitar
 ---------------
 
-Inline assembly might have a quite high-level look, but it actually is extremely
-low-level. Function calls, loops, ifs and switches are converted by simple
-rewriting rules and after that, the only thing the assembler does for you is re-arranging
-functional-style opcodes, counting stack height for
-variable access and removing stack slots for assembly-local variables when the end
-of their block is reached.
+El ensamblado en línea puede tener un aspecto de alto nivel, pero en realidad es bastante de bajo nivel. Las llamadas a funciones, bucles, condiciones y conmutadores se convierten mediante reglas de reescritura simples, después de eso lo único que hace el ensamblador por ti es reorganizar las instrucciones de estilo funcional de los códigos de operación, contar la altura del stack para acceder a las variables y eliminar los espacios del stack de las variables locales al ensamblado cuando se alcanza el final de su bloque.
 
 .. _conventions-in-solidity:
 
-Conventions in Solidity
+Convenciones en Solidity
 -----------------------
 
 .. _assembly-typed-variables:
 
-Values of Typed Variables
+Valores de variables con tipo
 =========================
 
-In contrast to EVM assembly, Solidity has types which are narrower than 256 bits,
-e.g. ``uint24``. For efficiency, most arithmetic operations ignore the fact that
-types can be shorter than 256
-bits, and the higher-order bits are cleaned when necessary,
-i.e., shortly before they are written to memory or before comparisons are performed.
-This means that if you access such a variable
-from within inline assembly, you might have to manually clean the higher-order bits
-first.
+En contraste con el ensamblado EVM, Solidity tiene tipos más estrechos que 256 bits, como ``uint24``. Por eficiencia, la mayoría de operaciones aritméticas ignoran el hecho de que los tipos pueden ser más cortos que 256 bits y se limpian los bits de mayor orden cuandoo es necesario, es decir, poco antes de que sean escritas en la memoria o antes de realizar comparaciones. Esto significa que si accedes a una variable de este tipo desde el ensamblado en línea, es posible que primero tengas que limpiar manualmente los bits de mayor orden.
 
 .. _assembly-memory-management:
 
-Memory Management
+Gestión de memoria
 =================
 
-Solidity manages memory in the following way. There is a "free memory pointer"
-at position ``0x40`` in memory. If you want to allocate memory, use the memory
-starting from where this pointer points at and update it.
-There is no guarantee that the memory has not been used before and thus
-you cannot assume that its contents are zero bytes.
-There is no built-in mechanism to release or free allocated memory.
-Here is an assembly snippet you can use for allocating memory that follows the process outlined above:
+Solidity maneja la memoria de la siguiente forma. Hay un "puntero de memoria libre" en la posición ``0x40`` de la memoria. Si quieres asignar memoria, usa la memoria a partir de donde apunta ese puntero y actualiza el mismo. No hay garantía de que la memoria no haya sido utilizada anteriormente y por lo tanto no puedes asumir que sean bytes en cero. No hay un mecanismo incorporado para soltar o liberar memoria asignada. Aquí tienes un fragmento de ensamblado que puedes usar para asignar memoria siguiendo el proceso descrito anteriormente:
 
 .. code-block:: yul
 
@@ -229,22 +199,12 @@ Here is an assembly snippet you can use for allocating memory that follows the p
       mstore(0x40, add(pos, length))
     }
 
-The first 64 bytes of memory can be used as "scratch space" for short-term
-allocation. The 32 bytes after the free memory pointer (i.e., starting at ``0x60``)
-are meant to be zero permanently and is used as the initial value for
-empty dynamic memory arrays.
-This means that the allocatable memory starts at ``0x80``, which is the initial value
-of the free memory pointer.
+Los primeros 64 bytes de memoria pueden usarse como "espacio temporal" para asignaciones a corto plazo. Los siguientes 32 bytes tras el puntero de memoria libre (es decir, a partir de ``0x60``) están destinados a ser cero permanentemente y se usan como valor inicial para los arrays de memoria dinámica vacíos. Esto significa que la memoria asignable comienza en ``0x80``, que es el valor inicial del puntero de memoria libre.
 
-Elements in memory arrays in Solidity always occupy multiples of 32 bytes (this is
-even true for ``bytes1[]``, but not for ``bytes`` and ``string``). Multi-dimensional memory
-arrays are pointers to memory arrays. The length of a dynamic array is stored at the
-first slot of the array and followed by the array elements.
+Los elementos en los arrays de memoria de Solidity siempre ocupan múltiplos de 32 bytes (esto es cierto también para ``bytes1[]``, pero no para ``bytes`` y ``string``). Los arrays de memoria multidimensionales son punteros a a arrays de memoria. La longitud de un array dinámico se almacena en el primer espacio del array que le sigue, seguido por los elementos del array.
 
 .. warning::
-    Statically-sized memory arrays do not have a length field, but it might be added later
-    to allow better convertibility between statically and dynamically-sized arrays; so,
-    do not rely on this.
+    Los arrays de memoria de tamaño estático no tienen un campo de longitud, pero puede ser que se añada más adelante para permitir una mejor conversión entre arrays de tamaño estático y dinámico; así que no dependas de esto.
 
 Memory Safety
 =============

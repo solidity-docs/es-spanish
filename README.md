@@ -12,9 +12,9 @@ Por otro lado, también puedes encontrar la versión más actualizada de toda la
 
 Moderadores:
 
-- DanielMart-tech
-- elijahhampton
-- mektigboy
+- [DanielMart-tech]([url](https://github.com/DanielMart-tech))
+- [elijahhampton]([url](https://github.com/elijahhampton))
+- [mektigboy]([url](https://github.com/mektigboy))
 
 ### Para participar en la traducción:
 
@@ -24,6 +24,8 @@ Debes clonar este repositorio, traducir la página que seleccionaste, y hacer un
 Antes de contribuir, lee el glosario y la guía de estilo (si es que existen, encontrarás los respectivos links aquí mismo) para comprender cómo traducir algunos términos específicos de Solidity y Ethereum.
 
 Toma en cuenta que debes ser rápido con tus traducciones. En caso de que ya no puedas seguir con la traducción, debes comunicarte con los moderadores para que puedan asignar la página a alguien más.
+
+Puedes encontrar una lista de las páginas que están siendo trabajadas o están todavía por ser traducidas en [Lista de control del progreso de la traducción]([url](progress-checklist.md))
 
 > Nota: Cualquier persona que desee contribuir a la documentación oficial en Español de Solidity es libre de hacerlo.
 

@@ -206,21 +206,14 @@ Los elementos en los arrays de memoria de Solidity siempre ocupan múltiplos de 
 .. warning::
     Los arrays de memoria de tamaño estático no tienen un campo de longitud, pero puede ser que se añada más adelante para permitir una mejor conversión entre arrays de tamaño estático y dinámico; así que no dependas de esto.
 
-Memory Safety
+Seguridad de la memoria
 =============
 
-Without the use of inline assembly, the compiler can rely on memory to remain in a well-defined
-state at all times. This is especially relevant for :ref:`the new code generation pipeline via Yul IR <ir-breaking-changes>`:
-this code generation path can move local variables from stack to memory to avoid stack-too-deep errors and
-perform additional memory optimizations, if it can rely on certain assumptions about memory use.
+Sin el uso del ensamblado en línea, el compilador puede confiar en que la memoria permanezca en un estado bien definido en todo momento. Esto es especialmente relevante para :ref:`la nueva ruta de generación de código a través de Yul IR <ir-breaking-changes>`: esta vía de generación de código puede mover variables locales del stack  a la memoria para evitar errores de stack demasiado profundos y realizar optimizaciones de memoria adicionales, si puede confiar en ciertas suposiciones sobre el uso de la memoria.
 
-While we recommend to always respect Solidity's memory model, inline assembly allows you to use memory
-in an incompatible way. Therefore, moving stack variables to memory and additional memory optimizations are,
-by default, globally disabled in the presence of any inline assembly block that contains a memory operation
-or assigns to Solidity variables in memory.
+Aunque recomendamos siempre respetar el modelo de memoria de Solidity, el ensamblado en línea te permite usar la memoria de una manera incompatible. Por lo tanto, el traslado de variables del stack a la memoria y las optimizaicones adicionales están deshabilitadas globalmente por defecto en la presencia de cualquier bloque de ensamblado en línea que contenga una operación de memoria o asigne variables de Solidity en la memoria.
 
-However, you can specifically annotate an assembly block to indicate that it in fact respects Solidity's memory
-model as follows:
+Sin embargo, puede anotar específicamente un bloque de ensamblado para indicar que, de hecho, respeta el modelo de memoria de Solidity de la siguiente manera:
 
 .. code-block:: solidity
 
@@ -228,20 +221,16 @@ model as follows:
         ...
     }
 
-In particular, a memory-safe assembly block may only access the following memory ranges:
+En particular, un bloque de ensamblado seguro en cuanto a la memoria solo puede acceder a los siguientes intervalos de memoria:
 
-- Memory allocated by yourself using a mechanism like the ``allocate`` function described above.
-- Memory allocated by Solidity, e.g. memory within the bounds of a memory array you reference.
-- The scratch space between memory offset 0 and 64 mentioned above.
-- Temporary memory that is located *after* the value of the free memory pointer at the beginning of the assembly block,
-  i.e. memory that is "allocated" at the free memory pointer without updating the free memory pointer.
+- Memoria asignada por ti mismo usando un mecanismo como la función ``allocate`` descrita anteriormente.
+- Memoria asignada por Solidity, por ejemplo, memoria dentro de los límites de una matriz de memoria a la que haces referencia.
+- El espacio de memoria virtual entre el offset de memoria 0 y 64 mencionados anteriormente.
+- Memoria temporal que se encuentra *después* del valor del puntero de meoria libre al comienzo del bloque de ensamblado, es decir, memoria que se "asigna" al puntero de memoria libre sin actualizar el puntero de memoria libre.
 
-Furthermore, if the assembly block assigns to Solidity variables in memory, you need to assure that accesses to
-the Solidity variables only access these memory ranges.
+Además, si el bloque de ensamblado asigna variables de Solidity en la memoria, debes asegurarte de que los accesos a las variables de Solidity solo accedan a estos intervalos de memoria.
 
-Since this is mainly about the optimizer, these restrictions still need to be followed, even if the assembly block
-reverts or terminates. As an example, the following assembly snippet is not memory safe, because the value of
-``returndatasize()`` may exceed the 64 byte scratch space:
+Dado que esto se trata principalmente del optimizador, estas restricciones todavía deben seguirse, incluso si el bloque de ensamblado se revierte o termina. Como ejemplo, el siguiente fragmento de ensamblado no es seguro en cuanto a la memoria, ya que el valor de ``returndatasize()`` puede exceder el espacio temporal de 64 bytes:
 
 .. code-block:: solidity
 
@@ -250,8 +239,7 @@ reverts or terminates. As an example, the following assembly snippet is not memo
       revert(0, returndatasize())
     }
 
-On the other hand, the following code *is* memory safe, because memory beyond the location pointed to by the
-free memory pointer can safely be used as temporary scratch space:
+Por el otro lado, el siguiente código *es* seguro en cuanto a la memoria, porque la memoria más allá de la ubicación apuntada por el puntero de memoria libre se puede usar con seguridad como espacio temporal de memoria virtual:
 
 .. code-block:: solidity
 
@@ -261,10 +249,9 @@ free memory pointer can safely be used as temporary scratch space:
       revert(p, returndatasize())
     }
 
-Note that you do not need to update the free memory pointer if there is no following allocation,
-but you can only use memory starting from the current offset given by the free memory pointer.
+Ten en cuenta que no necesitas actualizar el puntero de memoria libre si no hay una asignación posterior, pero solo puedes usar la memoria a partir de la dirección actual dad por el puntero de memoria libre.
 
-If the memory operations use a length of zero, it is also fine to just use any offset (not only if it falls into the scratch space):
+Si las operaciones de memoria usan una lonogitud cero, también es aceptable usar cualquier offset (no solo si cae en el espacio temporal):
 
 .. code-block:: solidity
 
@@ -272,8 +259,7 @@ If the memory operations use a length of zero, it is also fine to just use any o
       revert(0, 0)
     }
 
-Note that not only memory operations in inline assembly itself can be memory-unsafe, but also assignments to
-Solidity variables of reference type in memory. For example the following is not memory-safe:
+Ten en cuenta que no solo las operaciones de memoria en ensamblado en línea en sí pueden ser inseguras en cuanto a la memoria, pero también las asignaciones a variables de Solidity de tipo referencia en memoria. Por ejemplo, esto no es seguro para la memoria:
 
 .. code-block:: solidity
 
@@ -283,16 +269,12 @@ Solidity variables of reference type in memory. For example the following is not
     }
     x[0x20] = 0x42;
 
-Inline assembly that neither involves any operations that access memory nor assigns to any Solidity variables
-in memory is automatically considered memory-safe and does not need to be annotated.
+El ensamblado en línea que no involucra ninguna operación que acceda a la memoria ni asigna ninguna variable de Solidity en la memoria se considera automáticamente seguro para la memoria y no necesita ser anotado.
 
 .. warning::
-    It is your responsibility to make sure that the assembly actually satisfies the memory model. If you annotate
-    an assembly block as memory-safe, but violate one of the memory assumptions, this **will** lead to incorrect and
-    undefined behaviour that cannot easily be discovered by testing.
-
-In case you are developing a library that is meant to be compatible across multiple versions
-of Solidity, you can use a special comment to annotate an assembly block as memory-safe:
+    Es tu responsabilidad asegurarte de que el ensamblado realmente cumpla el modelo de memoria. Si anotas un bloque de ensamblado cmoo seguro en cuanto a la memoria, pero viola una de las suposiciones de la memoria, esto *provocará* a un comportamiento incorrecto e indeterminado que no puede descubrirse con facilidad mediante pruebas.
+    
+En caso de que estes desarrollando una biblioteca que esté destinada a ser compatible con varias versiones de Solidity, puedes usar un comentario especial para anotar un bloque de ensamblado como seguro en cuanto a la memoria:
 
 .. code-block:: solidity
 
@@ -301,5 +283,4 @@ of Solidity, you can use a special comment to annotate an assembly block as memo
         ...
     }
 
-Note that we will disallow the annotation via comment in a future breaking release; so, if you are not concerned with
-backwards-compatibility with older compiler versions, prefer using the dialect string.
+Ten en cuenta que en una futura versión deshabilitaremos la anotación mediante comentarios. Si no te preocupa la compatibilidad con versiones anteriores del compilador, preferiblemente usa la secuencia de dialecto.

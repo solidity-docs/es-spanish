@@ -4,12 +4,22 @@
 Tipos Mapping
 =============
 
+<<<<<<< HEAD
 Los tipos mapping usan la sintaxis ``mapping(KeyType => ValueType)`` y las variables
 del tipo mapping son declaradas usando la sintaxis ``mapping(KeyType => ValueType) VariableName``.
 Donde  ``KeyType`` puede ser cualquier tipo estándar, ``bytes``, ``string``, cualquier contrato 
 o un tipo enum. Sin embargo, tipos definidos por el propio usuario o tipos complejos, como 
 mappings, structs o arrays no están permitidos para ``KeyType``. Por otro lado, para ``ValueType``,
 puede ser cualquier tipo, incluyendo mappings, arrays o structs.
+=======
+Mapping types use the syntax ``mapping(KeyType KeyName? => ValueType ValueName?)`` and variables of
+mapping type are declared using the syntax ``mapping(KeyType KeyName? => ValueType ValueName?)
+VariableName``. The ``KeyType`` can be any built-in value type, ``bytes``, ``string``, or any
+contract or enum type. Other user-defined or complex types, such as mappings, structs or array types
+are not allowed. ``ValueType`` can be any type, including mappings, arrays and structs. ``KeyName``
+and ``ValueName`` are optional (so ``mapping(KeyType => ValueType)`` works as well) and can be any
+valid identifier that is not a type.
+>>>>>>> english/develop
 
 Puede pensar en los mappings como `tablas hash <https://es.wikipedia.org/wiki/Tabla_hash>`_, las
 cuales se inicializan virtualmente, asumiendo que ya existen todas las posibles claves, y donde 
@@ -28,12 +38,22 @@ o como parámetros de funciones de librerías. Pero no se pueden usar como pará
 como retorno de funciones públicamente visibles de un contrato. Y estas mismas 
 restricciones también se aplican para arrays y structs los cuales contengan mappings.
 
+<<<<<<< HEAD
 Puede marcar variables de estado de tipo mapping como ``public`` y así Solidity creará una
 :ref:`función get (getter) <visibility-and-getters>` por ti. El ``KeyType`` se convertirá en
 un parámetro de la función get.
 Si ``ValueType`` es un tipo de valor o un struct, la función get retornará ``ValueType``.
 Si ``ValueType`` es un array o un mapping, la función get tendrá un parámetro por cada
 ``KeyType``, recursivamente.
+=======
+You can mark state variables of mapping type as ``public`` and Solidity creates a
+:ref:`getter <visibility-and-getters>` for you. The ``KeyType`` becomes a parameter
+with name ``KeyName`` (if specified) for the getter.
+If ``ValueType`` is a value type or a struct, the getter returns ``ValueType`` with
+name ``ValueName`` (if specified).
+If ``ValueType`` is an array or a mapping, the getter has one parameter for
+each ``KeyType``, recursively.
+>>>>>>> english/develop
 
 En el siguiente ejemplo, el contrato ``MappingExample`` define un mapping público ``balances``,
 donde el tipo de clave es un tipo ``address``, y el tipo de valor es un tipo ``uint``,
@@ -63,11 +83,37 @@ especificada.
         }
     }
 
+<<<<<<< HEAD
 El siguiente ejemplo es una versión simplificada de un 
 `Token ERC20 <https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol>`_.
 ``_allowances`` es un ejemplo de un tipo mapping dentro de otro tipo mapping.
 El ejemplo de a continuación usa ``_allowances`` para registrar el importe total que otra persona puede retirar 
 desde su cuenta.
+=======
+The example below is a simplified version of an
+`ERC20 token <https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol>`_.
+``_allowances`` is an example of a mapping type inside another mapping type.
+
+In the example below, the optional ``KeyName`` and ``ValueName`` are provided for the mapping.
+It does not affect any contract functionality or bytecode, it only sets the ``name`` field
+for the inputs and outputs in the ABI for the mapping's getter.
+
+.. code-block:: solidity
+
+    // SPDX-License-Identifier: GPL-3.0
+    pragma solidity ^0.8.18;
+
+    contract MappingExampleWithNames {
+        mapping(address user => uint balance) public balances;
+
+        function update(uint newBalance) public {
+            balances[msg.sender] = newBalance;
+        }
+    }
+
+
+The example below uses ``_allowances`` to record the amount someone else is allowed to withdraw from your account.
+>>>>>>> english/develop
 
 .. code-block:: solidity
 

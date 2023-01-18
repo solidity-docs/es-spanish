@@ -4,12 +4,14 @@
 Tipos Mapping
 =============
 
-Los tipos mapping usan la sintaxis ``mapping(KeyType => ValueType)`` y las variables
-del tipo mapping son declaradas usando la sintaxis ``mapping(KeyType => ValueType) VariableName``.
+Los tipos mapping usan la sintaxis ``mapping(KeyType KeyName? => ValueType ValueName?)`` y las variables
+del tipo mapping son declaradas usando la sintaxis ``mapping(KeyType KeyName? => ValueType ValueName?) VariableName``.
 Donde  ``KeyType`` puede ser cualquier tipo estándar, ``bytes``, ``string``, cualquier contrato 
 o un tipo enum. Sin embargo, tipos definidos por el propio usuario o tipos complejos, como 
 mappings, structs o arrays no están permitidos para ``KeyType``. Por otro lado, para ``ValueType``,
-puede ser cualquier tipo, incluyendo mappings, arrays o structs.
+puede ser cualquier tipo, incluyendo mappings, arrays o structs. ``KeyName``
+y ``ValueName`` son opcionales (por lo que ``mapping(KeyType => ValueType)`` también funciona) y pueden ser cualquier
+identificador válido que no sea un tipo.
 
 Puede pensar en los mappings como `tablas hash <https://es.wikipedia.org/wiki/Tabla_hash>`_, las
 cuales se inicializan virtualmente, asumiendo que ya existen todas las posibles claves, y donde 
@@ -63,11 +65,28 @@ especificada.
         }
     }
 
-El siguiente ejemplo es una versión simplificada de un 
-`Token ERC20 <https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol>`_.
-``_allowances`` es un ejemplo de un tipo mapping dentro de otro tipo mapping.
-El ejemplo de a continuación usa ``_allowances`` para registrar el importe total que otra persona puede retirar 
-desde su cuenta.
+El siguiente ejemplo es una versión simplificada de un
+`ERC20 token <https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol>`_.
+
+``_allowances`` es un ejemplo de un tipo de asignación dentro de otro tipo de asignación.
+
+En el siguiente ejemplo, los campos opcionales ``KeyName`` y ``ValueName`` son proporcionados para el mapeo.
+No afecta a ninguna funcionalidad del contrato ni al bytecode, sólo establece el campo ``name`` para las entradas y salidas en la ABI para el getter de la asignación.
+
+.. code-block:: solidity
+
+    // SPDX-License-Identifier: GPL-3.0
+    pragma solidity ^0.8.18;
+
+    contract MappingExampleWithNames {
+        mapping(address user => uint balance) public balances;
+
+        function update(uint newBalance) public {
+            balances[msg.sender] = newBalance;
+        }
+    }
+
+El siguiente ejemplo utiliza ``_allowances`` para registrar la cantidad que otra persona puede retirar de su cuenta.
 
 .. code-block:: solidity
 

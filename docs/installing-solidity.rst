@@ -327,10 +327,18 @@ A continuación las dependencias para todas las compilaciones de Solidity:
 +-----------------------------------+-------------------------------------------------------+
 | Software                          | Notas                                                 |
 +===================================+=======================================================+
+<<<<<<< HEAD
 | `CMake`_ (version 3.13+)          | Generadord de código fuente multiplataforma.          |
 +-----------------------------------+-------------------------------------------------------+
 | `Boost`_ (version 1.77+ en        | Librerías de C++.                                     |
 | Windows, 1.65+ en otros)          |                                                       |
+=======
+| `CMake`_ (version 3.21.3+ on      | Cross-platform build file generator.                  |
+| Windows, 3.13+ otherwise)         |                                                       |
++-----------------------------------+-------------------------------------------------------+
+| `Boost`_ (version 1.77 on         | C++ libraries.                                        |
+| Windows, 1.65+ otherwise)         |                                                       |
+>>>>>>> english/develop
 +-----------------------------------+-------------------------------------------------------+
 | `Git`_                            | Software de línea de comandos para obtener código     |
 |                                   | fuente.                                               |
@@ -422,7 +430,11 @@ Necesitará instalar las siguientes dependencias para compilar Solidity en Windo
 +-----------------------------------+-------------------------------------------------------+
 | `Visual Studio 2019`_  (Opcional) | Compilador de C++ y entorno de desarrollo             |
 +-----------------------------------+-------------------------------------------------------+
+<<<<<<< HEAD
 | `Boost`_ (versión 1.77+)          | Librerías de C++                                      |
+=======
+| `Boost`_ (version 1.77)           | C++ libraries.                                        |
+>>>>>>> english/develop
 +-----------------------------------+-------------------------------------------------------+
 
 Si ya tiene un IDE y solo necesita instalar el compilador y las librerías, puede instalar

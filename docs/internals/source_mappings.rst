@@ -1,4 +1,4 @@
-.. index:: asignaciones de origen
+.. index:: source mappings
 
 **********************
 Asignaciones de origen

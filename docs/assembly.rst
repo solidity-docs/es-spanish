@@ -24,7 +24,7 @@ Los diferentes bloques de ensamblado en línea no comparten ningún espacio de n
 Ejemplo
 -------
 
-El siguiente ejemplo proporciona código de la librería para acceder al código de otro contrato y cargarlo en una variable ``bytes``. Esto también es posible con "Solidity plano" usando ``<dirección>.code``. Pero el punto aquí es que las librerías de ensamblado reutilizables pueden mejorar Solidity sin un cambio en el compilador.
+El siguiente ejemplo proporciona código de la librería para acceder al código de otro contrato y cargarlo en una variable ``bytes``. Esto también es posible con "Solidity plano" usando ``<address>.code``. Pero el punto aquí es que las librerías de ensamblado reutilizables pueden mejorar Solidity sin un cambio en el compilador.
 
 .. code-block:: solidity
 

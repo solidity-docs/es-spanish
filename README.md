@@ -12,9 +12,9 @@ Por otro lado, también puedes encontrar la versión más actualizada de toda la
 
 Moderadores:
 
-- DanielMart-tech
-- elijahhampton
-- mektigboy
+- [DanielMart-tech]([url](https://github.com/DanielMart-tech))
+- [elijahhampton]([url](https://github.com/elijahhampton))
+- [mektigboy]([url](https://github.com/mektigboy))
 
 ### Para participar en la traducción:
 

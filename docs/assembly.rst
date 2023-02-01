@@ -1,43 +1,30 @@
 .. _inline-assembly:
 
 ###############
-Inline Assembly
+Ensamblado en línea
 ###############
 
 .. index:: ! assembly, ! asm, ! evmasm
 
+Puedes intercalar declaraciones de Solidity con ensamblado en línea en un lenguaje cercano al de la Máquina Virtual de Ethereum. Esto te brinda un control más preciso, especialmente útil cuando estás mejorando el lenguaje escribiendo librerías.
 
-You can interleave Solidity statements with inline assembly in a language close
-to the one of the Ethereum Virtual Machine. This gives you more fine-grained control,
-which is especially useful when you are enhancing the language by writing libraries.
-
-The language used for inline assembly in Solidity is called :ref:`Yul <yul>`
-and it is documented in its own section. This section will only cover
-how the inline assembly code can interface with the surrounding Solidity code.
+El lenguaje utilizado para el ensamblado en línea en Solidity se llama :ref:`Yul <yul>` y está documentado en su propia sección. Esta sección solo cubre cómo el código de ensamblado en línea puede interactuar con el código en Solidity que lo rodea.
 
 
 .. warning::
-    Inline assembly is a way to access the Ethereum Virtual Machine
-    at a low level. This bypasses several important safety
-    features and checks of Solidity. You should only use it for
-    tasks that need it, and only if you are confident with using it.
+    El ensamblado en línea es una forma de acceder a la Máquina Virtual de Ethereum aun nivel bajo. Esto evita varias características y comprobaciones de seguridad importantes de Solidity. Solo debes usarlo para tareas que lo necesiten y solo si tienes confianza en su uso.
 
 
-An inline assembly block is marked by ``assembly { ... }``, where the code inside
-the curly braces is code in the :ref:`Yul <yul>` language.
+Un bloque de ensamblado en línea está marcado con ``assembly { ... }``, donde el código dentro de las llaves es código en el lenguaje :ref:`Yul <yul>`.
 
-The inline assembly code can access local Solidity variables as explained below.
+El código de ensamblado en línea puede acceder variables locales de Solidity como se explica a continuación.
 
-Different inline assembly blocks share no namespace, i.e. it is not possible
-to call a Yul function or access a Yul variable defined in a different inline assembly block.
+Los diferentes bloques de ensamblado en línea no comparten ningún espacio de nombres, por ejemplo, no es posible llamar a una función Yul o acceder a una variable Yul definida en un bloque de ensamblado en línea diferente.
 
-Example
+Ejemplo
 -------
 
-The following example provides library code to access the code of another contract and
-load it into a ``bytes`` variable. This is possible with "plain Solidity" too, by using
-``<address>.code``. But the point here is that reusable assembly libraries can enhance the
-Solidity language without a compiler change.
+El siguiente ejemplo proporciona código de la librería para acceder al código de otro contrato y cargarlo en una variable ``bytes``. Esto también es posible con "Solidity plano" usando ``<address>.code``. Pero el punto aquí es que las librerías de ensamblado reutilizables pueden mejorar Solidity sin un cambio en el compilador.
 
 .. code-block:: solidity
 
@@ -47,23 +34,22 @@ Solidity language without a compiler change.
     library GetCode {
         function at(address addr) public view returns (bytes memory code) {
             assembly {
-                // retrieve the size of the code, this needs assembly
+                // recuperar el tamaño del código, esto necesita ensamblaje
                 let size := extcodesize(addr)
-                // allocate output byte array - this could also be done without assembly
-                // by using code = new bytes(size)
+                // asignar el arreglo de bytes de salida, esto también podría hacerse sin ensamblaje
+                // utilizando code = new bytes(size)
                 code := mload(0x40)
-                // new "memory end" including padding
+                // nuevo "fin de memoria" incluyendo relleno
                 mstore(0x40, add(code, and(add(add(size, 0x20), 0x1f), not(0x1f))))
-                // store length in memory
+                // almacenar longitud en memoria
                 mstore(code, size)
-                // actually retrieve the code, this needs assembly
+                // recuperar realmente el código, esto necesita ensamblaje
                 extcodecopy(addr, add(code, 0x20), 0, size)
             }
         }
     }
 
-Inline assembly is also beneficial in cases where the optimizer fails to produce
-efficient code, for example:
+El ensamblado en línea también es beneficioso en casos en los que el optimizador no logra producir código eficiente, por ejemplo:
 
 .. code-block:: solidity
 
@@ -72,16 +58,17 @@ efficient code, for example:
 
 
     library VectorSum {
-        // This function is less efficient because the optimizer currently fails to
-        // remove the bounds checks in array access.
+        // Esta función es menos eficiente porque actualmente el optimizador
+        // no puede eliminar las comprobaciones de límites en el acceso a arreglo.
         function sumSolidity(uint[] memory data) public pure returns (uint sum) {
             for (uint i = 0; i < data.length; ++i)
                 sum += data[i];
         }
 
-        // We know that we only access the array in bounds, so we can avoid the check.
-        // 0x20 needs to be added to an array because the first slot contains the
-        // array length.
+        // Sabemos que solo accedemos al arreglo dentro de los límites, por lo que podemos
+        // evitar la comprobación.
+        // 0x20 se debe añadir a un arreglo porque el primer espacio contiene la
+        // longitud del arreglo.
         function sumAsm(uint[] memory data) public pure returns (uint sum) {
             for (uint i = 0; i < data.length; ++i) {
                 assembly {
@@ -90,21 +77,21 @@ efficient code, for example:
             }
         }
 
-        // Same as above, but accomplish the entire code within inline assembly.
+        // Al igual que el anterior, pero realizando todo el código dentro de ensamblado en línea.
         function sumPureAsm(uint[] memory data) public pure returns (uint sum) {
             assembly {
-                // Load the length (first 32 bytes)
+                // Cargar la longitud (los primeros 32 bytes)
                 let len := mload(data)
 
-                // Skip over the length field.
+                // Saltar el campo de longitud.
                 //
-                // Keep temporary variable so it can be incremented in place.
+                // Mantener la variable temporal para que pueda ser incrementada en su lugar.
                 //
-                // NOTE: incrementing data would result in an unusable
-                //       data variable after this assembly block
+                // NOTA: incrementar los datos resultaría en una variable de datos inutilizable
+                //       después de este bloque de ensamblado
                 let dataElementLocation := add(data, 0x20)
 
-                // Iterate until the bound is not met.
+                // Iterar hasta que no se cumpla el límite.
                 for
                     { let end := add(dataElementLocation, mul(len, 0x20)) }
                     lt(dataElementLocation, end)
@@ -118,28 +105,20 @@ efficient code, for example:
 
 .. index:: selector; of a function
 
-Access to External Variables, Functions and Libraries
+Acceso a variables, funciones y librerías externas
 -----------------------------------------------------
 
-You can access Solidity variables and other identifiers by using their name.
+Puedes acceder a las variables y otros identificadores de Solidity utilizando su nombre.
 
-Local variables of value type are directly usable in inline assembly.
-They can both be read and assigned to.
+Las variables locales de tipo valor son directamente utilizables en el ensamblado en línea.
+Ambas se pueden leer y asignar.
 
-Local variables that refer to memory evaluate to the address of the variable in memory, not the value itself.
-Such variables can also be assigned to, but note that an assignment will only change the pointer and not the data
-and that it is your responsibility to respect Solidity's memory management.
-See :ref:`Conventions in Solidity <conventions-in-solidity>`.
+Las variables locales que hacen referencia a memoria evalúan la dirección de la variable en memoria, no el valor en sí.
+Tales variables también se pueden asignar, pero ten en cuenta que una asignación solo cambiará hacia donde apunta y no los datos, también que es tu responsabilidad respetar la gestión de memoria de Solidity. Ver :ref:`Convenciones en Solidity <conventions-in-solidity>`.
 
-Similarly, local variables that refer to statically-sized calldata arrays or calldata structs
-evaluate to the address of the variable in calldata, not the value itself.
-The variable can also be assigned a new offset, but note that no validation is performed to ensure that
-the variable will not point beyond ``calldatasize()``.
+Del mismo modo, las variables locales que hacen referencia a arreglos de calldata de tamaño estático o estructuras calldata evalúan la dirección de la variable en calldata, no el valor en sí. También se le puede asignar un nuevo offset a la variable, pero ten en cuenta que no se realiza ninguna validación para asegurar que la variable no apunte más allá de ``calldatasize()``.
 
-For external function pointers the address and the function selector can be
-accessed using ``x.address`` and ``x.selector``.
-The selector consists of four right-aligned bytes.
-Both values can be assigned to. For example:
+Para los punteros de función externos, la dirección y el selector de función pueden accederse usando ``x.address`` y ``x.selector``. El selector consiste de cuatro bytes alineados a la derecha. Ambos valores se pueden asignar. Por ejemplo:
 
 .. code-block:: solidity
     :force:
@@ -148,7 +127,7 @@ Both values can be assigned to. For example:
     pragma solidity >=0.8.10 <0.9.0;
 
     contract C {
-        // Assigns a new selector and address to the return variable @fun
+        // Asigna un nuevo selector y dirección a la variable de retorno @fun
         function combineToFunctionPointer(address newAddress, uint newSelector) public pure returns (function() external fun) {
             assembly {
                 fun.selector := newSelector
@@ -157,24 +136,13 @@ Both values can be assigned to. For example:
         }
     }
 
-For dynamic calldata arrays, you can access
-their calldata offset (in bytes) and length (number of elements) using ``x.offset`` and ``x.length``.
-Both expressions can also be assigned to, but as for the static case, no validation will be performed
-to ensure that the resulting data area is within the bounds of ``calldatasize()``.
+Para los arreglos dinámicos de calldata, puedes acceder a su offset de calldata (en bytes) y longitud (número de elementos) utilizando ``x.offset`` y ``x.length``. Ambas expresiones también pueden ser asignadas, pero como en el caso estático, no se realizará ninguna validación para asegurarse que el área de datos resultante esté dentro de los límites de ``calldatasize()``.
 
-For local storage variables or state variables, a single Yul identifier
-is not sufficient, since they do not necessarily occupy a single full storage slot.
-Therefore, their "address" is composed of a slot and a byte-offset
-inside that slot. To retrieve the slot pointed to by the variable ``x``, you
-use ``x.slot``, and to retrieve the byte-offset you use ``x.offset``.
-Using ``x`` itself will result in an error.
+Para las variables de almacenamiento local, o variables de estado, un identificador único Yul no es suficiente ya que no necesariamente ocupan un solo espacio de almacenamiento completo. Por lo tanto, su "dirección" está compuesta por un espacio y un offset de bytes dentro del espacio. Para recuperar el espacio apuntado por la variable `x`, utiliza `x.slot` y para recuperar el offset de bytes utiliza `x.offset`. El uso de `x` en sí mismo resultará en un error.
 
-You can also assign to the ``.slot`` part of a local storage variable pointer.
-For these (structs, arrays or mappings), the ``.offset`` part is always zero.
-It is not possible to assign to the ``.slot`` or ``.offset`` part of a state variable,
-though.
+También puedes asignar a la parte ``.slot`` de un puntero de variable de almacenamiento local. Para estos (estructuras, arreglos o mapeos), la parte ``.offset`` siempre es cero. Sin embargo, no es posible asignar a la parte ``.slot`` o ``.offset`` de una variable de estado.
 
-Local Solidity variables are available for assignments, for example:
+Las variables locales en Solidity están disponibles para asignaciones, por ejemplo:
 
 .. code-block:: solidity
     :force:
@@ -186,74 +154,44 @@ Local Solidity variables are available for assignments, for example:
         uint b;
         function f(uint x) public view returns (uint r) {
             assembly {
-                // We ignore the storage slot offset, we know it is zero
-                // in this special case.
+                // Ignoramos el desplazamiento de la ranura de almacenamiento,
+                // sabemos que es cero en este caso especial.
                 r := mul(x, sload(b.slot))
             }
         }
     }
 
 .. warning::
-    If you access variables of a type that spans less than 256 bits
-    (for example ``uint64``, ``address``, or ``bytes16``),
-    you cannot make any assumptions about bits not part of the
-    encoding of the type. Especially, do not assume them to be zero.
-    To be safe, always clear the data properly before you use it
-    in a context where this is important:
-    ``uint32 x = f(); assembly { x := and(x, 0xffffffff) /* now use x */ }``
-    To clean signed types, you can use the ``signextend`` opcode:
-    ``assembly { signextend(<num_bytes_of_x_minus_one>, x) }``
+    Si accedes a variables de un tipo que abarque menos de 256 bits (por ejemplo, ``uint64``, ``address``, o ``bytes16``), no puedes hacer ninguna suposición acerca de bits que no son parte de la codificación del tipo. Especialmente, no debes suponer que son cero. Para estar seguro, siempre limpia de forma adecuada los datos antes de utilizarlos en un contexto en el que esto sea importante: ``uint32 x = f(); assembly { x := and(x, 0xffffffff) /* now use x */ }`` Para limpiar tipos firmados, puedes usar el código de operación: ``assembly { signextend(<num_bytes_of_x_minus_one>, x) }``
 
 
-Since Solidity 0.6.0, the name of a inline assembly variable may not
-shadow any declaration visible in the scope of the inline assembly block
-(including variable, contract and function declarations).
+Desde Solidity 0.6.0, puede que el nombre de una variable de ensamblado en línea no oculte ninguna declaración visible en el ámbito del bloque de ensamblado en línea (incluyendo declaraciones de variables, contratos y funciones).
 
-Since Solidity 0.7.0, variables and functions declared inside the
-inline assembly block may not contain ``.``, but using ``.`` is
-valid to access Solidity variables from outside the inline assembly block.
+Desde Solidity 0.7.0, puede que las variables y funciones declaradas dentro del bloque de ensamblado en línea no contengan ``.``, pero usar ``.`` es válido para acceder a las variables de Solidity desde fuera del bloque de ensamblado en línea.
 
-Things to Avoid
+Cosas a evitar
 ---------------
 
-Inline assembly might have a quite high-level look, but it actually is extremely
-low-level. Function calls, loops, ifs and switches are converted by simple
-rewriting rules and after that, the only thing the assembler does for you is re-arranging
-functional-style opcodes, counting stack height for
-variable access and removing stack slots for assembly-local variables when the end
-of their block is reached.
+El ensamblado en línea puede tener un aspecto de alto nivel, pero en realidad es bastante de bajo nivel. Las llamadas a funciones, bucles, condiciones y conmutadores se convierten mediante reglas de reescritura simples, después de eso lo único que hace el ensamblador por ti es reorganizar las instrucciones de estilo funcional de los códigos de operación, contar la altura de la pila para acceder a las variables y eliminar los espacios de la pila de las variables locales al ensamblado cuando se alcanza el final de su bloque.
 
 .. _conventions-in-solidity:
 
-Conventions in Solidity
+Convenciones en Solidity
 -----------------------
 
 .. _assembly-typed-variables:
 
-Values of Typed Variables
+Valores de variables con tipo
 =========================
 
-In contrast to EVM assembly, Solidity has types which are narrower than 256 bits,
-e.g. ``uint24``. For efficiency, most arithmetic operations ignore the fact that
-types can be shorter than 256
-bits, and the higher-order bits are cleaned when necessary,
-i.e., shortly before they are written to memory or before comparisons are performed.
-This means that if you access such a variable
-from within inline assembly, you might have to manually clean the higher-order bits
-first.
+En contraste con el ensamblado EVM, Solidity tiene tipos más estrechos que 256 bits, como ``uint24``. Por eficiencia, la mayoría de operaciones aritméticas ignoran el hecho de que los tipos pueden ser más cortos que 256 bits y se limpian los bits de mayor orden cuando es necesario, es decir, poco antes de que sean escritas en la memoria o antes de realizar comparaciones. Esto significa que si accedes a una variable de este tipo desde el ensamblado en línea, es posible que primero tengas que limpiar manualmente los bits de mayor orden.
 
 .. _assembly-memory-management:
 
-Memory Management
+Gestión de memoria
 =================
 
-Solidity manages memory in the following way. There is a "free memory pointer"
-at position ``0x40`` in memory. If you want to allocate memory, use the memory
-starting from where this pointer points at and update it.
-There is no guarantee that the memory has not been used before and thus
-you cannot assume that its contents are zero bytes.
-There is no built-in mechanism to release or free allocated memory.
-Here is an assembly snippet you can use for allocating memory that follows the process outlined above:
+Solidity maneja la memoria de la siguiente forma. Hay un "puntero de memoria libre" en la posición ``0x40`` de la memoria. Si quieres asignar memoria, usa la memoria a partir de donde apunta ese puntero y actualiza el mismo. No hay garantía de que la memoria no haya sido utilizada anteriormente y por lo tanto no puedes asumir que sean bytes en cero. No hay un mecanismo incorporado para soltar o liberar memoria asignada. Aquí tienes un fragmento de ensamblado que puedes usar para asignar memoria siguiendo el proceso descrito anteriormente:
 
 .. code-block:: yul
 
@@ -262,38 +200,21 @@ Here is an assembly snippet you can use for allocating memory that follows the p
       mstore(0x40, add(pos, length))
     }
 
-The first 64 bytes of memory can be used as "scratch space" for short-term
-allocation. The 32 bytes after the free memory pointer (i.e., starting at ``0x60``)
-are meant to be zero permanently and is used as the initial value for
-empty dynamic memory arrays.
-This means that the allocatable memory starts at ``0x80``, which is the initial value
-of the free memory pointer.
+Los primeros 64 bytes de memoria pueden usarse como "espacio temporal" para asignaciones a corto plazo. Los siguientes 32 bytes tras el puntero de memoria libre (es decir, a partir de ``0x60``) están destinados a ser cero permanentemente y se usan como valor inicial para los arreglos de memoria dinámica vacíos. Esto significa que la memoria asignable comienza en ``0x80``, que es el valor inicial del puntero de memoria libre.
 
-Elements in memory arrays in Solidity always occupy multiples of 32 bytes (this is
-even true for ``bytes1[]``, but not for ``bytes`` and ``string``). Multi-dimensional memory
-arrays are pointers to memory arrays. The length of a dynamic array is stored at the
-first slot of the array and followed by the array elements.
+Los elementos en los arreglos de memoria de Solidity siempre ocupan múltiplos de 32 bytes (esto es cierto también para ``bytes1[]``, pero no para ``bytes`` y ``string``). Los arreglos de memoria multidimensionales son punteros a arreglos de memoria. La longitud de un arreglo dinámico se almacena en el primer espacio del arreglo que le sigue, seguido por los elementos del arreglo.
 
 .. warning::
-    Statically-sized memory arrays do not have a length field, but it might be added later
-    to allow better convertibility between statically and dynamically-sized arrays; so,
-    do not rely on this.
+    Los arreglos de memoria de tamaño estático no tienen un campo de longitud, pero puede ser que se añada más adelante para permitir una mejor conversión entre arreglos de tamaño estático y dinámico; así que no dependas de esto.
 
-Memory Safety
+Seguridad de la memoria
 =============
 
-Without the use of inline assembly, the compiler can rely on memory to remain in a well-defined
-state at all times. This is especially relevant for :ref:`the new code generation pipeline via Yul IR <ir-breaking-changes>`:
-this code generation path can move local variables from stack to memory to avoid stack-too-deep errors and
-perform additional memory optimizations, if it can rely on certain assumptions about memory use.
+Sin el uso del ensamblado en línea, el compilador puede confiar en que la memoria permanezca en un estado bien definido en todo momento. Esto es especialmente relevante para :ref:`la nueva ruta de generación de código a través de Yul IR <ir-breaking-changes>`: esta vía de generación de código puede mover variables locales de la pila a la memoria para evitar errores de pila demasiado profundos y realizar optimizaciones de memoria adicionales, si puede confiar en ciertas suposiciones sobre el uso de la memoria.
 
-While we recommend to always respect Solidity's memory model, inline assembly allows you to use memory
-in an incompatible way. Therefore, moving stack variables to memory and additional memory optimizations are,
-by default, globally disabled in the presence of any inline assembly block that contains a memory operation
-or assigns to Solidity variables in memory.
+Aunque recomendamos siempre respetar el modelo de memoria de Solidity, el ensamblado en línea te permite usar la memoria de una manera incompatible. Por lo tanto, el traslado de variables de la pila a la memoria y las optimizaciones adicionales están deshabilitadas globalmente por defecto en la presencia de cualquier bloque de ensamblado en línea que contenga una operación de memoria o asigne variables de Solidity en la memoria.
 
-However, you can specifically annotate an assembly block to indicate that it in fact respects Solidity's memory
-model as follows:
+Sin embargo, puede anotar específicamente un bloque de ensamblado para indicar que, de hecho, respeta el modelo de memoria de Solidity de la siguiente manera:
 
 .. code-block:: solidity
 
@@ -301,20 +222,16 @@ model as follows:
         ...
     }
 
-In particular, a memory-safe assembly block may only access the following memory ranges:
+En particular, un bloque de ensamblado seguro en cuanto a la memoria solo puede acceder a los siguientes intervalos de memoria:
 
-- Memory allocated by yourself using a mechanism like the ``allocate`` function described above.
-- Memory allocated by Solidity, e.g. memory within the bounds of a memory array you reference.
-- The scratch space between memory offset 0 and 64 mentioned above.
-- Temporary memory that is located *after* the value of the free memory pointer at the beginning of the assembly block,
-  i.e. memory that is "allocated" at the free memory pointer without updating the free memory pointer.
+- Memoria asignada por ti mismo usando un mecanismo como la función ``allocate`` descrita anteriormente.
+- Memoria asignada por Solidity, por ejemplo, memoria dentro de los límites de un arreglo de memoria a la que haces referencia.
+- El espacio de memoria virtual entre el offset de memoria 0 y 64 mencionados anteriormente.
+- Memoria temporal que se encuentra *después* del valor del puntero de memoria libre al comienzo del bloque de ensamblado, es decir, memoria que se "asigna" al puntero de memoria libre sin actualizar el puntero de memoria libre.
 
-Furthermore, if the assembly block assigns to Solidity variables in memory, you need to assure that accesses to
-the Solidity variables only access these memory ranges.
+Además, si el bloque de ensamblado asigna variables de Solidity en la memoria, debes asegurarte de que los accesos a las variables de Solidity solo accedan a estos intervalos de memoria.
 
-Since this is mainly about the optimizer, these restrictions still need to be followed, even if the assembly block
-reverts or terminates. As an example, the following assembly snippet is not memory safe, because the value of
-``returndatasize()`` may exceed the 64 byte scratch space:
+Dado que esto se trata principalmente del optimizador, estas restricciones todavía deben seguirse, incluso si el bloque de ensamblado se revierte o termina. Como ejemplo, el siguiente fragmento de ensamblado no es seguro en cuanto a la memoria, ya que el valor de ``returndatasize()`` puede exceder el espacio temporal de 64 bytes:
 
 .. code-block:: solidity
 
@@ -323,8 +240,7 @@ reverts or terminates. As an example, the following assembly snippet is not memo
       revert(0, returndatasize())
     }
 
-On the other hand, the following code *is* memory safe, because memory beyond the location pointed to by the
-free memory pointer can safely be used as temporary scratch space:
+Por el otro lado, el siguiente código *es* seguro en cuanto a la memoria, porque la memoria más allá de la ubicación apuntada por el puntero de memoria libre se puede usar con seguridad como espacio temporal de memoria virtual:
 
 .. code-block:: solidity
 
@@ -334,10 +250,9 @@ free memory pointer can safely be used as temporary scratch space:
       revert(p, returndatasize())
     }
 
-Note that you do not need to update the free memory pointer if there is no following allocation,
-but you can only use memory starting from the current offset given by the free memory pointer.
+Ten en cuenta que no necesitas actualizar el puntero de memoria libre si no hay una asignación posterior, pero solo puedes usar la memoria a partir de la dirección actual dad por el puntero de memoria libre.
 
-If the memory operations use a length of zero, it is also fine to just use any offset (not only if it falls into the scratch space):
+Si las operaciones de memoria usan una longitud cero, también es aceptable usar cualquier offset (no solo si cae en el espacio temporal):
 
 .. code-block:: solidity
 
@@ -345,8 +260,7 @@ If the memory operations use a length of zero, it is also fine to just use any o
       revert(0, 0)
     }
 
-Note that not only memory operations in inline assembly itself can be memory-unsafe, but also assignments to
-Solidity variables of reference type in memory. For example the following is not memory-safe:
+Ten en cuenta que no solo las operaciones de memoria en ensamblado en línea en sí pueden ser inseguras en cuanto a la memoria, pero también las asignaciones a variables de Solidity de tipo referencia en memoria. Por ejemplo, esto no es seguro para la memoria:
 
 .. code-block:: solidity
 
@@ -356,16 +270,12 @@ Solidity variables of reference type in memory. For example the following is not
     }
     x[0x20] = 0x42;
 
-Inline assembly that neither involves any operations that access memory nor assigns to any Solidity variables
-in memory is automatically considered memory-safe and does not need to be annotated.
+El ensamblado en línea que no involucra ninguna operación que acceda a la memoria ni asigna ninguna variable de Solidity en la memoria se considera automáticamente seguro para la memoria y no necesita ser anotado.
 
 .. warning::
-    It is your responsibility to make sure that the assembly actually satisfies the memory model. If you annotate
-    an assembly block as memory-safe, but violate one of the memory assumptions, this **will** lead to incorrect and
-    undefined behaviour that cannot easily be discovered by testing.
-
-In case you are developing a library that is meant to be compatible across multiple versions
-of Solidity, you can use a special comment to annotate an assembly block as memory-safe:
+    Es tu responsabilidad asegurarte de que el ensamblado realmente cumpla el modelo de memoria. Si anotas un bloque de ensamblado como seguro en cuanto a la memoria, pero viola una de las suposiciones de la memoria, esto *provocará* a un comportamiento incorrecto e indeterminado que no puede descubrirse con facilidad mediante pruebas.
+    
+En caso de que estes desarrollando una biblioteca que esté destinada a ser compatible con varias versiones de Solidity, puedes usar un comentario especial para anotar un bloque de ensamblado como seguro en cuanto a la memoria:
 
 .. code-block:: solidity
 
@@ -374,5 +284,4 @@ of Solidity, you can use a special comment to annotate an assembly block as memo
         ...
     }
 
-Note that we will disallow the annotation via comment in a future breaking release; so, if you are not concerned with
-backwards-compatibility with older compiler versions, prefer using the dialect string.
+Ten en cuenta que en una futura versión deshabilitaremos la anotación mediante comentarios. Si no te preocupa la compatibilidad con versiones anteriores del compilador, preferiblemente usa la secuencia de dialecto.

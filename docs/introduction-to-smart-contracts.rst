@@ -90,7 +90,7 @@ registering with a username and password, all you need is an Ethereum keypair.
         // The keyword "public" makes variables
         // accessible from other contracts
         address public minter;
-        mapping (address => uint) public balances;
+        mapping(address => uint) public balances;
 
         // Events allow clients to react to specific
         // contract changes you declare
@@ -150,7 +150,7 @@ You do not need to do this, the compiler figures it out for you.
 
 .. index:: mapping
 
-The next line, ``mapping (address => uint) public balances;`` also
+The next line, ``mapping(address => uint) public balances;`` also
 creates a public state variable, but it is a more complex datatype.
 The :ref:`mapping <mapping-types>` type maps addresses to :ref:`unsigned integers <integers>`.
 
@@ -184,7 +184,7 @@ arguments ``from``, ``to`` and ``amount``, which makes it possible to track
 transactions.
 
 To listen for this event, you could use the following
-JavaScript code, which uses `web3.js <https://github.com/ethereum/web3.js/>`_ to create the ``Coin`` contract object,
+JavaScript code, which uses `web3.js <https://github.com/web3/web3.js/>`_ to create the ``Coin`` contract object,
 and any user interface calls the automatically generated ``balances`` function from above:
 
 .. code-block:: javascript
@@ -560,6 +560,11 @@ at that address is sent to a designated target and then the storage and code
 is removed from the state. Removing the contract in theory sounds like a good
 idea, but it is potentially dangerous, as if someone sends Ether to removed
 contracts, the Ether is forever lost.
+
+.. warning::
+    From version 0.8.18 and up, the use of ``selfdestruct`` in both Solidity and Yul will trigger a
+    deprecation warning, since the ``SELFDESTRUCT`` opcode will eventually undergo breaking changes in behaviour
+    as stated in `EIP-6049 <https://eips.ethereum.org/EIPS/eip-6049>`_.
 
 .. warning::
     Even if a contract is removed by ``selfdestruct``, it is still part of the

@@ -26,19 +26,34 @@ Ambientes de Desarrollo Integrado (Ethereum)
         Herramienta para la construcción, testeo y deployment de contratos inteligentes desde la línea de comandos.
     
     * `Embark <https://framework.embarklabs.io/>`_
+<<<<<<< HEAD
         Plataforma para la construcción y deployment de aplicaciones descentralizadas.
     
     * `Foundry <https://github.com/gakonst/foundry>`_
         Juego de herramientas rápido, portable y modular para el desarrollo de aplicaciones de Ethereum escritas en Rust.
     
+=======
+        Developer platform for building and deploying decentralized applications.
+
+    * `Foundry <https://github.com/foundry-rs/foundry>`_
+        Fast, portable and modular toolkit for Ethereum application development written in Rust.
+
+>>>>>>> english/develop
     * `Hardhat <https://hardhat.org/>`_
         Ambiente de desarrollo de Ethereum con red local Ethereum, características para debugging y ecosistema de programas adicionales. 
     
     * `Remix <https://remix.ethereum.org/>`_
+<<<<<<< HEAD
         IDE basado en el navegador con compilador integrado y ambiente de ejecución de Solidity sin componentes del lado del servidor.
     
     * `Truffle <https://www.trufflesuite.com/truffle>`_
         Framework para el desarollo en Ethereum.
+=======
+        Browser-based IDE with integrated compiler and Solidity runtime environment without server-side components.
+
+    * `Truffle <https://trufflesuite.com/truffle/>`_
+        Ethereum development framework.
+>>>>>>> english/develop
 
 Integraciones de Editores
 ===================
@@ -50,8 +65,13 @@ Integraciones de Editores
 
 * IntelliJ
 
+<<<<<<< HEAD
     * `IntelliJ IDEA plugin <https://plugins.jetbrains.com/plugin/9475-intellij-solidity>`_
         Plugin de Solidity para IntelliJ IDEA (y todos los otros JetBrains IDEs).
+=======
+    * `IntelliJ IDEA plugin <https://plugins.jetbrains.com/plugin/9475-solidity/>`_
+        Solidity plugin for IntelliJ IDEA (and all other JetBrains IDEs).
+>>>>>>> english/develop
 
 * Sublime Text
 

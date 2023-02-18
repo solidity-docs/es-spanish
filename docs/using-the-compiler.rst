@@ -170,10 +170,10 @@ at each version. Backward compatibility is not guaranteed between each version.
    - Gas costs for ``SLOAD``, ``*CALL``, ``BALANCE``, ``EXT*`` and ``SELFDESTRUCT`` increased. The
      compiler assumes cold gas costs for such operations. This is relevant for gas estimation and
      the optimizer.
-- ``london`` (**default**)
+- ``london``
    - The block's base fee (`EIP-3198 <https://eips.ethereum.org/EIPS/eip-3198>`_ and `EIP-1559 <https://eips.ethereum.org/EIPS/eip-1559>`_) can be accessed via the global ``block.basefee`` or ``basefee()`` in inline assembly.
-- ``paris``
-   - No changes, however the semantics of the ``difficulty`` value have changed (see `EIP-4399 <https://eips.ethereum.org/EIPS/eip-4399>`_).
+- ``paris`` (**default**)
+   - Introduces ``prevrandao()`` and ``block.prevrandao``, and changes the semantics of the now deprecated ``block.difficulty``, disallowing ``difficulty()`` in inline assembly (see `EIP-4399 <https://eips.ethereum.org/EIPS/eip-4399>`_).
 
 .. index:: ! standard JSON, ! --standard-json
 .. _compiler-api:
@@ -433,6 +433,10 @@ Input Description
           "divModNoSlacks": false,
           // Choose which model checker engine to use: all (default), bmc, chc, none.
           "engine": "chc",
+          // Choose whether external calls should be considered trusted in case the
+          // code of the called function is available at compile-time.
+          // For details see the SMTChecker section.
+          "extCalls": "trusted",
           // Choose which types of invariants should be reported to the user: contract, reentrancy.
           "invariants": ["contract", "reentrancy"],
           // Choose whether to output all unproved targets. The default is `false`.

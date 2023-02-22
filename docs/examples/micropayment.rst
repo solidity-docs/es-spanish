@@ -36,7 +36,7 @@ Creating the signature
 Alice does not need to interact with the Ethereum network
 to sign the transaction, the process is completely offline.
 In this tutorial, we will sign messages in the browser
-using `web3.js <https://github.com/ethereum/web3.js>`_ and
+using `web3.js <https://github.com/web3/web3.js>`_ and
 `MetaMask <https://metamask.io>`_, using the method described in `EIP-712 <https://github.com/ethereum/EIPs/pull/712>`_,
 as it provides a number of other security benefits.
 
@@ -144,6 +144,7 @@ The full contract
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.7.0 <0.9.0;
+    // This will report a warning due to deprecated selfdestruct
     contract ReceiverPays {
         address owner = msg.sender;
 
@@ -341,6 +342,7 @@ The full contract
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.7.0 <0.9.0;
+    // This will report a warning due to deprecated selfdestruct
     contract SimplePaymentChannel {
         address payable public sender;      // The account sending payments.
         address payable public recipient;   // The account receiving the payments.

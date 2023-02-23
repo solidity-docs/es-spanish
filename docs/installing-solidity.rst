@@ -454,7 +454,7 @@ Visual Studio 2019 o Visual Studio 2019 Build Tools.
 * C++/CLI support
 
 .. _Visual Studio 2019: https://www.visualstudio.com/vs/
-.. _Visual Studio 2019 Build Tools: https://www.visualstudio.com/downloads/#build-tools-for-visual-studio-2019
+.. _Visual Studio 2019 Build Tools: https://visualstudio.microsoft.com/vs/older-downloads/#visual-studio-2019-and-other-products
 
 Tenemos un script de soporte que puede usar para instalar todas las dependencias externas necesarias:
 

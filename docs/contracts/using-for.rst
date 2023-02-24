@@ -6,53 +6,53 @@
 Using For
 *********
 
-The directive ``using A for B;`` can be used to attach
-functions (``A``) as member functions to any type (``B``).
-These functions will receive the object they are called on
-as their first parameter (like the ``self`` variable in Python).
+La directiva ``using A for B;`` se puede usar para adjuntar
+funciones (``A``) como miembro para cualquier tipo (``B``).
+Estas funciones recibirán el objeto al que se llaman
+como su primer parámetro (como la variable ``self`` en Python).
 
-It is valid either at file level or inside a contract,
-at contract level.
+Es válido a nivel de archivo o dentro de un contrato,
+a nivel de contrato.
 
-The first part, ``A``, can be one of:
+La primera parte, ``A``, puede ser una de:
 
-- A list of file-level or library functions (e.g. ``using {f, g, h, L.t} for uint;``) -
-  only those functions will be attached to the type as member functions.
-  Note that private library functions can only be specified when ``using for`` is inside the library.
-- The name of a library (e.g. ``using L for uint;``) -
-  all non-private functions of the library are attached to the type.
+- Una lista de nivel de archivo o de funciones de biblioteca (e.g. ``using {f, g, h, L.t} for uint;``) -
+  solo esas funciones se adjuntarán al tipo como funciones miembro.
+  Ten en cuenta que funciones de la biblioteca privada solo se pueden especificar cuando ``using for`` esté dentro de la biblioteca.
+- El nombre de una biblioteca (por ejemplo: ``using L for uint;``) -
+  todas las funciones de la biblioteca, tanto públicas como internas, se adjuntan al tipo.
 
-At file level, the second part, ``B``, has to be an explicit type (without data location specifier).
-Inside contracts, you can also use ``*`` in place of the type (e.g. ``using L for *;``),
-which has the effect that all functions of the library ``L``
-are attached to *all* types.
+A nivel de archivo, la segunda parte, ``B``, tiene que ser un tipo explícito (sin especificador de ubicación de datos).
+Dentro de los contratos, también puedes usar ``*`` en lugar del tipo (por ejemplo: ``using L for *;``),
+que tiene el efecto de que todas las funciones de la biblioteca ``L``
+se adjuntan a *todos* los tipos.
 
-If you specify a library, *all* functions in the library get attached,
-even those where the type of the first parameter does not
-match the type of the object. The type is checked at the
-point the function is called and function overload
-resolution is performed.
+Si especificas una biblioteca, *todas* las funciones en la biblioteca se adjuntan,
+incluso aquellas en las que el tipo del primer parámetro no
+coincide con el tipo del objeto. El tipo se comprueba en el
+momento en que se llama a la función y se realiza la
+resolución se la sobrecarga de funciones.
 
-If you use a list of functions (e.g. ``using {f, g, h, L.t} for uint;``),
-then the type (``uint``) has to be implicitly convertible to the
-first parameter of each of these functions. This check is
-performed even if none of these functions are called.
+Si usas una lista de funciones (por ejemplo: ``using {f, g, h, L.t} for uint;``),
+el tipo (``uint``) tiene que ser implícitamente convertible al
+primer parámetro de cada una de estas funciones. Esta comprobación se
+realiza incluso si no se llama a ninguna de estas funciones.
 
-The ``using A for B;`` directive is active only within the current
-scope (either the contract or the current module/source unit),
-including within all of its functions, and has no effect
-outside of the contract or module in which it is used.
+La directiva ``using A for B;`` se activa solo dentro del ámbito
+actual (ya sea el contrato o el módulo/unidad fuente actual),
+incluso dentro de todas sus funciones, y no tiene ningún efecto
+fuera del contrato o módulo en el que se utiliza.
 
-When the directive is used at file level and applied to a
-user-defined type which was defined at file level in the same file,
-the word ``global`` can be added at the end. This will have the
-effect that the functions are attached to the type everywhere
-the type is available (including other files), not only in the
-scope of the using statement.
+Cuando la directiva se usa a nivel de archivo y se aplica a un
+tipo definido por el usuario que se definió a nivel de archivo en el mismo archivo,
+la palabra ``global`` se puede agregar al final. Esto tendrá el
+efecto de que las funciones se adjuntan al tipo en todos los lugares donde
+el tipo esté disponible (incluidos otros archivos), no solo en el
+ámbito de la declaración using.
 
-Let us rewrite the set example from the
-:ref:`libraries` section in this way, using file-level functions
-instead of library functions.
+Reescribamos el ejemplo establecido de la sección
+:ref:`libraries` de esta manera, usando funciones a nivel de archivo
+en lugar de funciones de biblioteca.
 
 .. code-block:: solidity
 
@@ -60,10 +60,10 @@ instead of library functions.
     pragma solidity ^0.8.13;
 
     struct Data { mapping(uint => bool) flags; }
-    // Now we attach functions to the type.
-    // The attached functions can be used throughout the rest of the module.
-    // If you import the module, you have to
-    // repeat the using directive there, for example as
+    // Ahora adjuntamos funciones al tipo.
+    // Las funciones adjuntadas se pueden usar en el resto del módulo.
+    // Si importas el módulo, tienes que
+    // repetir la directiva using ahí, por ejemplo como
     //   import "flags.sol" as Flags;
     //   using {Flags.insert, Flags.remove, Flags.contains}
     //     for Flags.Data;
@@ -73,7 +73,7 @@ instead of library functions.
         returns (bool)
     {
         if (self.flags[value])
-            return false; // already there
+            return false; // ahí ya
         self.flags[value] = true;
         return true;
     }
@@ -82,7 +82,7 @@ instead of library functions.
         returns (bool)
     {
         if (!self.flags[value])
-            return false; // not there
+            return false; // ahí no
         self.flags[value] = false;
         return true;
     }
@@ -99,16 +99,16 @@ instead of library functions.
         Data knownValues;
 
         function register(uint value) public {
-            // Here, all variables of type Data have
-            // corresponding member functions.
-            // The following function call is identical to
+            // Aquí, todas las variables de tipo Data tienen
+            // funciones miembro correspondientes.
+            // La siguiente llamada de función es idéntica a
             // `Set.insert(knownValues, value)`
             require(knownValues.insert(value));
         }
     }
 
-It is also possible to extend built-in types in that way.
-In this example, we will use a library.
+También es posible ampliar los tipos incorporados de esta manera.
+En este ejemplo, usaremos una biblioteca.
 
 .. code-block:: solidity
 
@@ -136,7 +136,7 @@ In this example, we will use a library.
         }
 
         function replace(uint from, uint to) public {
-            // This performs the library function call
+            // Esto realiza la llamada a la función de la biblioteca.
             uint index = data.indexOf(from);
             if (index == type(uint).max)
                 data.push(to);
@@ -145,8 +145,8 @@ In this example, we will use a library.
         }
     }
 
-Note that all external library calls are actual EVM function calls. This means that
-if you pass memory or value types, a copy will be performed, even in case of the
-``self`` variable. The only situation where no copy will be performed
-is when storage reference variables are used or when internal library
-functions are called.
+Ten en cuenta que todas las llamadas a bibliotecas externas son llamadas a funciones EVM reales. Esto significa que
+si pasas tipos de memoria o de valor, se realizará una copia, incluso en el caso de
+la variable ``self``. La única situación donde no se realizará una copia es
+cuando se utilizan variables de referencia de almacenamiento o cuando se llama a
+funciones de biblioteca interna.

@@ -34,7 +34,7 @@ los fondos de la persona que ahora es la más rica.
         address public richest;
         uint public mostSent;
 
-        mapping (address => uint) pendingWithdrawals;
+        mapping(address => uint) pendingWithdrawals;
 
         /// La cantidad enviada de Ether no fue más alta que
         /// la cantidad actualmente más alta.

@@ -17,11 +17,11 @@ conflicts, project specific style guides take precedence.
 
 The structure and many of the recommendations within this style guide were
 taken from python's
-`pep8 style guide <https://www.python.org/dev/peps/pep-0008/>`_.
+`pep8 style guide <https://peps.python.org/pep-0008/>`_.
 
 The goal of this guide is *not* to be the right way or the best way to write
 Solidity code.  The goal of this guide is *consistency*.  A quote from python's
-`pep8 <https://www.python.org/dev/peps/pep-0008/#a-foolish-consistency-is-the-hobgoblin-of-little-minds>`_
+`pep8 <https://peps.python.org/pep-0008/#a-foolish-consistency-is-the-hobgoblin-of-little-minds>`_
 captures this concept well.
 
 .. note::
@@ -1283,6 +1283,21 @@ Avoiding Naming Collisions
 
 This convention is suggested when the desired name collides with that of
 an existing state variable, function, built-in or otherwise reserved name.
+
+Underscore Prefix for Non-external Functions and Variables
+==========================================================
+
+* ``_singleLeadingUnderscore``
+
+This convention is suggested for non-external functions and state variables (``private`` or ``internal``). State variables without a specified visibility are ``internal`` by default.
+
+When designing a smart contract, the public-facing API (functions that can be called by any account)
+is an important consideration.
+Leading underscores allow you to immediately recognize the intent of such functions,
+but more importantly, if you change a function from non-external to external (including ``public``)
+and rename it accordingly, this forces you to review every call site while renaming.
+This can be an important manual check against unintended external functions
+and a common source of security vulnerabilities (avoid find-replace-all tooling for this change).
 
 .. _style_guide_natspec:
 

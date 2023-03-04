@@ -41,14 +41,10 @@ Una variable de estado ``pública`` es equivalente a una ``función`` para los p
 
 -  Para Solidity puede optar ``///`` para comentarios de una línea o múltiples líneas, 
    o ``/**`` y finalizar con ``*/``.
-
-<<<<<<< HEAD
--  Para Vyper, use ``"""`` indentado en el contenido interno . Véase la `documentación de Vyper <https://vyper.readthedocs.io/en/latest/natspec.html>`__.
-=======
--  For Vyper, use ``"""`` indented to the inner contents with bare
-   comments. See the `Vyper
-   documentation <https://docs.vyperlang.org/en/latest/natspec.html>`__.
->>>>>>> english/develop
+   
+Para Vyper, utilice ``"""`` sangrado al contenido interior con desnudo
+   comentarios. Consulte la documentación de `Vyper
+   documentación <https://vyper.readthedocs.io/en/latest/natspec.html>`__.
 
 El siguiente ejemplo muestra un contrato y una función usando todas las etiquetas disponibles.
 

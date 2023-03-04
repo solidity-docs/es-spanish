@@ -300,9 +300,9 @@ Relacionados con el contrato
 Además, todas las funciones del contrato actual son llamables directamente, incluida la función actual.
 
 .. warning::
-    From version 0.8.18 and up, the use of ``selfdestruct`` in both Solidity and Yul will trigger a
-    deprecation warning, since the ``SELFDESTRUCT`` opcode will eventually undergo breaking changes in behaviour
-    as stated in `EIP-6049 <https://eips.ethereum.org/EIPS/eip-6049>`_.
+    A partir de la versión 0.8.18, el uso de ``selfdestruct`` tanto en Solidity como en Yul provocará una advertencia de obsoleto, ya que el opcode       ``SELFDESTRUCT`` sufrirá eventualmente cambios en su comportamiento.
+    deprecation warning, ya que el opcode ``SELFDESTRUCT`` sufrirá eventualmente cambios en su comportamiento
+    como se indica en `EIP-6049 <https://eips.ethereum.org/EIPS/eip-6049>`_.
 
 .. note::
     Antes de la versión 0.5.0, había una función llamada ``suicide`` con la misma semántica que ``selfdestruct``.

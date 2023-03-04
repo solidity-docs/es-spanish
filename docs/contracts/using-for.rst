@@ -123,7 +123,7 @@ en lugar de funciones de biblioteca.
         returns (bool)
     {
         if (self.flags[value])
-            return false; // already there
+            return false; // ahí ya
         self.flags[value] = true;
         return true;
     }
@@ -132,7 +132,7 @@ en lugar de funciones de biblioteca.
         returns (bool)
     {
         if (!self.flags[value])
-            return false; // not there
+            return false; // ahí no
         self.flags[value] = false;
         return true;
     }

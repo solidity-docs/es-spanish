@@ -6,48 +6,48 @@
 Using For
 *********
 
-The directive ``using A for B`` can be used to attach
-functions (``A``) as operators to user-defined value types
-or as member functions to any type (``B``).
-The member functions receive the object they are called on
-as their first parameter (like the ``self`` variable in Python).
-The operator functions receive operands as parameters.
+La directiva ``using A for B`` se puede utilizar para adjuntar
+funciones (``A``) como operadores a tipos de valor definidos por el usuario
+o como funciones miembro de cualquier tipo (``B``).
+Las funciones miembro reciben como primer parámetro el objeto al que se llama
+como primer parámetro (como la variable ``self`` en Python).
+Las funciones operador reciben operandos como parámetros.
 
-It is valid either at file level or inside a contract,
-at contract level.
+Es válido tanto a nivel de fichero como dentro de un contrato,
+a nivel de contrato.
 
 The first part, ``A``, can be one of:
 
-- A list of functions, optionally with an operator name assigned (e.g.
-  ``using {f, g as +, h, L.t} for uint``).
-  If no operator is specified, the function can be either a library function or a free function and
-  is attached to the type as a member function.
-  Otherwise it must be a free function and it becomes the definition of that operator on the type.
-- The name of a library (e.g. ``using L for uint``) -
-  all non-private functions of the library are attached to the type
-  as member functions
+- Una lista de funciones, opcionalmente con un nombre de operador asignado (p. ej.
+  ``usando {f, g como +, h, L.t} para uint``).
+  Si no se especifica ningún operador, la función puede ser una función de biblioteca o una función libre y
+  se adjunta al tipo como función miembro.
+  En caso contrario, debe ser una función libre y se convierte en la definición de ese operador en el tipo.
+- El nombre de una biblioteca (por ejemplo, ``usando L para uint``) -
+  todas las funciones no privadas de la biblioteca se adjuntan al tipo
+  como funciones miembro
 
-At file level, the second part, ``B``, has to be an explicit type (without data location specifier).
-Inside contracts, you can also use ``*`` in place of the type (e.g. ``using L for *;``),
-which has the effect that all functions of the library ``L``
-are attached to *all* types.
+A nivel de fichero, la segunda parte, ``B``, tiene que ser un tipo explícito (sin especificador de ubicación de datos).
+Dentro de los contratos, también se puede utilizar ``*`` en lugar del tipo (por ejemplo, ``usando L para *;``),
+que tiene el efecto de que todas las funciones de la biblioteca ``L``
+se adjuntan a *todos* los tipos.
 
-If you specify a library, *all* non-private functions in the library get attached,
-even those where the type of the first parameter does not
-match the type of the object. The type is checked at the
-point the function is called and function overload
-resolution is performed.
+Si especifica una biblioteca, se adjuntan *todas* las funciones no privadas de la biblioteca,
+incluso aquellas en las que el tipo del primer parámetro no
+no coincide con el tipo del objeto. El tipo se comprueba en el
+en el momento en que se llama a la función y se
+de la función.
 
-If you use a list of functions (e.g. ``using {f, g, h, L.t} for uint``),
-then the type (``uint``) has to be implicitly convertible to the
-first parameter of each of these functions. This check is
-performed even if none of these functions are called.
-Note that private library functions can only be specified when ``using for`` is inside a library.
+Si usas una lista de funciones (por ejemplo ``usando {f, g, h, L.t} para uint``),
+entonces el tipo (``uint``) tiene que ser implícitamente convertible al
+primer parámetro de cada una de estas funciones. Esta comprobación se realiza
+realiza incluso si no se llama a ninguna de estas funciones.
+Tenga en cuenta que las funciones privadas de biblioteca sólo pueden especificarse cuando ``using for`` está dentro de una biblioteca
 
-If you define an operator (e.g. ``using {f as +} for T``), then the type (``T``) must be a
-:ref:`user-defined value type <user-defined-value-types>` and the definition must be a ``pure`` function.
-Operator definitions must be global.
-The following operators can be defined this way:
+ Si defines un operador (por ejemplo ``usando {f como +} para T``), entonces el tipo (``T``) debe ser un
+:ref:`user-defined value type <user-defined-value-types>` y la definición debe ser una función ``pure``.
+Las definiciones de operadores deben ser globales.
+Los siguientes operadores pueden definirse de esta forma:
 
 +------------+----------+---------------------------------------------+
 | Category   | Operator | Possible signatures                         |
@@ -60,7 +60,7 @@ The following operators can be defined this way:
 |            +----------+---------------------------------------------+
 |            | ``~``    | ``function (T) pure returns (T)``           |
 +------------+----------+---------------------------------------------+
-| Arithmetic | ``+``    | ``function (T, T) pure returns (T)``        |
+| Aritmética | ``+``    | ``function (T, T) pure returns (T)``        |
 |            +----------+---------------------------------------------+
 |            | ``-``    | ``function (T, T) pure returns (T)``        |
 |            +          +---------------------------------------------+
@@ -72,7 +72,7 @@ The following operators can be defined this way:
 |            +----------+---------------------------------------------+
 |            | ``%``    | ``function (T, T) pure returns (T)``        |
 +------------+----------+---------------------------------------------+
-| Comparison | ``==``   | ``function (T, T) pure returns (bool)``     |
+| Comparación| ``==``   | ``function (T, T) pure returns (bool)``     |
 |            +----------+---------------------------------------------+
 |            | ``!=``   | ``function (T, T) pure returns (bool)``     |
 |            +----------+---------------------------------------------+
@@ -85,24 +85,24 @@ The following operators can be defined this way:
 |            | ``>=``   | ``function (T, T) pure returns (bool)``     |
 +------------+----------+---------------------------------------------+
 
-Note that unary and binary ``-`` need separate definitions.
-The compiler will choose the right definition based on how the operator is invoked.
+Tenga en cuenta que unario y binario ``-`` necesitan definiciones separadas.
+El compilador elegirá la definición correcta en función de cómo se invoque el operador.
 
-The ``using A for B;`` directive is active only within the current
-scope (either the contract or the current module/source unit),
-including within all of its functions, and has no effect
-outside of the contract or module in which it is used.
+La directiva ``usar A para B;`` sólo está activa dentro del ámbito actual
+actual (ya sea el contrato o el módulo/unidad fuente actual),
+incluyendo dentro de todas sus funciones, y no tiene efecto
+fuera del contrato o módulo en el que se utiliza.
 
-When the directive is used at file level and applied to a
-user-defined type which was defined at file level in the same file,
-the word ``global`` can be added at the end. This will have the
-effect that the functions and operators are attached to the type everywhere
-the type is available (including other files), not only in the
-scope of the using statement.
+Cuando la directiva se utiliza a nivel de fichero y se aplica a un
+tipo definido por el usuario que se definió a nivel de archivo en el mismo archivo,
+puede añadirse al final la palabra ``global``. Esto tendrá el efecto
+efecto que las funciones y operadores se adjuntan al tipo en todas partes
+el tipo esté disponible (incluyendo otros ficheros), no sólo en el
+ámbito de la sentencia "using".
 
-Let us rewrite the set example from the
-:ref:`libraries` section in this way, using file-level functions
-instead of library functions.
+Reescribamos el ejemplo de conjunto de la sección
+ref:`libraries` de esta manera, usando funciones a nivel de fichero
+en lugar de funciones de biblioteca.
 
 .. code-block:: solidity
 
@@ -110,10 +110,10 @@ instead of library functions.
     pragma solidity ^0.8.13;
 
     struct Data { mapping(uint => bool) flags; }
-    // Now we attach functions to the type.
-    // The attached functions can be used throughout the rest of the module.
-    // If you import the module, you have to
-    // repeat the using directive there, for example as
+    // Ahora adjuntamos funciones al tipo.
+    // Las funciones adjuntas pueden utilizarse en el resto del módulo.
+    // Si importa el módulo, tiene que
+    // repita allí la directiva using, por ejemplo como
     //   import "flags.sol" as Flags;
     //   using {Flags.insert, Flags.remove, Flags.contains}
     //     for Flags.Data;
@@ -149,16 +149,16 @@ instead of library functions.
         Data knownValues;
 
         function register(uint value) public {
-            // Here, all variables of type Data have
-            // corresponding member functions.
-            // The following function call is identical to
+            // Aquí, todas las variables de tipo Datos tienen
+            // funciones miembro correspondientes.
+            // La siguiente llamada de función es idéntica a
             // `Set.insert(knownValues, value)`
             require(knownValues.insert(value));
         }
     }
 
-It is also possible to extend built-in types in that way.
-In this example, we will use a library.
+También es posible extender tipos incorporados de esa manera.
+En este ejemplo, utilizaremos una biblioteca.
 
 .. code-block:: solidity
 
@@ -186,7 +186,7 @@ In this example, we will use a library.
         }
 
         function replace(uint from, uint to) public {
-            // This performs the library function call
+            // Esto realiza la llamada a la función de biblioteca
             uint index = data.indexOf(from);
             if (index == type(uint).max)
                 data.push(to);
@@ -195,13 +195,13 @@ In this example, we will use a library.
         }
     }
 
-Note that all external library calls are actual EVM function calls. This means that
-if you pass memory or value types, a copy will be performed, even in case of the
-``self`` variable. The only situation where no copy will be performed
-is when storage reference variables are used or when internal library
-functions are called.
+Tenga en cuenta que todas las llamadas a bibliotecas externas son llamadas a funciones reales de EVM. Esto significa que
+si pasas memoria o tipos de valores, se realizará una copia, incluso en el caso de la variable
+``self``. La única situación en la que no se realizará ninguna copia
+es cuando se utilizan variables de referencia de almacenamiento o cuando se llaman funciones
+de la biblioteca.
 
-Another example shows how to define a custom operator for a user-defined type:
+Otro ejemplo muestra cómo definir un operador personalizado para un tipo definido por el usuario:
 
 .. code-block:: solidity
 

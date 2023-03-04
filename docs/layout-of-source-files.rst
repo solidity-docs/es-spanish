@@ -116,7 +116,10 @@ Importación de Otros Archivos Fuente
 Sintaxis y Semántica
 --------------------
 
-Solidity soporta sentencias import para ayudar a modularizar su código, similar a aquellas disponibles en JavaScript (a partir de ES6). Sin embargo, Solidity no soporta el concepto `default export <https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export#Description>`_.
+Solidity soporta sentencias import para ayudar a modularizar su código, 
+similar a aquellas disponibles en JavaScript 
+(a partir de ES6). Sin embargo, Solidity no soporta el concepto 
+`default export <https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export#description>`_.
 
 A un nivel global, puede usar sentencias import de la siguiente forma:
 

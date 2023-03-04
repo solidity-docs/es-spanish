@@ -1,4 +1,4 @@
-.. index:: ! using for, library
+.. index:: ! using for, library, ! operator; user-defined
 
 .. _using-for:
 
@@ -6,52 +6,102 @@
 Using For
 *********
 
-La directiva ``using A for B;`` se puede usar para adjuntar
-funciones (``A``) como miembro para cualquier tipo (``B``).
-Estas funciones recibirán el objeto al que se llaman
-como su primer parámetro (como la variable ``self`` en Python).
+La directiva ``using A for B`` se puede utilizar para adjuntar
+funciones (``A``) como operadores a tipos de valor definidos por el usuario
+o como funciones miembro de cualquier tipo (``B``).
+Las funciones miembro reciben como primer parámetro el objeto al que se llama
+como primer parámetro (como la variable ``self`` en Python).
+Las funciones operador reciben operandos como parámetros.
 
-Es válido a nivel de archivo o dentro de un contrato,
+Es válido tanto a nivel de fichero como dentro de un contrato,
 a nivel de contrato.
 
-La primera parte, ``A``, puede ser una de:
+The first part, ``A``, can be one of:
 
-- Una lista de nivel de archivo o de funciones de biblioteca (e.g. ``using {f, g, h, L.t} for uint;``) -
-  solo esas funciones se adjuntarán al tipo como funciones miembro.
-  Ten en cuenta que funciones de la biblioteca privada solo se pueden especificar cuando ``using for`` esté dentro de la biblioteca.
-- El nombre de una biblioteca (por ejemplo: ``using L for uint;``) -
-  todas las funciones de la biblioteca, tanto públicas como internas, se adjuntan al tipo.
+- Una lista de funciones, opcionalmente con un nombre de operador asignado (p. ej.
+  ``usando {f, g como +, h, L.t} para uint``).
+  Si no se especifica ningún operador, la función puede ser una función de biblioteca o una función libre y
+  se adjunta al tipo como función miembro.
+  En caso contrario, debe ser una función libre y se convierte en la definición de ese operador en el tipo.
+- El nombre de una biblioteca (por ejemplo, ``usando L para uint``) -
+  todas las funciones no privadas de la biblioteca se adjuntan al tipo
+  como funciones miembro
 
-A nivel de archivo, la segunda parte, ``B``, tiene que ser un tipo explícito (sin especificador de ubicación de datos).
-Dentro de los contratos, también puedes usar ``*`` en lugar del tipo (por ejemplo: ``using L for *;``),
+A nivel de fichero, la segunda parte, ``B``, tiene que ser un tipo explícito (sin especificador de ubicación de datos).
+Dentro de los contratos, también se puede utilizar ``*`` en lugar del tipo (por ejemplo, ``usando L para *;``),
 que tiene el efecto de que todas las funciones de la biblioteca ``L``
 se adjuntan a *todos* los tipos.
 
-Si especificas una biblioteca, *todas* las funciones en la biblioteca se adjuntan,
+Si especifica una biblioteca, se adjuntan *todas* las funciones no privadas de la biblioteca,
 incluso aquellas en las que el tipo del primer parámetro no
-coincide con el tipo del objeto. El tipo se comprueba en el
-momento en que se llama a la función y se realiza la
-resolución se la sobrecarga de funciones.
+no coincide con el tipo del objeto. El tipo se comprueba en el
+en el momento en que se llama a la función y se
+de la función.
 
-Si usas una lista de funciones (por ejemplo: ``using {f, g, h, L.t} for uint;``),
-el tipo (``uint``) tiene que ser implícitamente convertible al
-primer parámetro de cada una de estas funciones. Esta comprobación se
+Si usas una lista de funciones (por ejemplo ``usando {f, g, h, L.t} para uint``),
+entonces el tipo (``uint``) tiene que ser implícitamente convertible al
+primer parámetro de cada una de estas funciones. Esta comprobación se realiza
 realiza incluso si no se llama a ninguna de estas funciones.
+Tenga en cuenta que las funciones privadas de biblioteca sólo pueden especificarse cuando ``using for`` está dentro de una biblioteca
 
-La directiva ``using A for B;`` se activa solo dentro del ámbito
+ Si defines un operador (por ejemplo ``usando {f como +} para T``), entonces el tipo (``T``) debe ser un
+:ref:`user-defined value type <user-defined-value-types>` y la definición debe ser una función ``pure``.
+Las definiciones de operadores deben ser globales.
+Los siguientes operadores pueden definirse de esta forma:
+
++------------+----------+---------------------------------------------+
+| Category   | Operator | Possible signatures                         |
++============+==========+=============================================+
+| Bitwise    | ``&``    | ``function (T, T) pure returns (T)``        |
+|            +----------+---------------------------------------------+
+|            | ``|``    | ``function (T, T) pure returns (T)``        |
+|            +----------+---------------------------------------------+
+|            | ``^``    | ``function (T, T) pure returns (T)``        |
+|            +----------+---------------------------------------------+
+|            | ``~``    | ``function (T) pure returns (T)``           |
++------------+----------+---------------------------------------------+
+| Aritmética | ``+``    | ``function (T, T) pure returns (T)``        |
+|            +----------+---------------------------------------------+
+|            | ``-``    | ``function (T, T) pure returns (T)``        |
+|            +          +---------------------------------------------+
+|            |          | ``function (T) pure returns (T)``           |
+|            +----------+---------------------------------------------+
+|            | ``*``    | ``function (T, T) pure returns (T)``        |
+|            +----------+---------------------------------------------+
+|            | ``/``    | ``function (T, T) pure returns (T)``        |
+|            +----------+---------------------------------------------+
+|            | ``%``    | ``function (T, T) pure returns (T)``        |
++------------+----------+---------------------------------------------+
+| Comparación| ``==``   | ``function (T, T) pure returns (bool)``     |
+|            +----------+---------------------------------------------+
+|            | ``!=``   | ``function (T, T) pure returns (bool)``     |
+|            +----------+---------------------------------------------+
+|            | ``<``    | ``function (T, T) pure returns (bool)``     |
+|            +----------+---------------------------------------------+
+|            | ``<=``   | ``function (T, T) pure returns (bool)``     |
+|            +----------+---------------------------------------------+
+|            | ``>``    | ``function (T, T) pure returns (bool)``     |
+|            +----------+---------------------------------------------+
+|            | ``>=``   | ``function (T, T) pure returns (bool)``     |
++------------+----------+---------------------------------------------+
+
+Tenga en cuenta que unario y binario ``-`` necesitan definiciones separadas.
+El compilador elegirá la definición correcta en función de cómo se invoque el operador.
+
+La directiva ``usar A para B;`` sólo está activa dentro del ámbito actual
 actual (ya sea el contrato o el módulo/unidad fuente actual),
-incluso dentro de todas sus funciones, y no tiene ningún efecto
+incluyendo dentro de todas sus funciones, y no tiene efecto
 fuera del contrato o módulo en el que se utiliza.
 
-Cuando la directiva se usa a nivel de archivo y se aplica a un
+Cuando la directiva se utiliza a nivel de fichero y se aplica a un
 tipo definido por el usuario que se definió a nivel de archivo en el mismo archivo,
-la palabra ``global`` se puede agregar al final. Esto tendrá el
-efecto de que las funciones se adjuntan al tipo en todos los lugares donde
-el tipo esté disponible (incluidos otros archivos), no solo en el
-ámbito de la declaración using.
+puede añadirse al final la palabra ``global``. Esto tendrá el efecto
+efecto que las funciones y operadores se adjuntan al tipo en todas partes
+el tipo esté disponible (incluyendo otros ficheros), no sólo en el
+ámbito de la sentencia "using".
 
-Reescribamos el ejemplo establecido de la sección
-:ref:`libraries` de esta manera, usando funciones a nivel de archivo
+Reescribamos el ejemplo de conjunto de la sección
+ref:`libraries` de esta manera, usando funciones a nivel de fichero
 en lugar de funciones de biblioteca.
 
 .. code-block:: solidity
@@ -61,9 +111,9 @@ en lugar de funciones de biblioteca.
 
     struct Data { mapping(uint => bool) flags; }
     // Ahora adjuntamos funciones al tipo.
-    // Las funciones adjuntadas se pueden usar en el resto del módulo.
-    // Si importas el módulo, tienes que
-    // repetir la directiva using ahí, por ejemplo como
+    // Las funciones adjuntas pueden utilizarse en el resto del módulo.
+    // Si importa el módulo, tiene que
+    // repita allí la directiva using, por ejemplo como
     //   import "flags.sol" as Flags;
     //   using {Flags.insert, Flags.remove, Flags.contains}
     //     for Flags.Data;
@@ -99,7 +149,7 @@ en lugar de funciones de biblioteca.
         Data knownValues;
 
         function register(uint value) public {
-            // Aquí, todas las variables de tipo Data tienen
+            // Aquí, todas las variables de tipo Datos tienen
             // funciones miembro correspondientes.
             // La siguiente llamada de función es idéntica a
             // `Set.insert(knownValues, value)`
@@ -107,8 +157,8 @@ en lugar de funciones de biblioteca.
         }
     }
 
-También es posible ampliar los tipos incorporados de esta manera.
-En este ejemplo, usaremos una biblioteca.
+También es posible extender tipos incorporados de esa manera.
+En este ejemplo, utilizaremos una biblioteca.
 
 .. code-block:: solidity
 
@@ -136,7 +186,7 @@ En este ejemplo, usaremos una biblioteca.
         }
 
         function replace(uint from, uint to) public {
-            // Esto realiza la llamada a la función de la biblioteca.
+            // Esto realiza la llamada a la función de biblioteca
             uint index = data.indexOf(from);
             if (index == type(uint).max)
                 data.push(to);
@@ -145,8 +195,42 @@ En este ejemplo, usaremos una biblioteca.
         }
     }
 
-Ten en cuenta que todas las llamadas a bibliotecas externas son llamadas a funciones EVM reales. Esto significa que
-si pasas tipos de memoria o de valor, se realizará una copia, incluso en el caso de
-la variable ``self``. La única situación donde no se realizará una copia es
-cuando se utilizan variables de referencia de almacenamiento o cuando se llama a
-funciones de biblioteca interna.
+Tenga en cuenta que todas las llamadas a bibliotecas externas son llamadas a funciones reales de EVM. Esto significa que
+si pasas memoria o tipos de valores, se realizará una copia, incluso en el caso de la variable
+``self``. La única situación en la que no se realizará ninguna copia
+es cuando se utilizan variables de referencia de almacenamiento o cuando se llaman funciones
+de la biblioteca.
+
+Otro ejemplo muestra cómo definir un operador personalizado para un tipo definido por el usuario:
+
+.. code-block:: solidity
+
+    // SPDX-License-Identifier: GPL-3.0
+    pragma solidity ^0.8.19;
+
+    type UFixed16x2 is uint16;
+
+    using {
+        add as +,
+        div as /
+    } for UFixed16x2 global;
+
+    uint32 constant SCALE = 100;
+
+    function add(UFixed16x2 a, UFixed16x2 b) pure returns (UFixed16x2) {
+        return UFixed16x2.wrap(UFixed16x2.unwrap(a) + UFixed16x2.unwrap(b));
+    }
+
+    function div(UFixed16x2 a, UFixed16x2 b) pure returns (UFixed16x2) {
+        uint32 a32 = UFixed16x2.unwrap(a);
+        uint32 b32 = UFixed16x2.unwrap(b);
+        uint32 result32 = a32 * SCALE / b32;
+        require(result32 <= type(uint16).max, "Divide overflow");
+        return UFixed16x2.wrap(uint16(a32 * SCALE / b32));
+    }
+
+    contract Math {
+        function avg(UFixed16x2 a, UFixed16x2 b) public pure returns (UFixed16x2) {
+            return (a + b) / UFixed16x2.wrap(200);
+        }
+    }

@@ -28,7 +28,7 @@ Ambientes de Desarrollo Integrado (Ethereum)
     * `Embark <https://framework.embarklabs.io/>`_
         Plataforma para la construcción y deployment de aplicaciones descentralizadas.
     
-    * `Foundry <https://github.com/gakonst/foundry>`_
+    * `Foundry <https://github.com/foundry-rs/foundry>`_
         Juego de herramientas rápido, portable y modular para el desarrollo de aplicaciones de Ethereum escritas en Rust.
     
     * `Hardhat <https://hardhat.org/>`_
@@ -50,8 +50,8 @@ Integraciones de Editores
 
 * IntelliJ
 
-    * `IntelliJ IDEA plugin <https://plugins.jetbrains.com/plugin/9475-intellij-solidity>`_
-        Plugin de Solidity para IntelliJ IDEA (y todos los otros JetBrains IDEs).
+    * `IntelliJ IDEA plugin <https://plugins.jetbrains.com/plugin/9475-solidity/>`_
+        Plugin de Solidity para IntelliJ IDEA (y todos los otros JetBrains IDEs)
 
 * Sublime Text
 

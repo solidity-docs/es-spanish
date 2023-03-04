@@ -76,24 +76,26 @@ La versión en Inglés es tomada como referencia.
 
 Puede elegir entre distintos idiomas haciendo click en el menú desplegable que se encuentra en la esquina inferior izquierda y seleccionando su lenguaje preferido.
 
-* `Chino <https://github.com/solidity-docs/zh-chinese>`_
-* `Español <https://github.com/solidity-docs/es-spanish>`_
-* `Coreano <https://github.com/solidity-docs/ko-korean>`_
-* `Ruso <https://github.com/solidity-docs/ru-russian>`_
-* `Japonés <https://github.com/solidity-docs/ja-japanese>`_
-* `Persa <https://github.com/solidity-docs/fa-persian>`_
+* `Chino <https://docs.soliditylang.org/zh/latest/>`_
 * `Francés <https://docs.soliditylang.org/fr/latest/>`_
-* `Alemán <https://github.com/solidity-docs/de-german>`_
 * `Indonesio <https://github.com/solidity-docs/id-indonesian>`_
-* `Portugués <https://github.com/solidity-docs/pt-portuguese>`_
+* `Japonés <https://github.com/solidity-docs/ja-japanese>`_
+* `Coreano <https://github.com/solidity-docs/ko-korean>`_
+* `Persa <https://github.com/solidity-docs/fa-persian>`_
+* `Ruso <https://github.com/solidity-docs/ru-russian>`_
+* `Español <https://github.com/solidity-docs/es-spanish>`_
 * `Turco <https://github.com/solidity-docs/tr-turkish>`_
+* `Alemán <https://github.com/solidity-docs/de-german>`_
+* `Portugués <https://github.com/solidity-docs/pt-portuguese>`_
 
-.. Nota::
-
-  Recientemente se creó una nueva organización en GitHub y un flujo de trabajo para las traducciones, con el motivo de agilizar los esfuerzos de la comunidad. Por favor, consulte la `guía de traducción <https://github.com/solidity-docs/translation-guide>`_ para obtener información sobre cómo iniciar un nuevo idioma o contribuir en las traducciones de la comunidad.
+.. Note::
+  Recientemente se creó una nueva organización en GitHub y un flujo de trabajo para las traducciones, con el motivo de agilizar los esfuerzos de la     comunidad. Por favor, consulte la `guía de traducción <https://github.com/solidity-docs/translation-guide>`_ para obtener información sobre cómo iniciar un nuevo idioma o contribuir en las traducciones de la comunidad.
   Hemos establecido una organización de Github y flujo de trabajo de traducción para ayudar a optimizar los esfuerzos de la comunidad. Consulte la guīa de traducción en `solidity-docs org <https://github.com/solidity-docs>`_ para obtener información sobre cómo iniciar una nuevo idioma o contribuir a la traducciones de la comunidad.
 
-:ref:`Índice de Palabras Clave <genindex>`, :ref:`Página de Búsqueda <search>`
+Contenidos
+==========
+
+:ref:`Índice de palabras clave <genindex>`, :ref:`Página de búsqueda <search>`
 
 .. toctree::
    :maxdepth: 2

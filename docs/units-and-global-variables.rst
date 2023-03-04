@@ -60,7 +60,7 @@ Variables y funciones especiales
 Hay variables y funciones especiales que siempre existen en el espacio de nombres global y se utilizan principalmente para proporcionar información sobre el blockchain
 o son funciones de utilidad de uso general.
 
-.. index:: abi, block, coinbase, difficulty, encode, number, block;number, timestamp, block;timestamp, msg, data, gas, sender, value, gas price, origin
+.. index:: abi, block, coinbase, difficulty, prevrandao, encode, number, block;number, timestamp, block;timestamp, msg, data, gas, sender, value, gas price, origin
 
 
 Propiedades de bloques y transacciones
@@ -70,7 +70,8 @@ Propiedades de bloques y transacciones
 - ``block.basefee`` (``uint``): tarifa base del bloque actual (`EIP-3198 <https://eips.ethereum.org/EIPS/eip-3198>`_ y `EIP-1559 <https://eips.ethereum.org/EIPS/eip-1559>`_)
 - ``block.chainid`` (``uint``): ID de cadena actual
 - ``block.coinbase`` (``address payable``): dirección actual del minero del bloque
-- ``block.difficulty`` (``uint``): dificultad del bloque actual
+- ``block.difficulty`` (``uint``): dificultad del bloque actual. Para otras versiones de EVM se comporta como un alias obsoleto de 
+``block.prevrandao`` (`EIP-4399 <https://eips.ethereum.org/EIPS/eip-4399>`_ )
 - ``block.gaslimit`` (``uint``): límite de gas del bloque actual
 - ``block.number`` (``uint``): número de bloque actual
 - ``block.timestamp`` (``uint``): marca de tiempo de bloque actual como segundos desde la época unix
@@ -296,8 +297,12 @@ Relacionados con el contrato
     - la función de recepción del contrato receptor no se ejecuta.
     - el contrato solo se destruye realmente al final de la transacción y ``revert`` podría "deshacer" la destrucción.
 
-
 Además, todas las funciones del contrato actual son llamables directamente, incluida la función actual.
+
+.. warning::
+    A partir de la versión 0.8.18, el uso de ``selfdestruct`` tanto en Solidity como en Yul provocará una advertencia de obsoleto, ya que el opcode       ``SELFDESTRUCT`` sufrirá eventualmente cambios en su comportamiento.
+    deprecation warning, ya que el opcode ``SELFDESTRUCT`` sufrirá eventualmente cambios en su comportamiento
+    como se indica en `EIP-6049 <https://eips.ethereum.org/EIPS/eip-6049>`_.
 
 .. note::
     Antes de la versión 0.5.0, había una función llamada ``suicide`` con la misma semántica que ``selfdestruct``.

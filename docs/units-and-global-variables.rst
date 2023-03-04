@@ -66,12 +66,12 @@ o son funciones de utilidad de uso general.
 Propiedades de bloques y transacciones
 --------------------------------
 
-<<<<<<< HEAD
 - ``blockhash(uint blockNumber) returns (bytes32)``: hash del bloque dado cuando ``blocknumber`` es uno de los 256 bloques más recientes; de lo contrario devuelve cero
 - ``block.basefee`` (``uint``): tarifa base del bloque actual (`EIP-3198 <https://eips.ethereum.org/EIPS/eip-3198>`_ y `EIP-1559 <https://eips.ethereum.org/EIPS/eip-1559>`_)
 - ``block.chainid`` (``uint``): ID de cadena actual
 - ``block.coinbase`` (``address payable``): dirección actual del minero del bloque
-- ``block.difficulty`` (``uint``): dificultad del bloque actual
+- ``block.difficulty`` (``uint``): dificultad del bloque actual. Para otras versiones de EVM se comporta como un alias obsoleto de 
+``block.prevrandao`` (`EIP-4399 <https://eips.ethereum.org/EIPS/eip-4399>`_ )
 - ``block.gaslimit`` (``uint``): límite de gas del bloque actual
 - ``block.number`` (``uint``): número de bloque actual
 - ``block.timestamp`` (``uint``): marca de tiempo de bloque actual como segundos desde la época unix
@@ -82,24 +82,6 @@ Propiedades de bloques y transacciones
 - ``msg.value`` (``uint``): número de wei enviado con el mensaje
 - ``tx.gasprice`` (``uint``): precio del gas de la transacción
 - ``tx.origin`` (``address``): remitente de la transacción (cadena de llamadas completa)
-=======
-- ``blockhash(uint blockNumber) returns (bytes32)``: hash of the given block when ``blocknumber`` is one of the 256 most recent blocks; otherwise returns zero
-- ``block.basefee`` (``uint``): current block's base fee (`EIP-3198 <https://eips.ethereum.org/EIPS/eip-3198>`_ and `EIP-1559 <https://eips.ethereum.org/EIPS/eip-1559>`_)
-- ``block.chainid`` (``uint``): current chain id
-- ``block.coinbase`` (``address payable``): current block miner's address
-- ``block.difficulty`` (``uint``): current block difficulty (``EVM < Paris``). For other EVM versions it behaves as a deprecated alias for ``block.prevrandao`` (`EIP-4399 <https://eips.ethereum.org/EIPS/eip-4399>`_ )
-- ``block.gaslimit`` (``uint``): current block gaslimit
-- ``block.number`` (``uint``): current block number
-- ``block.prevrandao`` (``uint``): random number provided by the beacon chain (``EVM >= Paris``)
-- ``block.timestamp`` (``uint``): current block timestamp as seconds since unix epoch
-- ``gasleft() returns (uint256)``: remaining gas
-- ``msg.data`` (``bytes calldata``): complete calldata
-- ``msg.sender`` (``address``): sender of the message (current call)
-- ``msg.sig`` (``bytes4``): first four bytes of the calldata (i.e. function identifier)
-- ``msg.value`` (``uint``): number of wei sent with the message
-- ``tx.gasprice`` (``uint``): gas price of the transaction
-- ``tx.origin`` (``address``): sender of the transaction (full call chain)
->>>>>>> english/develop
 
 .. note::
     Los valores de todos los miembros de ``msg``, incluyendo ``msg.sender`` y
@@ -315,12 +297,7 @@ Relacionados con el contrato
     - la función de recepción del contrato receptor no se ejecuta.
     - el contrato solo se destruye realmente al final de la transacción y ``revert`` podría "deshacer" la destrucción.
 
-<<<<<<< HEAD
-
 Además, todas las funciones del contrato actual son llamables directamente, incluida la función actual.
-=======
-Furthermore, all functions of the current contract are callable directly including the current function.
->>>>>>> english/develop
 
 .. warning::
     From version 0.8.18 and up, the use of ``selfdestruct`` in both Solidity and Yul will trigger a

@@ -499,6 +499,23 @@ how many unproved targets there are. If the user wishes to see all the specific
 unproved targets, the CLI option ``--model-checker-show-unproved`` and
 the JSON option ``settings.modelChecker.showUnproved = true`` can be used.
 
+Unsupported Language Features
+=============================
+
+Certain Solidity language features are not completely supported by the SMT
+encoding that the SMTChecker applies, for example assembly blocks.
+The unsupported construct is abstracted via overapproximation to preserve
+soundness, meaning any properties reported safe are safe even though this
+feature is unsupported.
+However such abstraction may cause false positives when the target properties
+depend on the precise behavior of the unsupported feature.
+If the encoder encounters such cases it will by default report a generic warning
+stating how many unsupported features it has seen.
+If the user wishes to see all the specific unsupported features, the CLI option
+``--model-checker-show-unsupported`` and the JSON option
+``settings.modelChecker.showUnsupported = true`` can be used, where their default
+value is ``false``.
+
 Verified Contracts
 ==================
 
@@ -664,7 +681,7 @@ most derived type in case of inheritance.
     }
 
 Note that in function ``property_transfer``, the external calls are
-performed on variable ``t``
+performed on variable ``t``.
 
 Another caveat of this mode are calls to state variables of contract type
 outside the analyzed contract. In the code below, even though ``B`` deploys
@@ -817,7 +834,7 @@ option ``--model-checker-solvers {all,cvc4,eld,smtlib2,z3}`` or the JSON option
 
   - if ``solc`` is compiled with it;
   - if a dynamic ``z3`` library of version >=4.8.x is installed in a Linux system (from Solidity 0.7.6);
-  - statically in ``soljson.js`` (from Solidity 0.6.9), that is, the Javascript binary of the compiler.
+  - statically in ``soljson.js`` (from Solidity 0.6.9), that is, the JavaScript binary of the compiler.
 
 .. note::
   z3 version 4.8.16 broke ABI compatibility with previous versions and cannot

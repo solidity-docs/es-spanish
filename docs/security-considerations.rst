@@ -34,7 +34,7 @@ variables locales y variables de estado marcados como ``private``.
 El uso de números aleatorios en contratos inteligentes es bastante complicado si no quiere
 que los mineros sean capaces de hacer trampa.
 
-Re-Entrancy
+Reentrancy
 ===========
 
 Cualquier interacción de un contrato (A) con otro contrato (B) y cualquier transferencia
@@ -83,8 +83,13 @@ por defecto:
         }
     }
 
+<<<<<<< HEAD
 Para evitar un ataque de re-entrancy, puede usar el patrón Verificaciónes-Efectos-Interacción
 como se esboza más abajo:
+=======
+To avoid reentrancy, you can use the Checks-Effects-Interactions pattern as
+demonstrated below:
+>>>>>>> english/develop
 
 .. code-block:: solidity
 
@@ -102,6 +107,7 @@ como se esboza más abajo:
         }
     }
 
+<<<<<<< HEAD
 El patrón Verificaciónes-Efectos-Interaccion garantiza que todas las rutas de código a través de un contrato completen todas las comprobaciones necesarias de los parámetros suministrados antes de modificar el estado del contrato (Verificación); solo entonces realiza cambios en el estado (Efectos); puede hacer llamadas a funciones en otros contratos *después* de que todos los cambios de estado planificados se hayan escrito en
 almacenamiento (interacciones). Esta es una forma común e infalible de prevenir *ataques de reingreso*, donde una llamada externa
 contrato malicioso es capaz de gastar dos veces una asignación, retirar dos veces un saldo, entre otras cosas, mediante el uso de la lógica que vuelve a llamar a la contrato original antes de que haya finalizado su transacción.
@@ -109,6 +115,19 @@ contrato malicioso es capaz de gastar dos veces una asignación, retirar dos vec
 Note que el ataque por re-entrancy no solo es un efecto de la transferencia de Ether
 sino de cualquier llamada de función sobre otro contrato. Además, también tiene que
 tener en cuenta situaciones de contratos múltiples. Una llamada a un contrato podría modificar el estado de otro contrato del cual depende.
+=======
+The Checks-Effects-Interactions pattern ensures that all code paths through a contract complete all required checks
+of the supplied parameters before modifying the contract's state (Checks); only then it makes any changes to the state (Effects);
+it may make calls to functions in other contracts *after* all planned state changes have been written to
+storage (Interactions). This is a common foolproof way to prevent *reentrancy attacks*, where an externally called
+malicious contract is able to double-spend an allowance, double-withdraw a balance, among other things, by using logic that calls back into the
+original contract before it has finalized its transaction.
+
+Note that reentrancy is not only an effect of Ether transfer but of any
+function call on another contract. Furthermore, you also have to take
+multi-contract situations into account. A called contract could modify the
+state of another contract you depend on.
+>>>>>>> english/develop
 
 Límite de Gas y Bucles
 ===================
@@ -368,7 +387,13 @@ La mayoría de las funciones llevarán a cabo primero algunas verificaciones (qu
 
 Como segundo paso, si todas las verificaciones pasaron, los efectos a las variables de estado del contrato actual deberían tener lugar. La interacción con otros contratos deberían ser el último paso en cualquier función.
 
+<<<<<<< HEAD
 Los primeros contratos retrasaban algunos efectos y esperaban por invocaciones a funciones externas para retornar un estado de no error. A menudo esto es un error serio debido a el problema de re-entrancy explicado arriba. 
+=======
+Early contracts delayed some effects and waited for external function
+calls to return in a non-error state. This is often a serious mistake
+because of the reentrancy problem explained above.
+>>>>>>> english/develop
 
 Note que, también, llamadas a contratos conocidos podrían, después, causar llamadas a contratos desconocidos, así que es probablemente mejor aplicar siempre este patrón. 
 

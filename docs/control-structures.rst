@@ -622,9 +622,15 @@ El compilador genera una excepción ``Error(string)`` (o una excepción sin dato
    (incluyendo el constructor y la función de fallback).
 #. Si un contrato recibe Ether mediante una función getter pública.
 
+<<<<<<< HEAD
 Para los siguientes casos, se reenvían los datos de error de la llamada externa 
 (si se proporcionan). Esto significa que puede causar un `Error` o un `Pánico` 
 (o cualquier otra cosa que se haya dado):
+=======
+For the following cases, the error data from the external call
+(if provided) is forwarded. This means that it can either cause
+an ``Error`` or a ``Panic`` (or whatever else was given):
+>>>>>>> english/develop
 
 #. Si un ``.transfer()`` falla.
 #. Si llama a una función a través de una llamada de mensaje pero no termina 

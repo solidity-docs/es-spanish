@@ -281,13 +281,24 @@ Para obtener más información, consulte la sección sobre :ref:`dirección`.
     Antes de la versión 0.5.0, había un miembro llamado ``callcode`` con una semántica similar pero ligeramente diferente a la de ``delegatecall``.
 
 
-.. index:: this, selfdestruct
+.. index:: this, selfdestruct, super
 
+<<<<<<< HEAD
 Relacionados con el contrato
 ----------------
 
 ``this`` (tipo de contrato actual)
     el contrato actual, explícitamente convertible en :ref:`dirección`
+=======
+Contract-related
+----------------
+
+``this`` (current contract's type)
+    The current contract, explicitly convertible to :ref:`address`
+
+``super``
+    A contract one level higher in the inheritance hierarchy
+>>>>>>> english/develop
 
 ``selfdestruct(address payable recipient)``
     Destruir el contrato actual, enviando sus fondos a la :ref:`dirección`

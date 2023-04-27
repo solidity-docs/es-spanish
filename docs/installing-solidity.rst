@@ -550,11 +550,18 @@ Para ver las opciones de Cmake disponibles solo corra ``cmake .. -LH``.
 
 .. _smt_solvers_build:
 
+<<<<<<< HEAD
 Solvers de SMT
 --------------
 Solidity puede ser compilado contra solvers SMT y lo hará por defecto 
 si se encuentran en el sistema. Cada solver puede ser deshabilitado con una 
 opción de `cmake`.
+=======
+SMT Solvers
+-----------
+Solidity can be built against SMT solvers and will do so by default if
+they are found in the system. Each solver can be disabled by a ``cmake`` option.
+>>>>>>> english/develop
 
 *Nota: En algunos casos, esto también puede ser una solución alterna para compilaciones fallidas.*
 

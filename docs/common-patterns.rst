@@ -54,8 +54,13 @@ los fondos de la persona que ahora es la más rica.
 
         function withdraw() public {
             uint amount = pendingWithdrawals[msg.sender];
+<<<<<<< HEAD
             // Recuerde poner a cero la devolución pendiente antes de 
             // enviar para prevenir ataques de reentrada.
+=======
+            // Remember to zero the pending refund before
+            // sending to prevent reentrancy attacks
+>>>>>>> english/develop
             pendingWithdrawals[msg.sender] = 0;
             payable(msg.sender).transfer(amount);
         }

@@ -15,7 +15,7 @@ Using the Commandline Compiler
 Basic Usage
 -----------
 
-One of the build targets of the Solidity repository is ``solc``, the solidity commandline compiler.
+One of the build targets of the Solidity repository is ``solc``, the Solidity commandline compiler.
 Using ``solc --help`` provides you with an explanation of all options. The compiler can produce various outputs, ranging from simple binaries and assembly over an abstract syntax tree (parse tree) to estimations of gas usage.
 If you only want to compile a single file, you run it as ``solc --bin sourceFile.sol`` and it will print the binary. If you want to get some of the more advanced output variants of ``solc``, it is probably better to tell it to output everything to separate files using ``solc -o outputDirectory --bin --ast-compact-json --asm sourceFile.sol``.
 
@@ -160,7 +160,7 @@ at each version. Backward compatibility is not guaranteed between each version.
    - It is possible to access dynamic data returned from function calls.
    - ``revert`` opcode introduced, which means that ``revert()`` will not waste gas.
 - ``constantinople``
-   - Opcodes ``create2`, ``extcodehash``, ``shl``, ``shr`` and ``sar`` are available in assembly.
+   - Opcodes ``create2``, ``extcodehash``, ``shl``, ``shr`` and ``sar`` are available in assembly.
    - Shifting operators use shifting opcodes and thus need less gas.
 - ``petersburg``
    - The compiler behaves the same way as with constantinople.
@@ -174,6 +174,8 @@ at each version. Backward compatibility is not guaranteed between each version.
    - The block's base fee (`EIP-3198 <https://eips.ethereum.org/EIPS/eip-3198>`_ and `EIP-1559 <https://eips.ethereum.org/EIPS/eip-1559>`_) can be accessed via the global ``block.basefee`` or ``basefee()`` in inline assembly.
 - ``paris`` (**default**)
    - Introduces ``prevrandao()`` and ``block.prevrandao``, and changes the semantics of the now deprecated ``block.difficulty``, disallowing ``difficulty()`` in inline assembly (see `EIP-4399 <https://eips.ethereum.org/EIPS/eip-4399>`_).
+- ``shanghai``
+  - Cheaper deployment cost due to the introduction of ``push0`` (see `EIP-3855 <https://eips.ethereum.org/EIPS/eip-3855>`_).
 
 .. index:: ! standard JSON, ! --standard-json
 .. _compiler-api:
@@ -443,6 +445,8 @@ Input Description
           "showProved": true,
           // Choose whether to output all unproved targets. The default is `false`.
           "showUnproved": true,
+          // Choose whether to output all unsupported language features. The default is `false`.
+          "showUnsupported": true,
           // Choose which solvers should be used, if available.
           // See the Formal Verification section for the solvers description.
           "solvers": ["cvc4", "smtlib2", "z3"],
@@ -634,6 +638,6 @@ Error Types
 10. ``Exception``: Unknown failure during compilation - this should be reported as an issue.
 11. ``CompilerError``: Invalid use of the compiler stack - this should be reported as an issue.
 12. ``FatalError``: Fatal error not processed correctly - this should be reported as an issue.
-13. ``YulException``: Error during Yul Code generation - this should be reported as an issue.
+13. ``YulException``: Error during Yul code generation - this should be reported as an issue.
 14. ``Warning``: A warning, which didn't stop the compilation, but should be addressed if possible.
 15. ``Info``: Information that the compiler thinks the user might find useful, but is not dangerous and does not necessarily need to be addressed.

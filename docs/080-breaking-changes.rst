@@ -169,6 +169,7 @@ Cambios en el interface
 Como actualizar su código
 =========================
 
+<<<<<<< HEAD
 - Si confía en la aritmética subyacente, encuelva cada operación con ``unchecked { ... }``.
 - Opcional: Si usa SafeMath o una librería similar, cambie ``x.add(y)`` a ``x + y``, ``x.mul(y)`` a ``x * y`` etc.
 - Añada ``pragma abicoder v1;`` si quiere mantener el antiggüo codificador de ABI.
@@ -182,3 +183,16 @@ Como actualizar su código
 - Use inline assembly reemplazando ``log0``, ..., ``log4``.
 - Niegue los enteros sin signo restándolos del valor máximo del tipo y sumando 1 (por ejemplo ``type(uint256).max - x + 1``, 
   mientras se asegura que `x` no es cero)
+=======
+- If you rely on wrapping arithmetic, surround each operation with ``unchecked { ... }``.
+- Optional: If you use SafeMath or a similar library, change ``x.add(y)`` to ``x + y``, ``x.mul(y)`` to ``x * y`` etc.
+- Add ``pragma abicoder v1;`` if you want to stay with the old ABI coder.
+- Optionally remove ``pragma experimental ABIEncoderV2`` or ``pragma abicoder v2`` since it is redundant.
+- Change ``byte`` to ``bytes1``.
+- Add intermediate explicit type conversions if required.
+- Combine ``c.f{gas: 10000}{value: 1}()`` to ``c.f{gas: 10000, value: 1}()``.
+- Change ``msg.sender.transfer(x)`` to ``payable(msg.sender).transfer(x)`` or use a stored variable of ``address payable`` type.
+- Change ``x**y**z`` to ``(x**y)**z``.
+- Use inline assembly as a replacement for ``log0``, ..., ``log4``.
+- Negate unsigned integers by subtracting them from the maximum value of the type and adding 1 (e.g. ``type(uint256).max - x + 1``, while ensuring that ``x`` is not zero)
+>>>>>>> english/develop

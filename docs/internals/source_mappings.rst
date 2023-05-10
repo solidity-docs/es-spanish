@@ -27,10 +27,17 @@ que no forman parte de la entrada original, pero a los que se hace referencia de
 asignaciones de origen. Estos archivos de origen junto con sus identificadores pueden
 obtenerse a través de ``output['contracts'][sourceName][contractName]['evm']['bytecode']['generatedSources']``.
 
+<<<<<<< HEAD
 .. nota ::
     En el caso de instrucciones que no están asociadas a ningún archivo fuente en particular,
     la asignación de origen asigna un identificador integer de ``-1``. Esto puede ocurrir
     para secciones de código de bytes que provienen de sentencias de ensamblaje en línea generadas por el compilador.
+=======
+.. note::
+    In the case of instructions that are not associated with any particular source file,
+    the source mapping assigns an integer identifier of ``-1``. This may happen for
+    bytecode sections stemming from compiler-generated inline assembly statements.
+>>>>>>> english/develop
 
 Las asignaciones de origen dentro del AST utilizan la siguiente
 notación:

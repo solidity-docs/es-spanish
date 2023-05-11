@@ -1,8 +1,10 @@
+.. index:: ! denomination
+
 **************************************
 Unidades y variables disponibles globalmente
 **************************************
 
-.. index:: wei, finney, szabo, gwei, ether
+.. index:: ! wei, ! finney, ! szabo, ! gwei, ! ether, ! denomination;ether
 
 Unidades de Ether
 ===========
@@ -21,7 +23,7 @@ El único efecto del sufijo subdenominación es una multiplicación por una pote
 .. note::
     Las denominaciones ``finney`` y ``szabo`` se han eliminado en la versión 0.7.0.
 
-.. index:: time, seconds, minutes, hours, days, weeks, years
+.. index:: ! seconds, ! minutes, ! hours, ! days, ! weeks, ! years, ! denomination;time
 
 Unidades de tiempo
 ==========
@@ -48,7 +50,7 @@ Estos sufijos no se pueden aplicar a las variables. Por ejemplo, si quieres inte
 
     function f(uint start, uint daysAfter) public {
         if (block.timestamp >= start + daysAfter * 1 days) {
-          // ...
+            // ...
         }
     }
 
@@ -281,13 +283,24 @@ Para obtener más información, consulte la sección sobre :ref:`dirección`.
     Antes de la versión 0.5.0, había un miembro llamado ``callcode`` con una semántica similar pero ligeramente diferente a la de ``delegatecall``.
 
 
-.. index:: this, selfdestruct
+.. index:: this, selfdestruct, super
 
+<<<<<<< HEAD
 Relacionados con el contrato
 ----------------
 
 ``this`` (tipo de contrato actual)
     el contrato actual, explícitamente convertible en :ref:`dirección`
+=======
+Contract-related
+----------------
+
+``this`` (current contract's type)
+    The current contract, explicitly convertible to :ref:`address`
+
+``super``
+    A contract one level higher in the inheritance hierarchy
+>>>>>>> english/develop
 
 ``selfdestruct(address payable recipient)``
     Destruir el contrato actual, enviando sus fondos a la :ref:`dirección`

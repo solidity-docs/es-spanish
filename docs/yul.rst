@@ -152,7 +152,7 @@ where an object is expected.
 Inside a code block, the following elements can be used
 (see the later sections for more details):
 
-- literals, i.e. ``0x123``, ``42`` or ``"abc"`` (strings up to 32 characters)
+- literals, e.g. ``0x123``, ``42`` or ``"abc"`` (strings up to 32 characters)
 - calls to builtin functions, e.g. ``add(1, mload(0))``
 - variable declarations, e.g. ``let x := 7``, ``let x := add(y, 3)`` or ``let x`` (initial value of 0 is assigned)
 - identifiers (variables), e.g. ``add(3, x)``
@@ -165,6 +165,8 @@ Inside a code block, the following elements can be used
 
 Multiple syntactical elements can follow each other simply separated by
 whitespace, i.e. there is no terminating ``;`` or newline required.
+
+.. index:: ! literal;in Yul
 
 Literals
 --------
@@ -238,7 +240,7 @@ they have to be assigned to local variables.
 For built-in functions of the EVM, functional expressions
 can be directly translated to a stream of opcodes:
 You just read the expression from right to left to obtain the
-opcodes. In the case of the first line in the example, this
+opcodes. In the case of the second line in the example, this
 is ``PUSH1 3 PUSH1 0x80 MLOAD ADD PUSH1 0x80 MSTORE``.
 
 For calls to user-defined functions, the arguments are also
@@ -902,15 +904,15 @@ the ``dup`` and ``swap`` instructions as well as ``jump`` instructions, labels a
 +-------------------------+-----+---+-----------------------------------------------------------------+
 | invalid()               | `-` | F | end execution with invalid instruction                          |
 +-------------------------+-----+---+-----------------------------------------------------------------+
-| log0(p, s)              | `-` | F | log without topics and data mem[p...(p+s))                      |
+| log0(p, s)              | `-` | F | log data mem[p...(p+s))                                         |
 +-------------------------+-----+---+-----------------------------------------------------------------+
-| log1(p, s, t1)          | `-` | F | log with topic t1 and data mem[p...(p+s))                       |
+| log1(p, s, t1)          | `-` | F | log data mem[p...(p+s)) with topic t1                           |
 +-------------------------+-----+---+-----------------------------------------------------------------+
-| log2(p, s, t1, t2)      | `-` | F | log with topics t1, t2 and data mem[p...(p+s))                  |
+| log2(p, s, t1, t2)      | `-` | F | log data mem[p...(p+s)) with topics t1, t2                      |
 +-------------------------+-----+---+-----------------------------------------------------------------+
-| log3(p, s, t1, t2, t3)  | `-` | F | log with topics t1, t2, t3 and data mem[p...(p+s))              |
+| log3(p, s, t1, t2, t3)  | `-` | F | log data mem[p...(p+s)) with topics t1, t2, t3                  |
 +-------------------------+-----+---+-----------------------------------------------------------------+
-| log4(p, s, t1, t2, t3,  | `-` | F | log with topics t1, t2, t3, t4 and data mem[p...(p+s))          |
+| log4(p, s, t1, t2, t3,  | `-` | F | log data mem[p...(p+s)) with topics t1, t2, t3, t4              |
 | t4)                     |     |   |                                                                 |
 +-------------------------+-----+---+-----------------------------------------------------------------+
 | chainid()               |     | I | ID of the executing chain (EIP-1344)                            |
@@ -947,7 +949,7 @@ the ``dup`` and ``swap`` instructions as well as ``jump`` instructions, labels a
   The remaining bytes will retain their values as of before the call.
 
 .. note::
-  The `difficulty()` instruction is disallowed in EVM version >= Paris.
+  The ``difficulty()`` instruction is disallowed in EVM version >= Paris.
   With the Paris network upgrade the semantics of the instruction that was previously called
   ``difficulty`` have been changed and the instruction was renamed to ``prevrandao``.
   It can now return arbitrary values in the full 256-bit range, whereas the highest recorded
@@ -1192,8 +1194,7 @@ An example Yul Object is shown below:
             // executing code is the constructor code)
             size := datasize("Contract1_deployed")
             offset := allocate(size)
-            // This will turn into a memory->memory copy for Ewasm and
-            // a codecopy for EVM
+            // This will turn into a codecopy for EVM
             datacopy(offset, dataoffset("Contract1_deployed"), size)
             return(offset, size)
         }

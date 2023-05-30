@@ -167,7 +167,6 @@ pero puede estar en orden arbitrario.
         function set(uint key, uint value) public {
             data[key] = value;
         }
-
     }
 
 Nombres omitidos en definiciones de funciones
@@ -622,9 +621,15 @@ El compilador genera una excepción ``Error(string)`` (o una excepción sin dato
    (incluyendo el constructor y la función de fallback).
 #. Si un contrato recibe Ether mediante una función getter pública.
 
+<<<<<<< HEAD
 Para los siguientes casos, se reenvían los datos de error de la llamada externa 
 (si se proporcionan). Esto significa que puede causar un `Error` o un `Pánico` 
 (o cualquier otra cosa que se haya dado):
+=======
+For the following cases, the error data from the external call
+(if provided) is forwarded. This means that it can either cause
+an ``Error`` or a ``Panic`` (or whatever else was given):
+>>>>>>> english/develop
 
 #. Si un ``.transfer()`` falla.
 #. Si llama a una función a través de una llamada de mensaje pero no termina 
@@ -655,9 +660,15 @@ y ``assert`` para la comprobación interna de errores.
             require(msg.value % 2 == 0, "Even value required.");
             uint balanceBeforeTransfer = address(this).balance;
             addr.transfer(msg.value / 2);
+<<<<<<< HEAD
             // Dado que la transferencia arroja una excepción en caso de fallo y
             // no puedo volver a llamar aquí, no debería haber forma de que lo hagamos
             // todavía tienen la mitad del dinero.
+=======
+            // Since transfer throws an exception on failure and
+            // cannot call back here, there should be no way for us to
+            // still have half of the Ether.
+>>>>>>> english/develop
             assert(address(this).balance == balanceBeforeTransfer - msg.value / 2);
             return address(this).balance;
         }

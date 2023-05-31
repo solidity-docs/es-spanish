@@ -28,11 +28,11 @@ Team Calls
 ==========
 
 If you have issues or pull requests to discuss, or are interested in hearing what
-the team and contributors are working on, you can join our public team calls:
+the team and contributors are working on, you can join our public team call:
 
-- Mondays and Wednesdays at 3PM CET/CEST.
+- Wednesdays at 3PM CET/CEST.
 
-Both calls take place on `Jitsi <https://meet.soliditylang.org/>`_.
+The call takes place on `Jitsi <https://meet.soliditylang.org/>`_.
 
 How to Report Issues
 ====================
@@ -45,7 +45,7 @@ reporting issues, please mention the following details:
 * Source code (if applicable).
 * Operating system.
 * Steps to reproduce the issue.
-* Actual vs. expected behaviour.
+* Actual vs. expected behavior.
 
 Reducing the source code that caused the issue to a bare minimum is always
 very helpful, and sometimes even clarifies a misunderstanding.
@@ -93,8 +93,7 @@ Prerequisites
 
 For running all compiler tests you may want to optionally install a few
 dependencies (`evmone <https://github.com/ethereum/evmone/releases>`_,
-`libz3 <https://github.com/Z3Prover/z3>`_, and
-`libhera <https://github.com/ewasm/hera>`_).
+`libz3 <https://github.com/Z3Prover/z3>`_).
 
 On macOS systems, some of the testing scripts expect GNU coreutils to be installed.
 This can be easiest accomplished using Homebrew: ``brew install coreutils``.
@@ -115,7 +114,7 @@ Running ``build/test/soltest`` or its wrapper ``scripts/soltest.sh`` is sufficie
 
 The ``./scripts/tests.sh`` script executes most Solidity tests automatically,
 including those bundled into the `Boost C++ Test Framework <https://www.boost.org/doc/libs/release/libs/test/doc/html/index.html>`_
-application ``soltest`` (or its wrapper ``scripts/soltest.sh``), as well as command line tests and
+application ``soltest`` (or its wrapper ``scripts/soltest.sh``), as well as command-line tests and
 compilation tests.
 
 The test system automatically tries to discover the location of
@@ -129,13 +128,7 @@ for the ``evmone`` shared object can be specified via the ``ETH_EVMONE`` environ
 If you do not have it installed, you can skip these tests by passing the ``--no-semantic-tests``
 flag to ``scripts/soltest.sh``.
 
-Running Ewasm tests is disabled by default and can be explicitly enabled
-via ``./scripts/soltest.sh --ewasm`` and requires `hera <https://github.com/ewasm/hera>`_
-to be found by ``soltest``.
-The mechanism for locating the ``hera`` library is the same as for ``evmone``, except that the
-variable for specifying an explicit location is called ``ETH_HERA``.
-
-The ``evmone`` and ``hera`` libraries should both end with the file name
+The ``evmone`` library should both end with the file name
 extension ``.so`` on Linux, ``.dll`` on Windows systems and ``.dylib`` on macOS.
 
 For running SMT tests, the ``libz3`` library must be installed and locatable
@@ -146,7 +139,7 @@ SMT tests by exporting ``SMT_FLAGS=--no-smt`` before running ``./scripts/tests.s
 running ``./scripts/soltest.sh --no-smt``.
 These tests are ``libsolidity/smtCheckerTests`` and ``libsolidity/smtCheckerTestsJSON``.
 
-.. note ::
+.. note::
 
     To get a list of all unit tests run by Soltest, run ``./build/test/soltest --list_content=HRF``.
 
@@ -167,7 +160,7 @@ See especially:
 - `run_test (-t) <https://www.boost.org/doc/libs/release/libs/test/doc/html/boost_test/utf_reference/rt_param_reference/run_test.html>`_ to run specific tests cases, and
 - `report-level (-r) <https://www.boost.org/doc/libs/release/libs/test/doc/html/boost_test/utf_reference/rt_param_reference/report_level.html>`_ give a more detailed report.
 
-.. note ::
+.. note::
 
     Those working in a Windows environment wanting to run the above basic sets
     without libz3. Using Git Bash, you use: ``./build/test/Release/soltest.exe -- --no-smt``.
@@ -175,6 +168,7 @@ See especially:
 
 If you want to debug using GDB, make sure you build differently than the "usual".
 For example, you could run the following command in your ``build`` folder:
+
 .. code-block:: bash
 
    cmake -DCMAKE_BUILD_TYPE=Debug ..
@@ -245,7 +239,7 @@ provides a way to edit, update or skip the current contract file, or quit the ap
 
 It offers several options for failing tests:
 
-- ``edit``: ``isoltest`` tries to open the contract in an editor so you can adjust it. It either uses the editor given on the command line (as ``isoltest --editor /path/to/editor``), in the environment variable ``EDITOR`` or just ``/usr/bin/editor`` (in that order).
+- ``edit``: ``isoltest`` tries to open the contract in an editor so you can adjust it. It either uses the editor given on the command-line (as ``isoltest --editor /path/to/editor``), in the environment variable ``EDITOR`` or just ``/usr/bin/editor`` (in that order).
 - ``update``: Updates the expectations for contract under test. This updates the annotations by removing unmet expectations and adding missing expectations. The test is then run again.
 - ``skip``: Skips the execution of this particular test.
 - ``quit``: Quits ``isoltest``.
@@ -356,7 +350,7 @@ The AFL documentation states that the corpus (the initial input files) should no
 too large. The files themselves should not be larger than 1 kB and there should be
 at most one input file per functionality, so better start with a small number of.
 There is also a tool called ``afl-cmin`` that can trim input files
-that result in similar behaviour of the binary.
+that result in similar behavior of the binary.
 
 Now run the fuzzer (the ``-m`` extends the size of memory to 60 MB):
 
@@ -403,13 +397,12 @@ contributions to Solidity.
 English Language
 ----------------
 
-Use English, with British English spelling preferred, unless using project or brand names. Try to reduce the usage of
-local slang and references, making your language as clear to all readers as possible. Below are some references to help:
+Use International English, unless using project or brand names. Try to reduce the usage of
+local slang and references, making your language as clear to all readers as possible.
+Below are some references to help:
 
 * `Simplified technical English <https://en.wikipedia.org/wiki/Simplified_Technical_English>`_
 * `International English <https://en.wikipedia.org/wiki/International_English>`_
-* `British English spelling <https://web.archive.org/web/20220324094038/https://www.lexico.com/grammar/british-and-spelling>`_
-
 
 .. note::
 

@@ -23,8 +23,13 @@ Ambientes de Desarrollo Integrado (Ethereum)
         Framework de desarrollo y testing basado en Python para contratos inteligentes dirigido a la Máquina Virtual de Ethereum.
     
     * `Dapp <https://dapp.tools/>`_
+<<<<<<< HEAD
         Herramienta para la construcción, testeo y deployment de contratos inteligentes desde la línea de comandos.
     
+=======
+        Tool for building, testing and deploying smart contracts from the command-line.
+
+>>>>>>> english/develop
     * `Embark <https://framework.embarklabs.io/>`_
         Plataforma para la construcción y deployment de aplicaciones descentralizadas.
     

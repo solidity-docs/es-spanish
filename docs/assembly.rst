@@ -273,9 +273,18 @@ Ten en cuenta que no solo las operaciones de memoria en ensamblado en línea en 
 El ensamblado en línea que no involucra ninguna operación que acceda a la memoria ni asigna ninguna variable de Solidity en la memoria se considera automáticamente seguro para la memoria y no necesita ser anotado.
 
 .. warning::
+<<<<<<< HEAD
     Es tu responsabilidad asegurarte de que el ensamblado realmente cumpla el modelo de memoria. Si anotas un bloque de ensamblado como seguro en cuanto a la memoria, pero viola una de las suposiciones de la memoria, esto *provocará* a un comportamiento incorrecto e indeterminado que no puede descubrirse con facilidad mediante pruebas.
     
 En caso de que estes desarrollando una biblioteca que esté destinada a ser compatible con varias versiones de Solidity, puedes usar un comentario especial para anotar un bloque de ensamblado como seguro en cuanto a la memoria:
+=======
+    It is your responsibility to make sure that the assembly actually satisfies the memory model. If you annotate
+    an assembly block as memory-safe, but violate one of the memory assumptions, this **will** lead to incorrect and
+    undefined behavior that cannot easily be discovered by testing.
+
+In case you are developing a library that is meant to be compatible across multiple versions
+of Solidity, you can use a special comment to annotate an assembly block as memory-safe:
+>>>>>>> english/develop
 
 .. code-block:: solidity
 
@@ -284,4 +293,9 @@ En caso de que estes desarrollando una biblioteca que esté destinada a ser comp
         ...
     }
 
+<<<<<<< HEAD
 Ten en cuenta que en una futura versión deshabilitaremos la anotación mediante comentarios. Si no te preocupa la compatibilidad con versiones anteriores del compilador, preferiblemente usa la secuencia de dialecto.
+=======
+Note that we will disallow the annotation via comment in a future breaking release; so, if you are not concerned with
+backward-compatibility with older compiler versions, prefer using the dialect string.
+>>>>>>> english/develop

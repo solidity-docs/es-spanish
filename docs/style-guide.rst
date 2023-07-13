@@ -16,11 +16,11 @@ Many projects will implement their own style guides.  In the event of
 conflicts, project specific style guides take precedence.
 
 The structure and many of the recommendations within this style guide were
-taken from python's
+taken from Python's
 `pep8 style guide <https://peps.python.org/pep-0008/>`_.
 
 The goal of this guide is *not* to be the right way or the best way to write
-Solidity code.  The goal of this guide is *consistency*.  A quote from python's
+Solidity code.  The goal of this guide is *consistency*.  A quote from Python's
 `pep8 <https://peps.python.org/pep-0008/#a-foolish-consistency-is-the-hobgoblin-of-little-minds>`_
 captures this concept well.
 
@@ -28,7 +28,7 @@ captures this concept well.
 
     A style guide is about consistency. Consistency with this style guide is important. Consistency within a project is more important. Consistency within one module or function is most important.
 
-    But most importantly: **know when to be inconsistent** -- sometimes the style guide just doesn't apply. When in doubt, use your best judgment. Look at other examples and decide what looks best. And don't hesitate to ask!
+    But most importantly: **know when to be inconsistent** -- sometimes the style guide just doesn't apply. When in doubt, use your best judgment. Look at other examples and decide what looks best. And do not hesitate to ask!
 
 
 ***********
@@ -448,7 +448,7 @@ No:
     y            = 2;
     longVariable = 3;
 
-Don't include a whitespace in the receive and fallback functions:
+Do not include a whitespace in the receive and fallback functions:
 
 Yes:
 

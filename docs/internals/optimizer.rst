@@ -27,7 +27,7 @@ optimized Yul IR for a Solidity source. Similarly, one can use ``solc --strict-a
 for a stand-alone Yul mode.
 
 .. note::
-    The `peephole optimizer <https://en.wikipedia.org/wiki/Peephole_optimization>`_ and the inliner are always
+    The `peephole optimizer <https://en.wikipedia.org/wiki/Peephole_optimization>`_ is always
     enabled by default and can only be turned off via the :ref:`Standard JSON <compiler-api>`.
 
 You can find more details on both optimizer modules and their optimization steps below.
@@ -316,7 +316,6 @@ Abbreviation Full name
 ``L``        :ref:`load-resolver`
 ``M``        :ref:`loop-invariant-code-motion`
 ``r``        :ref:`redundant-assign-eliminator`
-``R``        :ref:`reasoning-based-simplifier` - highly experimental
 ``m``        :ref:`rematerialiser`
 ``V``        :ref:`SSA-reverser`
 ``a``        :ref:`SSA-transform`
@@ -330,10 +329,6 @@ Abbreviation Full name
 Some steps depend on properties ensured by ``BlockFlattener``, ``FunctionGrouper``, ``ForLoopInitRewriter``.
 For this reason the Yul optimizer always applies them before applying any steps supplied by the user.
 
-The ReasoningBasedSimplifier is an optimizer step that is currently not enabled
-in the default set of steps. It uses an SMT solver to simplify arithmetic expressions
-and boolean conditions. It has not received thorough testing or validation yet and can produce
-non-reproducible results, so please use with care!
 
 Selecting Optimizations
 -----------------------
@@ -575,7 +570,7 @@ It is not applied to loop iteration-condition, because the loop control flow doe
 this "outlining" of the inner expressions in all cases. We can sidestep this limitation by applying
 :ref:`for-loop-condition-into-body` to move the iteration condition into loop body.
 
-The final program should be in a form such that (with the exception of loop conditions)
+The final program should be in an *expression-split form*, where (with the exception of loop conditions)
 function calls cannot appear nested inside expressions
 and all function call arguments have to be variables.
 
@@ -826,10 +821,10 @@ if the common subexpression eliminator was run right before it.
 
 .. _expression-simplifier:
 
-Expression Simplifier
-^^^^^^^^^^^^^^^^^^^^^
+ExpressionSimplifier
+^^^^^^^^^^^^^^^^^^^^
 
-The Expression Simplifier uses the Dataflow Analyzer and makes use
+The ExpressionSimplifier uses the Dataflow Analyzer and makes use
 of a list of equivalence transforms on expressions like ``X + 0 -> X``
 to simplify the code.
 
@@ -862,22 +857,6 @@ currently stored in storage resp. memory, if known.
 Works best if the code is in SSA form.
 
 Prerequisite: Disambiguator, ForLoopInitRewriter.
-
-.. _reasoning-based-simplifier:
-
-ReasoningBasedSimplifier
-^^^^^^^^^^^^^^^^^^^^^^^^
-
-This optimizer uses SMT solvers to check whether ``if`` conditions are constant.
-
-- If ``constraints AND condition`` is UNSAT, the condition is never true and the whole body can be removed.
-- If ``constraints AND NOT condition`` is UNSAT, the condition is always true and can be replaced by ``1``.
-
-The simplifications above can only be applied if the condition is movable.
-
-It is only effective on the EVM dialect, but safe to use on other dialects.
-
-Prerequisite: Disambiguator, SSATransform.
 
 Statement-Scale Simplifications
 -------------------------------
@@ -1213,7 +1192,7 @@ This component can only be used on sources with unique names.
 FullInliner
 ^^^^^^^^^^^
 
-The Full Inliner replaces certain calls of certain functions
+The FullInliner replaces certain calls of certain functions
 by the function's body. This is not very helpful in most cases, because
 it just increases the code size but does not have a benefit. Furthermore,
 code is usually very expensive and we would often rather have shorter
@@ -1236,6 +1215,11 @@ a certain parameter is always replaced by a constant. After that,
 we can run the optimizer on this specialized function. If it
 results in heavy gains, the specialized function is kept,
 otherwise the original function is used instead.
+
+FunctionHoister and ExpressionSplitter are recommended as prerequisites since they make the step
+more efficient, but are not required for correctness.
+In particular, function calls with other function calls as arguments are not inlined, but running
+ExpressionSplitter beforehand ensures that there are no such calls in the input.
 
 Cleanup
 -------
@@ -1279,8 +1263,8 @@ This is a tiny step that helps in reversing the effects of the SSA transform
 if it is combined with the Common Subexpression Eliminator and the
 Unused Pruner.
 
-The SSA form we generate is detrimental to code generation on the EVM and
-WebAssembly alike because it generates many local variables. It would
+The SSA form we generate is detrimental to code generation
+because it produces many local variables. It would
 be better to just re-use existing variables with assignments instead of
 fresh variable declarations.
 
@@ -1398,15 +1382,3 @@ into
     }
 
 The LiteralRematerialiser should be run before this step.
-
-
-WebAssembly specific
---------------------
-
-MainFunction
-^^^^^^^^^^^^
-
-Changes the topmost block to be a function with a specific name ("main") which has no
-inputs nor outputs.
-
-Depends on the Function Grouper.

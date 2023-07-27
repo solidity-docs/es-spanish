@@ -17,10 +17,17 @@ directa a ``transfer``, esto no se recomienda ya que introduce
 un riesgo potencial de seguridad. Podría leer más sobre esto
 en la página :ref:`consideraciones_de_seguridad`.
 
+<<<<<<< HEAD
 El siguiente ejemplo es un patrón de retiros en práctica en
 un contrato donde el objetivo es enviar la mayor cantidad de 
 dinero al contrato a fin de llegar a ser "el más rico",
 inspirado por `King of the Ether <https://www.kingoftheether.com/>`_.
+=======
+The following is an example of the withdrawal pattern in practice in
+a contract where the goal is to send the most of some compensation, e.g. Ether, to the
+contract in order to become the "richest", inspired by
+`King of the Ether <https://www.kingoftheether.com/>`_.
+>>>>>>> english/develop
 
 En el siguiente contrato, si usted ya no es el más rico, recibe
 los fondos de la persona que ahora es la más rica.
@@ -54,8 +61,13 @@ los fondos de la persona que ahora es la más rica.
 
         function withdraw() public {
             uint amount = pendingWithdrawals[msg.sender];
+<<<<<<< HEAD
             // Recuerde poner a cero la devolución pendiente antes de 
             // enviar para prevenir ataques de reentrada.
+=======
+            // Remember to zero the pending refund before
+            // sending to prevent reentrancy attacks
+>>>>>>> english/develop
             pendingWithdrawals[msg.sender] = 0;
             payable(msg.sender).transfer(amount);
         }

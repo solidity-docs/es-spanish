@@ -73,7 +73,7 @@ Tutorial
 Overflow
 ========
 
-.. code-block:: Solidity
+.. code-block:: solidity
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.8.0;
@@ -97,7 +97,7 @@ Overflow
 
 The contract above shows an overflow check example.
 The SMTChecker does not check underflow and overflow by default for Solidity >=0.8.7,
-so we need to use the command line option ``--model-checker-targets "underflow,overflow"``
+so we need to use the command-line option ``--model-checker-targets "underflow,overflow"``
 or the JSON option ``settings.modelChecker.targets = ["underflow", "overflow"]``.
 See :ref:`this section for targets configuration<smtchecker_targets>`.
 Here, it reports the following:
@@ -122,7 +122,7 @@ Here, it reports the following:
 If we add ``require`` statements that filter out overflow cases,
 the SMTChecker proves that no overflow is reachable (by not reporting warnings):
 
-.. code-block:: Solidity
+.. code-block:: solidity
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.8.0;
@@ -160,7 +160,7 @@ Since ``f`` is indeed monotonically increasing, the SMTChecker proves that our
 property is correct. You are encouraged to play with the property and the function
 definition to see what results come out!
 
-.. code-block:: Solidity
+.. code-block:: solidity
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.8.0;
@@ -182,7 +182,7 @@ The following code searches for the maximum element of an unrestricted array of
 numbers, and asserts the property that the found element must be greater or
 equal every element in the array.
 
-.. code-block:: Solidity
+.. code-block:: solidity
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.8.0;
@@ -216,7 +216,7 @@ All the properties are correctly proven safe. Feel free to change the
 properties and/or add restrictions on the array to see different results.
 For example, changing the code to
 
-.. code-block:: Solidity
+.. code-block:: solidity
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.8.0;
@@ -268,7 +268,7 @@ Let us place a robot at position (0, 0). The robot can only move diagonally, one
 and cannot move outside the grid. The robot's state machine can be represented by the smart contract
 below.
 
-.. code-block:: Solidity
+.. code-block:: solidity
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.8.0;
@@ -319,7 +319,7 @@ We can also trick the SMTChecker into giving us a path to a certain position we
 think might be reachable.  We can add the property that (2, 4) is *not*
 reachable, by adding the following function.
 
-.. code-block:: Solidity
+.. code-block:: solidity
 
     function reach_2_4() public view {
         assert(!(x == 2 && y == 4));
@@ -368,7 +368,7 @@ In some cases, it is possible to automatically infer properties over state
 variables that are still true even if the externally called code can do
 anything, including reenter the caller contract.
 
-.. code-block:: Solidity
+.. code-block:: solidity
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.8.0;
@@ -412,7 +412,7 @@ is already "locked", so it would not be possible to change the value of ``x``,
 regardless of what the unknown called code does.
 
 If we "forget" to use the ``mutex`` modifier on function ``set``, the
-SMTChecker is able to synthesize the behaviour of the externally called code so
+SMTChecker is able to synthesize the behavior of the externally called code so
 that the assertion fails:
 
 .. code-block:: text
@@ -498,6 +498,23 @@ If there are any unproved targets, the SMTChecker issues one warning stating
 how many unproved targets there are. If the user wishes to see all the specific
 unproved targets, the CLI option ``--model-checker-show-unproved`` and
 the JSON option ``settings.modelChecker.showUnproved = true`` can be used.
+
+Unsupported Language Features
+=============================
+
+Certain Solidity language features are not completely supported by the SMT
+encoding that the SMTChecker applies, for example assembly blocks.
+The unsupported construct is abstracted via overapproximation to preserve
+soundness, meaning any properties reported safe are safe even though this
+feature is unsupported.
+However such abstraction may cause false positives when the target properties
+depend on the precise behavior of the unsupported feature.
+If the encoder encounters such cases it will by default report a generic warning
+stating how many unsupported features it has seen.
+If the user wishes to see all the specific unsupported features, the CLI option
+``--model-checker-show-unsupported`` and the JSON option
+``settings.modelChecker.showUnsupported = true`` can be used, where their default
+value is ``false``.
 
 Verified Contracts
 ==================
@@ -619,7 +636,7 @@ expression type.
 It is also helpful to cast the called contract's variable as the type of the
 most derived type in case of inheritance.
 
-   .. code-block:: solidity
+.. code-block:: solidity
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.8.0;
@@ -664,7 +681,7 @@ most derived type in case of inheritance.
     }
 
 Note that in function ``property_transfer``, the external calls are
-performed on variable ``t``
+performed on variable ``t``.
 
 Another caveat of this mode are calls to state variables of contract type
 outside the analyzed contract. In the code below, even though ``B`` deploys
@@ -680,8 +697,9 @@ storage for ``address`` variables, therefore if ``B.a`` had type ``address``
 the encoding would assume that its storage does not change in between
 transactions to ``B``.
 
-   .. code-block:: solidity
+.. code-block:: solidity
 
+    // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.8.0;
 
     contract A {
@@ -733,7 +751,7 @@ and modulo operations inside Horn rules. Because of that, by default the
 Solidity division and modulo operations are encoded using the constraint
 ``a = b * d + m`` where ``d = a / b`` and ``m = a % b``.
 However, other solvers, such as Eldarica, prefer the syntactically precise operations.
-The command line flag ``--model-checker-div-mod-no-slacks`` and the JSON option
+The command-line flag ``--model-checker-div-mod-no-slacks`` and the JSON option
 ``settings.modelChecker.divModNoSlacks`` can be used to toggle the encoding
 depending on the used solver preferences.
 
@@ -817,7 +835,7 @@ option ``--model-checker-solvers {all,cvc4,eld,smtlib2,z3}`` or the JSON option
 
   - if ``solc`` is compiled with it;
   - if a dynamic ``z3`` library of version >=4.8.x is installed in a Linux system (from Solidity 0.7.6);
-  - statically in ``soljson.js`` (from Solidity 0.6.9), that is, the Javascript binary of the compiler.
+  - statically in ``soljson.js`` (from Solidity 0.6.9), that is, the JavaScript binary of the compiler.
 
 .. note::
   z3 version 4.8.16 broke ABI compatibility with previous versions and cannot

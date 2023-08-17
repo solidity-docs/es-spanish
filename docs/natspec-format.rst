@@ -56,7 +56,7 @@ El siguiente ejemplo muestra un contrato y una función usando todas las etiquet
 
   Esto podría cambiar en el futuro.
 
-.. code-block:: Solidity
+.. code-block:: solidity
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.8.2 < 0.9.0;

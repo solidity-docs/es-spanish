@@ -167,7 +167,6 @@ pero puede estar en orden arbitrario.
         function set(uint key, uint value) public {
             data[key] = value;
         }
-
     }
 
 Nombres omitidos en definiciones de funciones
@@ -350,15 +349,26 @@ i.e., lo siguiente no es válido: ``(x, uint y) = (1, 2);``
     Esto ahora no está permitido, por lo que ambas partes tienen que tener el mismo número de componentes.
 
 .. warning::
+<<<<<<< HEAD
     Hay que tener cuidado al asignar a varias variables al mismo tiempo cuando 
     se involucran tipos de referencia, ya que podría provocar un 
     comportamiento de copia inesperado.
+=======
+    Be careful when assigning to multiple variables at the same time when
+    reference types are involved, because it could lead to unexpected
+    copying behavior.
+>>>>>>> english/develop
 
 Complicaciones en Arrays y Structs
 ------------------------------------
 
+<<<<<<< HEAD
 La sintaxis de asignación es algo más complicada para tipos sin valor como arrays y structs,
 incluyendo ``bytes`` y ``string``, mira :ref:`localización de datos y comportamiento de asignaciones <data-location-assignment>` para detalles.
+=======
+The semantics of assignments are more complicated for non-value types like arrays and structs,
+including ``bytes`` and ``string``, see :ref:`Data location and assignment behavior <data-location-assignment>` for details.
+>>>>>>> english/develop
 
 En el siguiente ejemplo la llamada a ``g(x)`` no tiene ningún efecto en ``x`` porque crea 
 una copia independiente del valor de almacenamiento en la memoria. Sin embargo, ``h(x)`` 
@@ -494,7 +504,11 @@ que introducen comprobaciones adicionales.
 Desde Solidity 0.8.0, todas las operaciones aritméticas se revierten por defecto en el 
 subdesbordamiento o desbordamiento, lo que hace innecesario el uso de estas bibliotecas.
 
+<<<<<<< HEAD
 Para obtener el comportamiento anterior, se puede utilizar un bloque ``unchecked``:
+=======
+To obtain the previous behavior, an ``unchecked`` block can be used:
+>>>>>>> english/develop
 
 .. code-block:: solidity
 
@@ -622,9 +636,15 @@ El compilador genera una excepción ``Error(string)`` (o una excepción sin dato
    (incluyendo el constructor y la función de fallback).
 #. Si un contrato recibe Ether mediante una función getter pública.
 
+<<<<<<< HEAD
 Para los siguientes casos, se reenvían los datos de error de la llamada externa 
 (si se proporcionan). Esto significa que puede causar un `Error` o un `Pánico` 
 (o cualquier otra cosa que se haya dado):
+=======
+For the following cases, the error data from the external call
+(if provided) is forwarded. This means that it can either cause
+an ``Error`` or a ``Panic`` (or whatever else was given):
+>>>>>>> english/develop
 
 #. Si un ``.transfer()`` falla.
 #. Si llama a una función a través de una llamada de mensaje pero no termina 
@@ -655,9 +675,15 @@ y ``assert`` para la comprobación interna de errores.
             require(msg.value % 2 == 0, "Even value required.");
             uint balanceBeforeTransfer = address(this).balance;
             addr.transfer(msg.value / 2);
+<<<<<<< HEAD
             // Dado que la transferencia arroja una excepción en caso de fallo y
             // no puedo volver a llamar aquí, no debería haber forma de que lo hagamos
             // todavía tienen la mitad del dinero.
+=======
+            // Since transfer throws an exception on failure and
+            // cannot call back here, there should be no way for us to
+            // still have half of the Ether.
+>>>>>>> english/develop
             assert(address(this).balance == balanceBeforeTransfer - msg.value / 2);
             return address(this).balance;
         }
@@ -689,8 +715,13 @@ La instrucción ``revert`` accepta un error personalizado como argumento directo
 
     revert CustomError(arg1, arg2);
 
+<<<<<<< HEAD
 Por razones de compatibilidad con versiones anteriores, también existe la función ``revert()``, que utiliza paréntesis 
 y acepta una cadena:
+=======
+For backward-compatibility reasons, there is also the ``revert()`` function, which uses parentheses
+and accepts a string:
+>>>>>>> english/develop
 
     revert();
     revert("description");

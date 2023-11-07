@@ -27,7 +27,12 @@ Proporcionar este comentario, por supuesto, no lo exime de otras obligaciones re
 
 El comentario es reconocido por el compilador en cualquier parte del archivo al nivel de archivos, pero se recomienda ponerlo en la parte superior del archivo.
 
+<<<<<<< HEAD
 Más información sobre cómo usar los identificadores de licencias SPDX puede ser encontrado en el `sitio web de SPDX <https://spdx.org/ids-how>`_.
+=======
+More information about how to use SPDX license identifiers
+can be found at the `SPDX website <https://spdx.dev/learn/handling-license-info/#how>`_.
+>>>>>>> english/develop
 
 
 .. index:: ! pragma

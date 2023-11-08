@@ -54,7 +54,7 @@ Cuando utilice el logotipo de Solidity, respete las pautas del logotipo de Solid
 Guías para el Logo de Solidity
 ==============================
 
-.. image:: logo.svg
+.. image:: solidity_logo.svg
   :width: 256
 
 *(Haga click derecho en el logo para descargarlo.)*

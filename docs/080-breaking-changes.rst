@@ -9,20 +9,34 @@ Para ver la lista completa
 Cambios silenciosos en la semántica
 ===================================
 
+<<<<<<< HEAD
 Esta sección enumera los cambios en los que el código existente cambia su comportamiento sin
 que el compilador le notifique nada al respecto.
 
 * Las operaciones aritmeticas se revertirán en underflow y overflow. Puede escribir ``unchecked { ... }`` para
   usar el comportamiento anterior del adaptador.
+=======
+This section lists changes where existing code changes its behavior without
+the compiler notifying you about it.
+
+* Arithmetic operations revert on underflow and overflow. You can use ``unchecked { ... }`` to use
+  the previous wrapping behavior.
+>>>>>>> english/develop
 
   Comprobar posibles problemas por overflow es bastante común, por lo que los hicimos predeterminados para
   aumentar la legibilidad del código, aunque eso signifique un ligero aumento del gas.
 
 * ABI coder v2 está activado por defecto.
 
+<<<<<<< HEAD
   Puede usar el comportamiento anterior con ``pragma abicoder v1;``.
   La directiva ``pragma experimental ABIEncoderV2;`` aún es válida, pero está obsoleta y no tiene ningún efecto.
   Si quiere ser explícitco, use ``pragma abicoder v2;``.
+=======
+  You can choose to use the old behavior using ``pragma abicoder v1;``.
+  The pragma ``pragma experimental ABIEncoderV2;`` is still valid, but it is deprecated and has no effect.
+  If you want to be explicit, please use ``pragma abicoder v2;`` instead.
+>>>>>>> english/develop
 
   Tenga en cuenta que el ABI coder v2 admite más tipos que v1 y realiza más controles sanitarios en los inputs.
   ABI coder v2 encarece algunas llamadas de función y también puede hacer que algunas llamadas al contrato
@@ -57,8 +71,13 @@ Nuevas restriciones
 
 Esta sección enumera los cambios que pueden ocasionar que los contratos existentes no vuelvan a compilar nunca.
 
+<<<<<<< HEAD
 * Hay nuevas restricciones relacionadas con conversiones explícitas de literales. El comportamiento anterior en
   los siguientes casos probablemente era ambiguo:
+=======
+* There are new restrictions related to explicit conversions of literals. The previous behavior in
+  the following cases was likely ambiguous:
+>>>>>>> english/develop
 
   1. Conversiones explícitas de literales negativos y literales mayores que ``type(uint160).max`` a
      ``address`` no están permitidas.
@@ -110,7 +129,11 @@ Esta sección enumera los cambios que pueden ocasionar que los contratos existen
   Estas son funciones de bajo nivel que en gran parte se dejaron de utilizar. Se puede acceder a su comportamiento 
   desde el inline assembly.
 
+<<<<<<< HEAD
 * Las definiciones de ``enum`` no pueden contener más de 256 miembros.
+=======
+  These are low-level functions that were largely unused. Their behavior can be accessed from inline assembly.
+>>>>>>> english/develop
 
   Esto hará que sea seguro asumir que el tipo subyacente en la ABI siempre sea ``uint8``.
 
@@ -169,6 +192,7 @@ Cambios en el interface
 Como actualizar su código
 =========================
 
+<<<<<<< HEAD
 - Si confía en la aritmética subyacente, encuelva cada operación con ``unchecked { ... }``.
 - Opcional: Si usa SafeMath o una librería similar, cambie ``x.add(y)`` a ``x + y``, ``x.mul(y)`` a ``x * y`` etc.
 - Añada ``pragma abicoder v1;`` si quiere mantener el antiggüo codificador de ABI.
@@ -182,3 +206,16 @@ Como actualizar su código
 - Use inline assembly reemplazando ``log0``, ..., ``log4``.
 - Niegue los enteros sin signo restándolos del valor máximo del tipo y sumando 1 (por ejemplo ``type(uint256).max - x + 1``, 
   mientras se asegura que `x` no es cero)
+=======
+- If you rely on wrapping arithmetic, surround each operation with ``unchecked { ... }``.
+- Optional: If you use SafeMath or a similar library, change ``x.add(y)`` to ``x + y``, ``x.mul(y)`` to ``x * y`` etc.
+- Add ``pragma abicoder v1;`` if you want to stay with the old ABI coder.
+- Optionally remove ``pragma experimental ABIEncoderV2`` or ``pragma abicoder v2`` since it is redundant.
+- Change ``byte`` to ``bytes1``.
+- Add intermediate explicit type conversions if required.
+- Combine ``c.f{gas: 10000}{value: 1}()`` to ``c.f{gas: 10000, value: 1}()``.
+- Change ``msg.sender.transfer(x)`` to ``payable(msg.sender).transfer(x)`` or use a stored variable of ``address payable`` type.
+- Change ``x**y**z`` to ``(x**y)**z``.
+- Use inline assembly as a replacement for ``log0``, ..., ``log4``.
+- Negate unsigned integers by subtracting them from the maximum value of the type and adding 1 (e.g. ``type(uint256).max - x + 1``, while ensuring that ``x`` is not zero)
+>>>>>>> english/develop

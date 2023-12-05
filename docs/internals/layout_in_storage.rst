@@ -207,9 +207,15 @@ sus tipos ``key`` y ``value`` (de nuevo haciendo referencia a una entrada en est
 las matrices tienen su tipo ``base`` y las structs enumeran sus ``members`` en el 
 mismo formato que el ``storage`` de nivel superior (consulte :ref:`above <storage-layout-top-level>`).
 
+<<<<<<< HEAD
 .. note ::
   El formato de salida JSON del diseño de almacenamiento de un contrato todavía se considera experimental 
   y está sujeto a cambios en las versiones no rompedoras de Solidity.
+=======
+.. note::
+  The JSON output format of a contract's storage layout is still considered experimental
+  and is subject to change in non-breaking releases of Solidity.
+>>>>>>> english/develop
 
 El ejemplo siguiente muestra un contrato y su diseño de almacenamiento, que 
 contiene tipos de valor y referencía, tipos codificados empaquetados y tipos anidados.

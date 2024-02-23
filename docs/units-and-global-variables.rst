@@ -1,8 +1,10 @@
+.. index:: ! denomination
+
 **************************************
 Unidades y variables disponibles globalmente
 **************************************
 
-.. index:: wei, finney, szabo, gwei, ether
+.. index:: ! wei, ! finney, ! szabo, ! gwei, ! ether, ! denomination;ether
 
 Unidades de Ether
 ===========
@@ -21,7 +23,7 @@ El único efecto del sufijo subdenominación es una multiplicación por una pote
 .. note::
     Las denominaciones ``finney`` y ``szabo`` se han eliminado en la versión 0.7.0.
 
-.. index:: time, seconds, minutes, hours, days, weeks, years
+.. index:: ! seconds, ! minutes, ! hours, ! days, ! weeks, ! years, ! denomination;time
 
 Unidades de tiempo
 ==========
@@ -48,7 +50,7 @@ Estos sufijos no se pueden aplicar a las variables. Por ejemplo, si quieres inte
 
     function f(uint start, uint daysAfter) public {
         if (block.timestamp >= start + daysAfter * 1 days) {
-          // ...
+            // ...
         }
     }
 
@@ -60,12 +62,13 @@ Variables y funciones especiales
 Hay variables y funciones especiales que siempre existen en el espacio de nombres global y se utilizan principalmente para proporcionar información sobre el blockchain
 o son funciones de utilidad de uso general.
 
-.. index:: abi, block, coinbase, difficulty, prevrandao, encode, number, block;number, timestamp, block;timestamp, msg, data, gas, sender, value, gas price, origin
+.. index:: abi, block, coinbase, difficulty, prevrandao, encode, number, block;number, timestamp, block;timestamp, block;basefee, block;blobbasefee, msg, data, gas, sender, value, gas price, origin
 
 
 Propiedades de bloques y transacciones
 --------------------------------
 
+<<<<<<< HEAD
 - ``blockhash(uint blockNumber) returns (bytes32)``: hash del bloque dado cuando ``blocknumber`` es uno de los 256 bloques más recientes; de lo contrario devuelve cero
 - ``block.basefee`` (``uint``): tarifa base del bloque actual (`EIP-3198 <https://eips.ethereum.org/EIPS/eip-3198>`_ y `EIP-1559 <https://eips.ethereum.org/EIPS/eip-1559>`_)
 - ``block.chainid`` (``uint``): ID de cadena actual
@@ -82,6 +85,28 @@ Propiedades de bloques y transacciones
 - ``msg.value`` (``uint``): número de wei enviado con el mensaje
 - ``tx.gasprice`` (``uint``): precio del gas de la transacción
 - ``tx.origin`` (``address``): remitente de la transacción (cadena de llamadas completa)
+=======
+- ``blockhash(uint blockNumber) returns (bytes32)``: hash of the given block when ``blocknumber`` is one of the 256 most recent blocks; otherwise returns zero
+- ``blobhash(uint index) returns (bytes32)``: versioned hash of the ``index``-th blob associated with the current transaction.
+  A versioned hash consists of a single byte representing the version (currently ``0x01``), followed by the last 31 bytes
+  of the SHA256 hash of the KZG commitment (`EIP-4844 <https://eips.ethereum.org/EIPS/eip-4844>`_).
+- ``block.basefee`` (``uint``): current block's base fee (`EIP-3198 <https://eips.ethereum.org/EIPS/eip-3198>`_ and `EIP-1559 <https://eips.ethereum.org/EIPS/eip-1559>`_)
+- ``block.blobbasefee`` (``uint``): current block's blob base fee (`EIP-7516 <https://eips.ethereum.org/EIPS/eip-7516>`_ and `EIP-4844 <https://eips.ethereum.org/EIPS/eip-4844>`_)
+- ``block.chainid`` (``uint``): current chain id
+- ``block.coinbase`` (``address payable``): current block miner's address
+- ``block.difficulty`` (``uint``): current block difficulty (``EVM < Paris``). For other EVM versions it behaves as a deprecated alias for ``block.prevrandao`` (`EIP-4399 <https://eips.ethereum.org/EIPS/eip-4399>`_ )
+- ``block.gaslimit`` (``uint``): current block gaslimit
+- ``block.number`` (``uint``): current block number
+- ``block.prevrandao`` (``uint``): random number provided by the beacon chain (``EVM >= Paris``)
+- ``block.timestamp`` (``uint``): current block timestamp as seconds since unix epoch
+- ``gasleft() returns (uint256)``: remaining gas
+- ``msg.data`` (``bytes calldata``): complete calldata
+- ``msg.sender`` (``address``): sender of the message (current call)
+- ``msg.sig`` (``bytes4``): first four bytes of the calldata (i.e. function identifier)
+- ``msg.value`` (``uint``): number of wei sent with the message
+- ``tx.gasprice`` (``uint``): gas price of the transaction
+- ``tx.origin`` (``address``): sender of the transaction (full call chain)
+>>>>>>> english/develop
 
 .. note::
     Los valores de todos los miembros de ``msg``, incluyendo ``msg.sender`` y
@@ -95,8 +120,14 @@ Propiedades de bloques y transacciones
     No confíe en ``block.timestamp`` o ``blockhash`` como fuente de aleatoriedad,
     a menos que sepas lo que estás haciendo.
 
+<<<<<<< HEAD
     Tanto la marca de tiempo y el hash de bloque pueden ser influenciados por los mineros hasta cierto punto.
     Malos actores en la comunidad minera pueden, por ejemplo, ejecutar una función de pago de casino en un hash elegido y simplemente reintentar un hash diferente si no recibieron dinero.
+=======
+    Both the timestamp and the block hash can be influenced by miners to some degree.
+    Bad actors in the mining community can for example run a casino payout function on a chosen hash
+    and just retry a different hash if they did not receive any compensation, e.g. Ether.
+>>>>>>> english/develop
 
     La marca de fecha del bloque actual debe ser estrictamente más grande que la marca de fecha del último bloque, pero la única garantía es que estará entre las marcas de fecha de dos bloques consecutivos en la cadena canónica.
 
@@ -209,7 +240,12 @@ Funciones matemáticas y criptográficas
 
     Si utiliza ``ecrecover``, tenga en cuenta que una firma válida se puede convertir en una firma válida diferente sin requerir el conocimiento de la clave privada correspondiente. En la bifurcación dura de Homestead, este problema se ha corregido para las firmas de _transaction_ (see `EIP-2 <https://eips.ethereum.org/EIPS/eip-2#specification>`_), pero la función ecrecover permaneció sin cambios.
 
+<<<<<<< HEAD
     Por lo general, esto no es un problema a menos que requiera que las firmas sean únicas o utilícelos para identificar elementos. OpenZeppelin tiene una `biblioteca auxiliar de ECDSA <https://docs.openzeppelin.com/contracts/2.x/api/cryptography#ECDSA>`_ que puede usar como envoltorio para ``ecrecover`` sin este problema.
+=======
+    This is usually not a problem unless you require signatures to be unique or use them to identify items.
+    OpenZeppelin has an `ECDSA helper library <https://docs.openzeppelin.com/contracts/4.x/api/utils#ECDSA>`_ that you can use as a wrapper for ``ecrecover`` without this issue.
+>>>>>>> english/develop
 
 .. note::
 
@@ -252,9 +288,16 @@ Para obtener más información, consulte la sección sobre :ref:`dirección`.
     Debe evitar usar ``.call()`` siempre que sea posible al ejecutar otra función de contrato, ya que omite la comprobación de tipo, comprobación de existencia de funciones y empaquetado de argumentos.
 
 .. warning::
+<<<<<<< HEAD
     Hay algunos peligros en el uso de ``send``: La transferencia falla si la profundidad de la pila de llamadas está en 1024 (esto siempre puede ser forzado por el autor de la llamada) y también falla si el receptor se queda sin gasolina. Entonces,
     para hacer transferencias seguras de Ether, compruebe siempre el valor devuelto de ``send``, usar ``transfer`` o incluso mejor:
     Use un patrón en el que el destinatario retire el dinero.
+=======
+    There are some dangers in using ``send``: The transfer fails if the call stack depth is at 1024
+    (this can always be forced by the caller) and it also fails if the recipient runs out of gas. So in order
+    to make safe Ether transfers, always check the return value of ``send``, use ``transfer`` or even better:
+    Use a pattern where the recipient withdraws the Ether.
+>>>>>>> english/develop
 
 .. warning::
     Debido a que la EVM considera que una llamada a un contrato inexistente siempre tiene éxito,
@@ -281,13 +324,24 @@ Para obtener más información, consulte la sección sobre :ref:`dirección`.
     Antes de la versión 0.5.0, había un miembro llamado ``callcode`` con una semántica similar pero ligeramente diferente a la de ``delegatecall``.
 
 
-.. index:: this, selfdestruct
+.. index:: this, selfdestruct, super
 
+<<<<<<< HEAD
 Relacionados con el contrato
 ----------------
 
 ``this`` (tipo de contrato actual)
     el contrato actual, explícitamente convertible en :ref:`dirección`
+=======
+Contract-related
+----------------
+
+``this`` (current contract's type)
+    The current contract, explicitly convertible to :ref:`address`
+
+``super``
+    A contract one level higher in the inheritance hierarchy
+>>>>>>> english/develop
 
 ``selfdestruct(address payable recipient)``
     Destruir el contrato actual, enviando sus fondos a la :ref:`dirección`
@@ -300,9 +354,15 @@ Relacionados con el contrato
 Además, todas las funciones del contrato actual son llamables directamente, incluida la función actual.
 
 .. warning::
+<<<<<<< HEAD
     A partir de la versión 0.8.18, el uso de ``selfdestruct`` tanto en Solidity como en Yul provocará una advertencia de obsoleto, ya que el opcode       ``SELFDESTRUCT`` sufrirá eventualmente cambios en su comportamiento.
     deprecation warning, ya que el opcode ``SELFDESTRUCT`` sufrirá eventualmente cambios en su comportamiento
     como se indica en `EIP-6049 <https://eips.ethereum.org/EIPS/eip-6049>`_.
+=======
+    From version 0.8.18 and up, the use of ``selfdestruct`` in both Solidity and Yul will trigger a
+    deprecation warning, since the ``SELFDESTRUCT`` opcode will eventually undergo breaking changes in behavior
+    as stated in `EIP-6049 <https://eips.ethereum.org/EIPS/eip-6049>`_.
+>>>>>>> english/develop
 
 .. note::
     Antes de la versión 0.5.0, había una función llamada ``suicide`` con la misma semántica que ``selfdestruct``.
@@ -336,9 +396,16 @@ Las siguientes propiedades están disponibles para un tipo de contrato ``C``:
 Además de las propiedades anteriores, las siguientes propiedades están disponibles
 para un tipo de interfaz ``I``:
 
+<<<<<<< HEAD
 ``type(I).interfaceId``:
     Un valor ``bytes4`` que contiene el `EIP-165 <https://eips.ethereum.org/EIPS/eip-165>`_
     identificador de interfaz de la interfaz dada ``I``. Este identificador se define como el ``XOR`` de todos los selectores de funciones definidos dentro de la propia interfaz - excluyendo todas las funciones heredadas.
+=======
+``type(I).interfaceId``
+    A ``bytes4`` value containing the `EIP-165 <https://eips.ethereum.org/EIPS/eip-165>`_
+    interface identifier of the given interface ``I``. This identifier is defined as the ``XOR`` of all
+    function selectors defined within the interface itself - excluding all inherited functions.
+>>>>>>> english/develop
 
 Las siguientes propiedades están disponibles para un tipo entero ``T``:
 

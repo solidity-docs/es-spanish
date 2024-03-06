@@ -62,6 +62,6 @@ Aplican las mismas reglas de una herencia normal.
 
 Se puede acceder a los tipos definidos dentro de las interfaces y otras estructuras similares a contratos desde otros contratos: ``Token.TokenType`` o ``Token.Coin``.
 
-.. warning:
+.. warning::
 
     Las interfaces admiten tipos ``enum`` desde :doc:`Solidity versión 0.5.0 <050-breaking-changes>`, asegúrese de que la versión pragma especifique esta versión como mínimo.

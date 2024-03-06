@@ -56,7 +56,7 @@ El siguiente ejemplo muestra un contrato y una función usando todas las etiquet
 
   Esto podría cambiar en el futuro.
 
-.. code-block:: Solidity
+.. code-block:: solidity
 
     // SPDX-License-Identifier: GPL-3.0
     pragma solidity >=0.8.2 < 0.9.0;
@@ -113,6 +113,7 @@ la misma manera como si fuese etiquetado con ``@notice``.
 =============== ====================================================================================== =============================
 Etiqueta                                                                                               Contexto
 =============== ====================================================================================== =============================
+<<<<<<< HEAD
 ``@title``      Un título que debería describir el contrato o la interfaz                              contrato, biblioteca, interfaz
 ``@author``     El nombre del autor                                                                    contrato, biblioteca, interfaz
 ``@notice``     Explica a un usuario final lo que esto hace                                            contrato, biblioteca, interfaz, función, variable de estado pública, evento
@@ -122,6 +123,16 @@ Etiqueta                                                                        
 ``@inheritdoc`` Copia todas las etiquetas faltantes de la función base                                 función, variable de estado pública
                 (debe ser seguida por el nombre del contrato)
 ``@custom:...`` Etiqueta personalizada, la semántica se define por la aplicación                       en todas partes
+=======
+``@title``      A title that should describe the contract/interface                                    contract, library, interface, struct, enum
+``@author``     The name of the author                                                                 contract, library, interface, struct, enum
+``@notice``     Explain to an end user what this does                                                  contract, library, interface, function, public state variable, event, struct, enum
+``@dev``        Explain to a developer any extra details                                               contract, library, interface, function, state variable, event, struct, enum
+``@param``      Documents a parameter just like in Doxygen (must be followed by parameter name)        function, event
+``@return``     Documents the return variables of a contract's function                                function, public state variable
+``@inheritdoc`` Copies all missing tags from the base function (must be followed by the contract name) function, public state variable
+``@custom:...`` Custom tag, semantics is application-defined                                           everywhere
+>>>>>>> english/develop
 =============== ====================================================================================== =============================
 
 Si su función retorna múltiples valores, como ``(int quotient, int remainder)``,

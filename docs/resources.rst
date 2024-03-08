@@ -23,11 +23,16 @@ Ambientes de Desarrollo Integrado (Ethereum)
         Framework de desarrollo y testing basado en Python para contratos inteligentes dirigido a la Máquina Virtual de Ethereum.
     
     * `Dapp <https://dapp.tools/>`_
+<<<<<<< HEAD
         Herramienta para la construcción, testeo y deployment de contratos inteligentes desde la línea de comandos.
     
     * `Embark <https://framework.embarklabs.io/>`_
         Plataforma para la construcción y deployment de aplicaciones descentralizadas.
     
+=======
+        Tool for building, testing and deploying smart contracts from the command-line.
+
+>>>>>>> english/develop
     * `Foundry <https://github.com/foundry-rs/foundry>`_
         Juego de herramientas rápido, portable y modular para el desarrollo de aplicaciones de Ethereum escritas en Rust.
     
@@ -71,9 +76,15 @@ Integraciones de Editores
 
 * Visual Studio Code (VS Code)
 
+<<<<<<< HEAD
     * `Ethereum Remix Visual Studio Code extension <https://marketplace.visualstudio.com/items?itemName=RemixProject.ethereum-remix>`_
         Paquete de extensión de Ethereum Remix para VS Code.
     
+=======
+    * `Ethereum Remix Visual Studio Code extension <https://github.com/ethereum/remix-vscode>`_
+        Ethereum Remix extension pack for VS Code
+
+>>>>>>> english/develop
     * `Solidity Visual Studio Code extension, by Juan Blanco <https://juan.blanco.ws/solidity-contracts-in-visual-studio-code/>`_
         Plugin de Solidity para Microsoft Visual Studio Code que incluye resaltado de sintaxis y el compilador de Solidity.
     
@@ -113,9 +124,12 @@ Herramientas para Solidity
 * `leafleth <https://github.com/clemlak/leafleth>`_
     Un generador de documentación para contratos inteligentes de Solidity.
 
+<<<<<<< HEAD
 * `PIET <https://piet.slock.it/>`_
     Una herramienta para desarrollar, auditar y usar contratos inteligentes de Solidity a través de una interfaz gráfica simple. 
 
+=======
+>>>>>>> english/develop
 * `Scaffold-ETH <https://github.com/scaffold-eth/scaffold-eth>`_
     Stack de desarollo en Ethereum forkeable enfocado en iteraciones rápidas de productos. 
 

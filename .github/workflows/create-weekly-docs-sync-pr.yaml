@@ -1,0 +1,112 @@
+name: weekly docs sync PR
+
+on:
+  schedule:
+    # Runs "at minute 44 past midnight on Mondays"
+    - cron: "44 0 * * 1"
+  workflow_dispatch:
+
+env:
+  BOT_USERNAME: soldocsbot
+  BOT_EMAIL: solidity-docs-translations@ethereum.org
+  GITHUB_REPOSITORY_OWNER: solidity-docs
+
+jobs:
+  createPullRequest:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Fetch translation repository
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ env.GITHUB_REPOSITORY_OWNER }}/es-spanish
+          # By default, checkout is fetching only the last commit. This will
+          # cause "unrelated histories" error. "0" means unlimited fetch-depth.
+          fetch-depth: 0
+          # This is the working copy we'll prepare the sync PR in.
+          path: translation/
+
+      - name: Configure translation repository
+        run: |
+          cd translation/
+          git config user.name "$BOT_USERNAME"
+          git config user.email "$BOT_EMAIL"
+          git remote add english "https://github.com/ethereum/solidity.git"
+          git fetch english develop
+
+      - name: Fetch main Solidity repository
+        uses: actions/checkout@v2
+        with:
+          repository: ethereum/solidity
+          fetch-depth: 0
+          # This is the checkout where we can safely fetch the tags from the main Soldity repo and use git describe.
+          # Translation repositories have their own version tags that conflict with the ones in the main repo.
+          path: solidity/
+
+      - name: Fetch bot's repository
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          path: bot/
+
+      - name: Load bot configuration from translation-bot.json in the translation repository
+        id: bot-config
+        run: |
+          bot/.github/scripts/load-translation-bot-config.sh translation/translation-bot.json
+
+      - name: Prepare pull request title and description
+        if: ${{ steps.bot-config.outputs.bot_disabled == 'false' }}
+        run: |
+          # Use the main repository checkout with tags to get them in `git describe` output.
+          cd solidity/
+          ../bot/.github/scripts/generate-pr-body.sh
+
+      - name: Check if sync branch already exists
+        id: check-sync-branch
+        if: ${{ steps.bot-config.outputs.bot_disabled == 'false' }}
+        run: |
+          pushd solidity/
+          sync_branch="sync-$(git describe --tags --always develop)"
+          echo "branch_name=$sync_branch" >> "$GITHUB_OUTPUT"
+          popd
+
+          cd translation/
+          ../bot/.github/scripts/check-remote-branch.sh "$sync_branch"
+
+      - name: Prepare pull request content
+        if: ${{ steps.bot-config.outputs.bot_disabled == 'false' && steps.check-sync-branch.outputs.branch_exists == 'false' }}
+        run: |
+          cd translation/
+
+          # NOTE: The script will end up not creating a merge commit if there are no new upstream changes.
+          # In that case we expect that the PR action will simply not create a PR.
+          ../bot/.github/scripts/pull-and-resolve-english-changes.sh english/develop "$pr_title"
+
+          if [[ ${{ steps.bot-config.outputs.randomly_assign_maintainers }} == 'true' ]]; then
+            ../bot/.github/scripts/set-assignees.sh "es-spanish"
+          fi
+
+      - name: Remove this repository
+        if: ${{ steps.bot-config.outputs.bot_disabled == 'false' && steps.check-sync-branch.outputs.branch_exists == 'false' }}
+        run: |
+          rm -rf bot/
+
+      - name: Create Pull Request
+        if: ${{ steps.bot-config.outputs.bot_disabled == 'false' && steps.check-sync-branch.outputs.branch_exists == 'false' }}
+        uses: peter-evans/create-pull-request@v3
+        with:
+          path: translation/
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          commit-message: "${{ env.pr_title }}"
+          committer: "${{ env.BOT_USERNAME }} <${{ env.BOT_EMAIL }}>"
+          author: "${{ env.BOT_USERNAME }} <${{ env.BOT_EMAIL }}>"
+          branch: "${{ steps.check-sync-branch.outputs.branch_name }}"
+          title: "${{ env.pr_title }}"
+          body: "${{ env.pr_body }}"
+          labels: "${{ join(fromJSON(steps.bot-config.outputs.pr_labels)) }}"
+          assignees: ${{ env.assignee }}
+          reviewers: ${{ env.reviewer }}

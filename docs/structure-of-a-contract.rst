@@ -21,7 +21,14 @@ el cual sirve para proveer un rápido resumen.
 Variables de Estado
 ===============
 
+<<<<<<< HEAD
 Las variables de estado son variables cuyos valores se almacenan permanentemente en el almacenamiento del contrato.
+=======
+State variables are variables whose values are either permanently stored in contract
+storage or, alternatively, temporarily stored in transient storage which is cleaned at
+the end of each transaction.
+See :ref:`data locations <locations>` for more details.
+>>>>>>> english/develop
 
 .. code-block:: solidity
 

@@ -2,16 +2,9 @@
 Cambios introducidos en Solidity v0.8.0
 ***************************************
 
-<<<<<<< HEAD
-Esta sección versa sobre los principales cambios introducidos en la versión 0.8.0 de Solidity.
-Para ver la lista completa 
-`registro de cambios de lanzamiento <https://github.com/ethereum/solidity/releases/tag/v0.8.0>`_.
-=======
-This section highlights the main breaking changes introduced in Solidity
-version 0.8.0.
-For the full list check
-`the release changelog <https://github.com/argotorg/solidity/releases/tag/v0.8.0>`_.
->>>>>>> english/develop
+Esta sección destaca los principales cambios importantes introducidos en la versión 0.8.0 de Solidity.
+Para ver la lista completa consulte
+`registro de cambios de lanzamiento <https://github.com/argotorg/solidity/releases/tag/v0.8.0>`_.
 
 Cambios silenciosos en la semántica
 ===================================
@@ -33,7 +26,7 @@ the compiler notifying you about it.
 
   Tenga en cuenta que el ABI coder v2 admite más tipos que v1 y realiza más controles sanitarios en los inputs.
   ABI coder v2 encarece algunas llamadas de función y también puede hacer que algunas llamadas al contrato
-  sean revertidas y que, sin embargo, no se revertirían con ABI coder v1, cuando contienen datos que no se ajustan a 
+  sean revertidas y que, sin embargo, no se revertirían con ABI coder v1, cuando contienen datos que no se ajustan a
   los tipos de parámetros.
 
 * La exponienciación es asociativa a derechas, por ejemplo, la expresión ``a**b**c`` es analizada como ``a**(b**c)``.
@@ -42,18 +35,18 @@ the compiler notifying you about it.
   Esta es la forma común de analizar el operador de exponenciación.
 
 * Los asserts y otras verificaciones inernas como la división por cero o el desbordamiento aritmético no usan el opcode
-  invalid, en su lugar usan el opcode revert.  
-  Más específicamente, usarán datos de erro equivalentes a una llamada a la función ``Panic(uint256)`` con un código de 
+  invalid, en su lugar usan el opcode revert.
+  Más específicamente, usarán datos de erro equivalentes a una llamada a la función ``Panic(uint256)`` con un código de
   error acorde a las circunstancias.
 
   Esto ahorrará gas en errores mientras que permite a las herramientas de análisis estático distinguir estas situaciones
-  entre un revert y un input inválido, como por ejemplo un fallo en ``require``.  
+  entre un revert y un input inválido, como por ejemplo un fallo en ``require``.
 
 * Si se accede a un byte array en el almacenamiento cuya longitud está codificada incorrectamente, se generará un panic.
   Un contrato no puede entrar en esta situación a menos que se use inline assembly para modificar la representación raw
   de los byte arrays del almacenamiento (storage)
 
-* Si se usan constantes en expresiones de longitud de array, las versiones previas de Solidity usarían precisión 
+* Si se usan constantes en expresiones de longitud de array, las versiones previas de Solidity usarían precisión
   arbitraria en todas las ramas del arbol de decisiones. Ahora, is las variables constantes se usan como expresiones
   intermedias, sus valores serán propiamente redondeados de la misma forma que las expresiones en tiempo de ejecución.
 
@@ -80,24 +73,24 @@ Esta sección enumera los cambios que pueden ocasionar que los contratos existen
 
 * :ref:`Address literals<address_literals>` tienen el tipo ``address`` en lugar de ``address
   payable``. Se pueden convertir a ``address payable`` usando una conversión explícita, por ejemplo
-  ``payable(0xdCad3a6d3569DF655070DEd06cb7A1b2Ccd1D3AF)``.  
+  ``payable(0xdCad3a6d3569DF655070DEd06cb7A1b2Ccd1D3AF)``.
 
 * Hay nuevas restricciones en las conversiones de tipos explícitos. La conversión sólo se permite cuando hay
   como máximo un cambio de signo, tamaño o la categoría de tipo (``int``, ``address``, ``bytesNN``, etc.).
-  Para realizar varios cambios, utilice varias conversiones.  
+  Para realizar varios cambios, utilice varias conversiones.
 
   Use la notación ``T(S)`` para denotar la conversión explícita ``T(x)``, donde, ``T`` y
   ``S`` son tipos, y ``x`` es cualquier variable arbitraria de tipo ``S``. Un ejemplo de tal
   conversión no permitida sería ``uint16(int8)`` ya que cambia el tamaño (8 bits a 16 bits)
   y signo (entero con signo a entero sin signo). Para hacer la conversión, tiene que ir
   a través de un tipo intermedio. En el ejemplo anterior, sería ``uint16(uint8(int8))`` o
-  ``uint16(int16(int8))``. Tenga en cuenta que las dos formas de convertir producirán resultados 
-  diferentes, por ejemplo, para ``-1``. Los siguientes son algunos ejemplos de conversiones que no 
+  ``uint16(int16(int8))``. Tenga en cuenta que las dos formas de convertir producirán resultados
+  diferentes, por ejemplo, para ``-1``. Los siguientes son algunos ejemplos de conversiones que no
   están permitidas por esta regla.
 
   - ``address(uint)`` y ``uint(address)``: conversión simultanea de la categoría del tipo y tamaño. Reemplace esto por
     ``address(uint160(uint))`` y ``uint(uint160(address))`` respectivamente..
-  - ``payable(uint160)``, ``payable(bytes20)`` y ``payable(integer-literal)``: conversión simultanea de la 
+  - ``payable(uint160)``, ``payable(bytes20)`` y ``payable(integer-literal)``: conversión simultanea de la
     categoría del tipo and estado de la mutabilidad. Reemplace esto por ``payable(address(uint160))``,
     ``payable(address(bytes20))`` y ``payable(address(integer-literal))`` respectivamente. Tenga en cuenta que
     ``payable(0)`` es válido y no es una excepción de la regla.
@@ -109,12 +102,12 @@ Esta sección enumera los cambios que pueden ocasionar que los contratos existen
   Estas conversiones fueron deshabilitadas para evitar ambiguedades. Por ejemplo, en la expresión ``uint16 x =
   uint16(int8(-1))``, el valor de ``x`` dependería de que conversión, el signo ó el ancho, se aplicará antes.
 
-* Las opciones de llamada de función solo se pueden dar una vez, es decir, ``c.f{gas: 10000}{value: 1}()`` no es válido 
+* Las opciones de llamada de función solo se pueden dar una vez, es decir, ``c.f{gas: 10000}{value: 1}()`` no es válido
   y debe cambiarse a ``c.f{gas: 10000, value: 1}() ``.
 
 * Las funciones globales ``log0``, ``log1``, ``log2``, ``log3`` y ``log4`` han sido eliminadas.
-  
-  Estas son funciones de bajo nivel que en gran parte se dejaron de utilizar. Se puede acceder a su comportamiento 
+
+  Estas son funciones de bajo nivel que en gran parte se dejaron de utilizar. Se puede acceder a su comportamiento
   desde el inline assembly.
 
   These are low-level functions that were largely unused. Their behavior can be accessed from inline assembly.
@@ -123,13 +116,13 @@ Esta sección enumera los cambios que pueden ocasionar que los contratos existen
 
 * Las declaraciones con el nombre ``this``, ``super`` y ``_`` no están permitidas, con la excepción de
   funciones y eventos públicos. La excepción es hacer posible declarar interfaces de contratos
-  implementados en lenguajes distintos a Solidity que permiten tales nombres de funciones.  
+  implementados en lenguajes distintos a Solidity que permiten tales nombres de funciones.
 
 * Eliminada la compatibilidad con las secuencias de escape ``\b``, ``\f`` y ``\v`` en el código.
-  Todavía se pueden insertar a través de carácteres de escapes hexadecimales, p. ``\x08``, ``\x0c`` y ``\x0b``, 
-  respectivamente.  
+  Todavía se pueden insertar a través de carácteres de escapes hexadecimales, p. ``\x08``, ``\x0c`` y ``\x0b``,
+  respectivamente.
 
-* Las variables globales ``tx.origin`` y ``msg.sender`` tienen el tipo ``address`` en lugar de 
+* Las variables globales ``tx.origin`` y ``msg.sender`` tienen el tipo ``address`` en lugar de
   ``address payable``. Se pueden convertir en ``address payable`` usando una conversión explícita,
   por ejemplo, ``payable(tx.origin)`` o ``payable(msg.sender)``.
 
@@ -137,7 +130,7 @@ Esta sección enumera los cambios que pueden ocasionar que los contratos existen
   are payable or not, so it now requires an explicit conversion to make this requirement visible.
 
   Este cambio se realizó ya que el compilador no puede determinar si estas direcciones
-  son payable ó no, por lo que ahora requiere una conversión explícita para cumplir este requisito.  
+  son payable ó no, por lo que ahora requiere una conversión explícita para cumplir este requisito.
 
 * La conversión explícita al tipo ``address`` siempre devuelve un tipo not-payable ``address``. En
   particular, Las siguientes conversiones explícitas tienen el tipo ``address`` en lugar de ``address
@@ -148,12 +141,12 @@ Esta sección enumera los cambios que pueden ocasionar que los contratos existen
     ``payable(address(u))``.
   - ``address(b)`` donde ``b`` es una variable de tipo ``bytes20``. Se puede convertir ``b``
     en el tipo ``address payable`` usando dos conversiones explícitas, por ejemplo,
-    ``payable(address(b))``.	
+    ``payable(address(b))``.
   - ``address(c)`` donde ``c`` es un contrato. Previamente, el tipo de retorno de esta conversión
     dependía si el contrato podía recibir Ether (bien por que tenía una función receive o bien por una
 	función payable fallback). La conversión ``payable(c)`` tiene el tipo ``address
     payable`` y solamente está permitida cuando el contrato ``c`` puede recibir Ether. En general, siempre
-    se puede convertir ``c`` en el tipo ``address payable`` usando la siguiente conversión explícita: 
+    se puede convertir ``c`` en el tipo ``address payable`` usando la siguiente conversión explícita:
 	``payable(address(c))``. Tenga en cuenta que ``address(this)`` pertenece a la misma categoría que
 	``address(c)`` y se aplican las misma reglas.
 
@@ -167,13 +160,8 @@ Cambios en el interface
 * La salida de ``--combined-json`` ha cambiado: Los campos JSON ``abi``, ``devdoc``, ``userdoc`` y
   ``storage-layout`` ahora son subobjetos. Antes de la versión 0.8.0 se usaban serializados como strings.
 
-<<<<<<< HEAD
-* El "legacy AST" ha sido eliminado (``--ast-json`` en el interfaz de linea de comandos ``legacyAST`` para el 
+* El "legacy AST" ha sido eliminado (``--ast-json`` en el interfaz de linea de comandos ``legacyAST`` para el
   standard JSON). Use "compact AST" (``--ast-compact--json`` para ``AST``) en su lugar.
-=======
-* The "legacy AST" has been removed (``--ast-json`` on the commandline interface and ``legacyAST`` for standard JSON).
-  Use the "compact AST" (``--ast-compact-json`` resp. ``AST``) as replacement.
->>>>>>> english/develop
 
 * El antigüo informador (``--old-reporter``) ha sido eliminado.
 

@@ -6,10 +6,13 @@ Ensamblado en línea
 
 .. index:: ! assembly, ! asm, ! evmasm
 
-Puedes intercalar declaraciones de Solidity con ensamblado en línea en un lenguaje cercano al de la Máquina Virtual de Ethereum. Esto te brinda un control más preciso, especialmente útil cuando estás mejorando el lenguaje escribiendo librerías.
+Puedes intercalar sentencias Solidity con ensamblador en linea en un lenguaje similar
+al de la maquina virtual Ethereum. Esto te proporciona un control mas preciso, lo que resulta
+especialmente util cuando se mejora el lenguaje escribiendo bibliotecas u optimizando el uso de gas.
 
-El lenguaje utilizado para el ensamblado en línea en Solidity se llama :ref:`Yul <yul>` y está documentado en su propia sección. Esta sección solo cubre cómo el código de ensamblado en línea puede interactuar con el código en Solidity que lo rodea.
-
+El lenguaje utilizado para el ensamblador en línea en Solidity se llama :ref:`Yul <yul>`
+y se documenta en su propia sección. Esta sección solo tratará
+cómo el código del ensamblador en línea puede interactuar con el código Solidity circundante.
 
 .. warning::
     El ensamblado en línea es una forma de acceder a la Máquina Virtual de Ethereum aun nivel bajo. Esto evita varias características y comprobaciones de seguridad importantes de Solidity. Solo debes usarlo para tareas que lo necesiten y solo si tienes confianza en su uso.
@@ -138,7 +141,12 @@ Para los punteros de función externos, la dirección y el selector de función 
 
 Para los arreglos dinámicos de calldata, puedes acceder a su offset de calldata (en bytes) y longitud (número de elementos) utilizando ``x.offset`` y ``x.length``. Ambas expresiones también pueden ser asignadas, pero como en el caso estático, no se realizará ninguna validación para asegurarse que el área de datos resultante esté dentro de los límites de ``calldatasize()``.
 
-Para las variables de almacenamiento local, o variables de estado, un identificador único Yul no es suficiente ya que no necesariamente ocupan un solo espacio de almacenamiento completo. Por lo tanto, su "dirección" está compuesta por un espacio y un offset de bytes dentro del espacio. Para recuperar el espacio apuntado por la variable `x`, utiliza `x.slot` y para recuperar el offset de bytes utiliza `x.offset`. El uso de `x` en sí mismo resultará en un error.
+Para las variables de almacenamiento local o las variables de estado (incluido el almacenamiento transitorio), un único identificador Yul
+no es suficiente, ya que no ocupan necesariamente una única ranura de almacenamiento completa.
+Por lo tanto, su "dirección" se compone de una ranura y un desplazamiento de bytes
+dentro de esa ranura. Para recuperar la ranura a la que apunta la variable ``x``, se
+utiliza ``x.slot``, y para recuperar el desplazamiento de bytes se utiliza ``x.offset``.
+El uso de ``x`` por sí solo dará lugar a un error.
 
 También puedes asignar a la parte ``.slot`` de un puntero de variable de almacenamiento local. Para estos (estructuras, arreglos o mapeos), la parte ``.offset`` siempre es cero. Sin embargo, no es posible asignar a la parte ``.slot`` o ``.offset`` de una variable de estado.
 
@@ -148,15 +156,18 @@ Las variables locales en Solidity están disponibles para asignaciones, por ejem
     :force:
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.7.0 <0.9.0;
+    pragma solidity >=0.8.28 <0.9.0;
 
+    // This will report a warning
     contract C {
+        bool transient a;
         uint b;
-        function f(uint x) public view returns (uint r) {
+        function f(uint x) public returns (uint r) {
             assembly {
                 // Ignoramos el desplazamiento de la ranura de almacenamiento,
                 // sabemos que es cero en este caso especial.
                 r := mul(x, sload(b.slot))
+                tstore(a.slot, true)
             }
         }
     }
@@ -164,10 +175,14 @@ Las variables locales en Solidity están disponibles para asignaciones, por ejem
 .. warning::
     Si accedes a variables de un tipo que abarque menos de 256 bits (por ejemplo, ``uint64``, ``address``, o ``bytes16``), no puedes hacer ninguna suposición acerca de bits que no son parte de la codificación del tipo. Especialmente, no debes suponer que son cero. Para estar seguro, siempre limpia de forma adecuada los datos antes de utilizarlos en un contexto en el que esto sea importante: ``uint32 x = f(); assembly { x := and(x, 0xffffffff) /* now use x */ }`` Para limpiar tipos firmados, puedes usar el código de operación: ``assembly { signextend(<num_bytes_of_x_minus_one>, x) }``
 
+Desde Solidity 0.6.0, el nombre de una variable de ensamblador en línea no puede
+ocultar ninguna declaración visible en el ámbito del bloque de ensamblador en línea
+(incluidas las declaraciones de variables, contratos y funciones).
 
-Desde Solidity 0.6.0, puede que el nombre de una variable de ensamblado en línea no oculte ninguna declaración visible en el ámbito del bloque de ensamblado en línea (incluyendo declaraciones de variables, contratos y funciones).
-
-Desde Solidity 0.7.0, puede que las variables y funciones declaradas dentro del bloque de ensamblado en línea no contengan ``.``, pero usar ``.`` es válido para acceder a las variables de Solidity desde fuera del bloque de ensamblado en línea.
+Desde Solidity 0.7.0, las variables y funciones declaradas dentro del
+bloque de ensamblador en línea no pueden contener ``.``, pero el uso de ``.`` es
+válido para acceder a variables de Solidity desde fuera del bloque de ensamblador en línea.
+Sin embargo, sigue siendo válido usar puntos si se utiliza Solidity en modo solo Yul.
 
 Cosas a evitar
 ---------------
@@ -191,7 +206,15 @@ En contraste con el ensamblado EVM, Solidity tiene tipos más estrechos que 256 
 Gestión de memoria
 =================
 
-Solidity maneja la memoria de la siguiente forma. Hay un "puntero de memoria libre" en la posición ``0x40`` de la memoria. Si quieres asignar memoria, usa la memoria a partir de donde apunta ese puntero y actualiza el mismo. No hay garantía de que la memoria no haya sido utilizada anteriormente y por lo tanto no puedes asumir que sean bytes en cero. No hay un mecanismo incorporado para soltar o liberar memoria asignada. Aquí tienes un fragmento de ensamblado que puedes usar para asignar memoria siguiendo el proceso descrito anteriormente:
+Solidity gestiona la memoria de la siguiente manera. Hay un "puntero de memoria libre"
+en la posición ``0x40`` de la memoria. Si desea asignar memoria, utilice la memoria
+a partir de donde apunta este puntero y actualícelo.
+No hay garantía de que la memoria no se haya utilizado anteriormente y, por lo tanto,
+no se puede asumir que su contenido sea de cero bytes.
+No hay ningún mecanismo integrado para liberar o desocupar la memoria asignada.
+Solidity no garantiza ni exige que los valores de la memoria
+se coloquen en posiciones alineadas con un múltiplo de cualquier valor.
+A continuación se muestra un fragmento de código ensamblador que puede utilizar para asignar memoria siguiendo el proceso descrito anteriormente:
 
 .. code-block:: yul
 
@@ -287,5 +310,27 @@ of Solidity, you can use a special comment to annotate an assembly block as memo
         ...
     }
 
-Note that we will disallow the annotation via comment in a future breaking release; so, if you are not concerned with
-backward-compatibility with older compiler versions, prefer using the dialect string.
+.. warning::
+    The ``memory-safe-assembly`` special comment is deprecated and scheduled for removal.
+    In new code targeting recent compilers, use the assembly block annotation.
+
+Advanced Safe Use of Memory
+---------------------------
+
+Beyond the strict definition of memory-safety given above, there are cases in which you may want to use more than 64 bytes
+of scratch space starting at memory offset ``0``. If you are careful, it can be admissible to use memory up to (and not
+including) offset ``0x80`` and still safely declare the assembly block as ``memory-safe``.
+This is admissible under either of the following conditions:
+
+- By the end of the assembly block, the free memory pointer at offset ``0x40`` is restored to a sane value (i.e. it is either
+  restored to its original value or an increment of it due to a manual memory allocation), and the memory word at offset ``0x60``
+  is restored to a value of zero.
+
+- The assembly block terminates, i.e. execution can never return to high-level Solidity code. This is the case, for example,
+  if your assembly block unconditionally ends in calling the ``revert`` opcode.
+
+Furthermore, you need to be aware that the default-value of dynamic arrays in Solidity point to memory offset ``0x60``, so
+for the duration of temporarily changing the value at memory offset ``0x60``, you can no longer rely on getting accurate
+length values when reading dynamic arrays, until you restore the zero value at ``0x60``. To be more precise, we only guarantee
+safety when overwriting the zero pointer, if the remainder of the assembly snippet does not interact with the memory of
+high-level Solidity objects (including by reading from offsets previously stored in variables).

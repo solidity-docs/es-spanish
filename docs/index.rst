@@ -4,7 +4,7 @@ Solidity
 Solidity is an object-oriented, high-level language for implementing smart contracts.
 Smart contracts are programs that govern the behavior of accounts within the Ethereum state.
 
-Solidity is a `curly-bracket language <https://en.wikipedia.org/wiki/List_of_programming_languages_by_type#Curly-bracket_languages>`_ designed to target the Ethereum Virtual Machine (EVM).
+Solidity is a `curly-bracket language <https://en.wikipedia.org/wiki/List_of_programming_languages_by_type#Curly_bracket_languages>`_ designed to target the Ethereum Virtual Machine (EVM).
 It is influenced by C++, Python, and JavaScript.
 You can find more details about which languages Solidity has been inspired by in the :doc:`language influences <language-influences>` section.
 
@@ -14,7 +14,7 @@ With Solidity, you can create contracts for uses such as voting, crowdfunding, b
 
 When deploying contracts, you should use the latest released version of Solidity.
 Apart from exceptional cases, only the latest version receives
-`security fixes <https://github.com/ethereum/solidity/security/policy#supported-versions>`_.
+`security fixes <https://github.com/argotorg/solidity/security/policy#supported-versions>`_.
 Furthermore, breaking changes, as well as new features, are introduced regularly.
 We currently use a 0.y.z version number `to indicate this fast pace of change <https://semver.org/#spec-item-4>`_.
 
@@ -28,7 +28,7 @@ Ideas para mejorar Solidity o esta misma documentación son siempre bienvenidas,
 .. Nota::
 
   You can download this documentation as PDF, HTML or Epub
-  by clicking on the versions flyout menu in the bottom-left corner and selecting the preferred download format.
+  by clicking on the versions flyout menu in the bottom-right corner and selecting the preferred download format.
 
 Para Comenzar
 -------------
@@ -85,6 +85,7 @@ Community contributors help translate this documentation into several languages.
 Note that they have varying degrees of completeness and up-to-dateness.
 The English version stands as a reference.
 
+<<<<<<< HEAD
 Puede elegir entre distintos idiomas haciendo click en el menú desplegable que se encuentra en la esquina inferior izquierda y seleccionando su lenguaje preferido.
 
 * `Chino <https://docs.soliditylang.org/zh/latest/>`_
@@ -98,6 +99,20 @@ Puede elegir entre distintos idiomas haciendo click en el menú desplegable que 
 * `Turco <https://github.com/solidity-docs/tr-turkish>`_
 * `Alemán <https://github.com/solidity-docs/de-german>`_
 * `Portugués <https://github.com/solidity-docs/pt-portuguese>`_
+=======
+You can switch between languages by clicking on the flyout menu in the bottom-right corner
+and selecting the preferred language.
+
+* `Chinese <https://docs.soliditylang.org/zh-cn/latest/>`_
+* `French <https://docs.soliditylang.org/fr/latest/>`_
+* `Indonesian <https://github.com/solidity-docs/id-indonesian>`_
+* `Japanese <https://github.com/solidity-docs/ja-japanese>`_
+* `Korean <https://github.com/solidity-docs/ko-korean>`_
+* `Persian <https://github.com/solidity-docs/fa-persian>`_
+* `Russian <https://github.com/solidity-docs/ru-russian>`_
+* `Spanish <https://github.com/solidity-docs/es-spanish>`_
+* `Turkish <https://docs.soliditylang.org/tr/latest/>`_
+>>>>>>> english/develop
 
 .. Note::
   Recientemente se creó una nueva organización en GitHub y un flujo de trabajo para las traducciones, con el motivo de agilizar los esfuerzos de la     comunidad. Por favor, consulte la `guía de traducción <https://github.com/solidity-docs/translation-guide>`_ para obtener información sobre cómo iniciar un nuevo idioma o contribuir en las traducciones de la comunidad.

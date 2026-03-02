@@ -72,6 +72,7 @@ Propiedades de bloques y transacciones
 - ``blobhash(uint index) returns (bytes32)``: versioned hash of the ``index``-th blob associated with the current transaction.
   A versioned hash consists of a single byte representing the version (currently ``0x01``), followed by the last 31 bytes
   of the SHA256 hash of the KZG commitment (`EIP-4844 <https://eips.ethereum.org/EIPS/eip-4844>`_).
+  Returns zero if no blob with the given index exists.
 - ``block.basefee`` (``uint``): current block's base fee (`EIP-3198 <https://eips.ethereum.org/EIPS/eip-3198>`_ and `EIP-1559 <https://eips.ethereum.org/EIPS/eip-1559>`_)
 - ``block.blobbasefee`` (``uint``): current block's blob base fee (`EIP-7516 <https://eips.ethereum.org/EIPS/eip-7516>`_ and `EIP-4844 <https://eips.ethereum.org/EIPS/eip-4844>`_)
 - ``block.chainid`` (``uint``): current chain id
@@ -229,6 +230,7 @@ Funciones matemáticas y criptográficas
 
 Miembros de tipos de direcciones
 ------------------------
+These members are explained in more detail in the section on :ref:`members of address <members-of-addresses>`.
 
 ``<address>.balance`` (``uint256``)
     balance de la :ref:`dirección` en Wei
@@ -245,7 +247,12 @@ Miembros de tipos de direcciones
 ``<address payable>.send(uint256 amount) returns (bool)``
     envìa la cantidad dada de Wei a :ref:`dirección`, devuelve ``false`` en caso de error, adelanta 2300 estipendios de gas, no ajustable
 
+.. warning::
+    ``send()`` and ``transfer()`` are deprecated and scheduled for removal.
+    See the section on :ref:`send <send-address-member>` and :ref:`transfer <balance-transfer-address-members>` for more information.
+
 ``<address>.call(bytes memory) returns (bool, bytes memory)``
+<<<<<<< HEAD
     emite ``CALL`` de bajo nivel con la carga útil dada, devuelve la condición de éxito y devuelve datos, reenvía todo el gas disponible, ajustable
 
 ``<address>.delegatecall(bytes memory) returns (bool, bytes memory)``
@@ -253,6 +260,18 @@ Miembros de tipos de direcciones
 
 ``<address>.staticcall(bytes memory) returns (bool, bytes memory)``
     emite ``STATICCALL`` de bajo nivel con la carga útil dada, devuelve la condición de éxito y devuelve datos, reenvía todo el gas disponible, ajustable
+=======
+    issue low-level ``CALL`` with the given payload, returns success condition and return data,
+    forwards all available gas (subject to additional limits imposed by some EVM versions), adjustable
+
+``<address>.delegatecall(bytes memory) returns (bool, bytes memory)``
+    issue low-level ``DELEGATECALL`` with the given payload, returns success condition and return data,
+    forwards all available gas (subject to additional limits imposed by some EVM versions), adjustable
+
+``<address>.staticcall(bytes memory) returns (bool, bytes memory)``
+    issue low-level ``STATICCALL`` with the given payload, returns success condition and return data,
+    forwards all available gas (subject to additional limits imposed by some EVM versions), adjustable
+>>>>>>> english/develop
 
 Para obtener más información, consulte la sección sobre :ref:`dirección`.
 
@@ -312,9 +331,23 @@ Contract-related
 Además, todas las funciones del contrato actual son llamables directamente, incluida la función actual.
 
 .. warning::
-    From version 0.8.18 and up, the use of ``selfdestruct`` in both Solidity and Yul will trigger a
-    deprecation warning, since the ``SELFDESTRUCT`` opcode will eventually undergo breaking changes in behavior
-    as stated in `EIP-6049 <https://eips.ethereum.org/EIPS/eip-6049>`_.
+    From ``EVM >= Cancun`` onwards, ``selfdestruct`` will **only** send all Ether in the account to the given recipient and not destroy the contract.
+    However, when ``selfdestruct`` is called in the same transaction that creates the contract calling it,
+    the behaviour of ``selfdestruct`` before Cancun hardfork (i.e., ``EVM <= Shanghai``) is preserved and will destroy the current contract,
+    deleting any data, including storage keys, code and the account itself.
+    See `EIP-6780 <https://eips.ethereum.org/EIPS/eip-6780>`_ for more details.
+
+    The new behaviour is the result of a network-wide change that affects all contracts present on
+    the Ethereum mainnet and testnets.
+    It is important to note that this change is dependent on the EVM version of the chain on which
+    the contract is deployed.
+    The ``--evm-version`` setting used when compiling the contract has no bearing on it.
+
+    Also, note that the ``selfdestruct`` opcode has been deprecated in Solidity version 0.8.18,
+    as recommended by `EIP-6049 <https://eips.ethereum.org/EIPS/eip-6049>`_.
+    The deprecation is still in effect and the compiler will still emit warnings on its use.
+    Any use in newly deployed contracts is strongly discouraged even if the new behavior is taken into account.
+    Future changes to the EVM might further reduce the functionality of the opcode.
 
 .. note::
     Antes de la versión 0.5.0, había una función llamada ``suicide`` con la misma semántica que ``selfdestruct``.

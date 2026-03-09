@@ -18,7 +18,10 @@ No existe un concepto "cron" en Ethereum para llamar automáticamente a una func
 
 .. include:: contracts/function-modifiers.rst
 
+.. include:: contracts/transient-storage.rst
+
 .. include:: contracts/constant-state-variables.rst
+.. include:: contracts/custom-storage-layout.rst
 .. include:: contracts/functions.rst
 
 .. include:: contracts/events.rst

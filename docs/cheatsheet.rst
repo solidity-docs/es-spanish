@@ -23,7 +23,7 @@ ABI Encoding and Decoding Functions
 - ``abi.encodeWithSelector(bytes4 selector, ...) returns (bytes memory)``: :ref:`ABI <ABI>`-encodes
   the given arguments starting from the second and prepends the given four-byte selector
 - ``abi.encodeCall(function functionPointer, (...)) returns (bytes memory)``: ABI-encodes a call to ``functionPointer`` with the arguments found in the
-  tuple. Performs a full type-check, ensuring the types match the function signature. Result equals ``abi.encodeWithSelector(functionPointer.selector, (...))``
+  tuple. Performs a full type-check, ensuring the types match the function signature. Result equals ``abi.encodeWithSelector(functionPointer.selector, ...)``
 - ``abi.encodeWithSignature(string memory signature, ...) returns (bytes memory)``: Equivalent
   to ``abi.encodeWithSelector(bytes4(keccak256(bytes(signature))), ...)``
 
@@ -53,8 +53,8 @@ Members of ``address``
 - ``<address>.staticcall(bytes memory) returns (bool, bytes memory)``: issue low-level ``STATICCALL`` with the given payload,
   returns success condition and return data
 - ``<address payable>.send(uint256 amount) returns (bool)``: send given amount of Wei to :ref:`address`,
-  returns ``false`` on failure
-- ``<address payable>.transfer(uint256 amount)``: send given amount of Wei to :ref:`address`, throws on failure
+  returns ``false`` on failure (deprecated)
+- ``<address payable>.transfer(uint256 amount)``: send given amount of Wei to :ref:`address`, throws on failure (deprecated)
 
 .. index:: blockhash, blobhash, block, block;basefee, block;blobbasefee, block;chainid, block;coinbase, block;difficulty, block;gaslimit, block;number, block;prevrandao, block;timestamp
 .. index:: gasleft, msg;data, msg;sender, msg;sig, msg;value, tx;gasprice, tx;origin
@@ -66,6 +66,7 @@ Block and Transaction Properties
 - ``blobhash(uint index) returns (bytes32)``: versioned hash of the ``index``-th blob associated with the current transaction.
   A versioned hash consists of a single byte representing the version (currently ``0x01``), followed by the last 31 bytes
   of the SHA256 hash of the KZG commitment (`EIP-4844 <https://eips.ethereum.org/EIPS/eip-4844>`_).
+  Returns zero if no blob with the given index exists.
 - ``block.basefee`` (``uint``): current block's base fee (`EIP-3198 <https://eips.ethereum.org/EIPS/eip-3198>`_ and `EIP-1559 <https://eips.ethereum.org/EIPS/eip-1559>`_)
 - ``block.blobbasefee`` (``uint``): current block's blob base fee (`EIP-7516 <https://eips.ethereum.org/EIPS/eip-7516>`_ and `EIP-4844 <https://eips.ethereum.org/EIPS/eip-4844>`_)
 - ``block.chainid`` (``uint``): current chain id
@@ -96,7 +97,7 @@ Validations and Assertions
 - ``revert()``: abort execution and revert state changes
 - ``revert(string memory message)``: abort execution and revert state changes providing an explanatory string
 
-.. index:: cryptography, keccak256, sha256, ripemd160, ecrecover, addmod, mulmod
+.. index:: cryptography, keccak256, sha256, ripemd160, ecrecover, addmod, mulmod, erc7201
 
 Mathematical and Cryptographic Functions
 ========================================
@@ -110,6 +111,8 @@ Mathematical and Cryptographic Functions
   arbitrary precision and does not wrap around at ``2**256``. Assert that ``k != 0`` starting from version 0.5.0.
 - ``mulmod(uint x, uint y, uint k) returns (uint)``: compute ``(x * y) % k`` where the multiplication is performed
   with arbitrary precision and does not wrap around at ``2**256``. Assert that ``k != 0`` starting from version 0.5.0.
+- ``erc7201(string memory id) returns (uint)``: compute the base slot of an ``erc7201`` storage namespace.
+  Can be used in compile time context.
 
 .. index:: this, super, selfdestruct
 
@@ -118,7 +121,7 @@ Contract-related
 
 - ``this`` (current contract's type): the current contract, explicitly convertible to ``address`` or ``address payable``
 - ``super``: a contract one level higher in the inheritance hierarchy
-- ``selfdestruct(address payable recipient)``: destroy the current contract, sending its funds to the given address
+- ``selfdestruct(address payable recipient)``: send all funds to the given address and (only on EVMs before Cancun or when invoked within the transaction creating the contract) destroy the contract.
 
 .. index:: type;name, type;creationCode, type;runtimeCode, type;interfaceId, type;min, type;max
 

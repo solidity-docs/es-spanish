@@ -109,6 +109,7 @@ de lo contrario la opción ``valor`` no estaría disponible.
   ``feed.info{value: 10, gas: 800}`` no ejecuta la función y se pierden los ajustes del
   ``value`` y ``gas``, solo  ``feed.info{value: 10, gas: 800}()`` realiza la llamada de la función.
 
+<<<<<<< HEAD
 Debido al hecho que el EVM considera una llamada a un contrato inexistente
 siempre tenga éxito, Solitiy utiliza el ``extcodesize`` opcode para comprobar 
 que el contrato que está a punto de ser llamado existe realmente (contiene codigo) 
@@ -126,6 +127,39 @@ que operan en las direcciones en lugar de instancias de contrato.
 
 Las llamadas a funciones también causan excepciones si el propio contrato llamado 
 arroja una excepción o se queda sin gas.
+=======
+.. warning::
+    Due to the fact that the EVM considers a call to a non-existing contract to
+    always succeed, Solidity uses the ``extcodesize`` opcode to check that
+    the contract that is about to be called actually exists (it contains code)
+    and causes an exception if it does not. This check is skipped if the return
+    data will be decoded after the call and thus the ABI decoder will catch the
+    case of a non-existing contract.
+
+    This check is not performed in case of :ref:`low-level calls <address_related>` which
+    operate on addresses rather than contract instances.
+
+.. warning::
+    Be careful when using high-level calls to
+    :ref:`precompiled contracts <precompiledContracts>`,
+    since the compiler considers them non-existing according to the
+    above logic even though they execute code and can return data.
+
+.. note::
+    Since the version 0.8.10, the compiler does not check ``extcodesize`` on
+    high-level external calls if return data is expected, because an empty code
+    will be unable to return data, and the ABI decoder will revert.
+    As a consequence, this allows high-level external calls to precompiled
+    contracts, since they can return data despite having no code
+    associated with their addresses.
+
+    Read about :ref:`precompiled contracts <precompiledContracts>` and
+    :ref:`low-level calls <address_related>`
+    for more information.
+
+Function calls also cause exceptions if the called contract itself
+throws an exception or goes out of gas.
+>>>>>>> english/develop
 
 .. warning::
     Cualquier interacción con otro contrato supone un peligro potencial, especialmente
@@ -231,7 +265,13 @@ Como se ve en el ejemplo, es posible traspasar Ether a la creación usando la op
 pero no es posible limitar la cantidad de gas. Si la creación falla
 (debido al desbordamiento de la pila, falta de balance o cualquier otro problema), se dispara una excepción.
 
+<<<<<<< HEAD
 Creaciones de contratos salted / create2
+=======
+.. _salted-contract-creations:
+
+Salted contract creations / create2
+>>>>>>> english/develop
 -----------------------------------
 
 Al crear un contrato, la dirección del contrato se calcula a partir de 
@@ -575,7 +615,13 @@ de la llamada en forma de :ref:`error instances <errors>`. Los errores incorpora
 explica a continuación. ``Error`` se usa para condiciones de error "regular", 
 mientras que ``Panic`` se usa para errores que no deberían estar presentes en el código libre de errores.
 
+<<<<<<< HEAD
 Panic a través de ``assert`` y Error a través de ``require``
+=======
+.. _assert-and-require-statements:
+
+Panic via ``assert`` and Error via ``require``
+>>>>>>> english/develop
 ----------------------------------------------
 
 Las funciones de conveniencia ``assert`` y ``require`` se pueden usar para verificar las condiciones y lanzar una excepción 
@@ -603,6 +649,7 @@ El código de error proporcionado con los datos de error indica el tipo de páni
 #. 0x41: Si asigna demasiada memoria o crea una matriz que es demasiado grande.
 #. 0x51: Si llama a una variable inicializada en cero de tipo de función interna.
 
+<<<<<<< HEAD
 La función``'require`` crea un error sin ningún dato o un error del tipo ``Error(string)``. 
 Debe utilizarse para garantizar condiciones válidas que no se puedan detectar hasta el momento 
 de la ejecución. Esto incluye condiciones sobre entradas o valores devueltos de llamadas a contratos externos.
@@ -613,6 +660,22 @@ de la ejecución. Esto incluye condiciones sobre entradas o valores devueltos de
     Utilice ``if (!condition) revert CustomError();`` en su lugar.
 
 El compilador genera una excepción ``Error(string)`` (o una excepción sin datos) en las siguientes situaciones:
+=======
+The ``require`` function provides three overloads:
+
+1. ``require(bool)`` which will revert without any data (not even an error selector).
+2. ``require(bool, string)`` which will revert with an ``Error(string)``.
+3. ``require(bool, error)`` which will revert with the custom, user supplied error provided as the second argument.
+
+.. note::
+    ``require`` arguments are evaluated unconditionally, so take special care to make sure that
+    they are not expressions with unexpected side-effects.
+    For example, in ``require(condition, CustomError(f()));`` and ``require(condition, f());``,
+    function ``f()`` will be called regardless of whether the supplied condition is ``true`` or ``false``.
+
+An ``Error(string)`` exception (or an exception without data) is generated
+by the compiler in the following situations:
+>>>>>>> english/develop
 
 #. Llamar a ``require(x)`` donde ``x`` se evalúa como ``false``.
 #. Si se utiliza ``revert()`` o ``revert("description")``.
@@ -634,11 +697,19 @@ an ``Error`` or a ``Panic`` (or whatever else was given):
 #. Si crea un contrato utilizando la palabra clave ``new`` pero la creación del contrato 
    :ref:`no finaliza propiamente<creating-contracts>`.
 
+<<<<<<< HEAD
 Opcionalmente, puede proporcionar una cadena de mensaje para ``require``, pero no para ``assert``.
 
 .. note::
     Si no proporciona un argumento de cadena a ``require``, se revertirá 
     con datos de error vacíos, sin siquiera incluir el selector de errores.
+=======
+You can optionally provide a message string or a custom error to ``require``, but not to ``assert``.
+
+.. note::
+    If you do not provide a string or custom error argument to ``require``, it will revert
+    with empty error data, not even including the error selector.
+>>>>>>> english/develop
 
 En el ejemplo siguiente se muestra cómo puede utilizar ``require`` para comprobar las condiciones de las entradas 
 y ``assert`` para la comprobación interna de errores.
@@ -647,16 +718,16 @@ y ``assert`` para la comprobación interna de errores.
     :force:
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.5.0 <0.9.0;
+    pragma solidity >=0.6.2 <0.9.0;
 
     contract Sharer {
         function sendHalf(address payable addr) public payable returns (uint balance) {
             require(msg.value % 2 == 0, "Even value required.");
             uint balanceBeforeTransfer = address(this).balance;
-            addr.transfer(msg.value / 2);
-            // Since transfer throws an exception on failure and
-            // cannot call back here, there should be no way for us to
-            // still have half of the Ether.
+            (bool success, ) = addr.call{value: msg.value / 2}("");
+            require(success);
+            // Since require will stop execution and revert if success is false,
+            // there should be no way for us to still have half of the Ether.
             assert(address(this).balance == balanceBeforeTransfer - msg.value / 2);
             return address(this).balance;
         }
@@ -727,7 +798,8 @@ junto con ``revert`` y el equivalente ``require``:
             if (msg.sender != owner)
                 revert Unauthorized();
 
-            payable(msg.sender).transfer(address(this).balance);
+            (bool success, ) = payable(msg.sender).call{value: address(this).balance}("");
+            require(success);
         }
     }
 

@@ -1,5 +1,26 @@
 {% extends "!layout.html" %}
 
+{% block extrahead %}
+    {{ super() }}
+    {% if github_version not in allowed_indexed_versions %}
+        <meta name="robots" content="noindex, follow">
+    {% endif %}
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        window.NAV_LINKS = {
+            blog: "{{ _('Blog') }}",
+            documentation: "{{ _('Documentation') }}",
+            use_cases: "{{ _('Use cases') }}",
+            contribute: "{{ _('Contribute') }}",
+            about: "{{ _('About') }}",
+            forum: "{{ _('Forum') }}"
+        };
+    </script>
+    {{ super() }}
+{% endblock %}
+
 {% block menu %}
     {{ super() }}
     <ul>

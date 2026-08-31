@@ -69,9 +69,30 @@ ABI Coder Pragma
 
 Al usar ``pragma abicoder v1`` o ``pragma abicoder v2`` puedes seleccionar entre las dos implementaciones del codificador y decodificador ABI.
 
+<<<<<<< HEAD
 El nuevo codificador ABI (v2) es capaz de codificar y decodificar arrays y structs anidadas arbitrariamente. Además de admitir más tipos, implica una validación y comprobaciones de seguridad más amplias, lo que puede dar como resultado mayores costes de gas, pero también una mayor seguridad. Se considera no experimental a partir de Solidity 0.6.0 y está habilitado de forma predeterminada iniciando con Solidity 0.8.0. El antiguo codificador ABI todavía puede ser seleccionado usando ``pragma abicoder v1;``.
 
 El conjunto de tipos soportados por el nuevo codificador es un superset de aquellos soportados por el viejo. Los contratos que lo usan pueden interactuar con aquellos que no lo usan sin limitaciones. Lo opuesto es posible solo siempre y cuando el contrato no-``abicoder v2`` no intente hacer llamadas que requerirían decodificador tipos solamente soportados por el nuevo codificador. El compilador puede detectar esto y emitirá un error. Simplemente con activar ``abicoder v2`` para su contrato es suficiente para hacer que estos errores desaparezcan.     
+=======
+The new ABI coder (v2) is able to encode and decode arbitrarily nested
+arrays and structs. Apart from supporting more types, it involves more extensive
+validation and safety checks, which may result in higher gas costs, but also heightened
+security.
+It is considered non-experimental as of Solidity 0.6.0 and it is enabled by default starting
+with Solidity 0.8.0. The old ABI coder can still be selected using ``pragma abicoder v1;``.
+
+.. warning::
+  The ABI coder v1 is deprecated and scheduled for removal.
+  Use ABI coder v2 instead.
+
+The set of types supported by the new encoder is a strict superset of
+the ones supported by the old one. Contracts that use it can interact with ones
+that do not without limitations. The reverse is possible only as long as the
+non-``abicoder v2`` contract does not try to make calls that would require
+decoding types only supported by the new encoder. The compiler can detect this
+and will issue an error. Simply enabling ``abicoder v2`` for your contract is
+enough to make the error go away.
+>>>>>>> english/develop
 
 .. note::
 
@@ -89,6 +110,7 @@ Pragma Experimental
 
 El segundo pragma es el pragma experimental. Puede ser usado para habilitar características del compilador o lenguaje que todavía no están activadas por defecto. Los siguientes pragmas experimentales están actualmente soportados:
 
+<<<<<<< HEAD
 .. index:: ! pragma; ABIEncoderV2
 
 ABIEncoderV2
@@ -96,16 +118,32 @@ ABIEncoderV2
 
 Debido a que el codificador ABI v2 ya no es considerado experimental, puede ser seleccionado por medio de ``pragma abicoder v2`` desde Solidity 0.7.4 (véase más arriba).  
 
+=======
+>>>>>>> english/develop
 .. index:: ! pragma; SMTChecker
 .. _smt_checker:
 
 SMTChecker
 ~~~~~~~~~~
 
+<<<<<<< HEAD
 Este componente tiene que ser habilitado cuando el compilador de Solidity es construido y, por lo tanto, no está disponible en todos los binarios Solidity. Las :ref:`instrucciones de construcción<smt_solvers_build>` explican cómo activar esta opción. Está activado para todas los lanzamientos PPA de Ubuntu en la mayoría de las versiones, pero no para las imágenes de Docker, los binarios de Windows o los binarios de Linux construidos estáticamente. Se puede activar para solc-js a través de `smtCallback <https://github.com/ethereum/solc-js#example-usage-with-smtsolver-callback>`_ si tiene un SMT solver instalado localmente y ejecute solc-js por medio de node (no a través del navegador). 
 
 Si usa ``pragma experimental SMTChecker;``, entonces obtiene :ref:`avisos de seguridad<formal_verification>` adicionales los cuales se obtienen al consultar un SMT solver.
 El componente todavía no soporta todas las características del lenguaje Solidity y probablemente genera muchas advertencias. En caso de que señale características no soportadas, el análisis pudiese no ser enteramente sólido.
+=======
+If you use ``pragma experimental SMTChecker;``, then you get additional
+:ref:`safety warnings<formal_verification>` which are obtained by querying an
+SMT solver.
+The component does not yet support all features of the Solidity language and
+likely outputs many warnings. In case it reports unsupported features, the
+analysis may not be fully sound.
+>>>>>>> english/develop
+
+.. note::
+
+    The ``SMTChecker`` pragma is deprecated and will be removed.
+    To enable SMTChecker, simply select :ref:`select an engine<smtchecker_engines>` when invoking the compiler.
 
 .. index:: source file, ! import, module, source unit
 

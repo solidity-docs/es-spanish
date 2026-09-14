@@ -14,13 +14,12 @@ addition, patch-level releases with major release 0 (i.e. 0.x.y) will not
 contain breaking changes. That means code that compiles with version 0.x.y
 can be expected to compile with 0.x.z where z > y.
 
-In addition to releases, we provide **nightly development builds** to make
-it easy for developers to try out upcoming features and
-provide early feedback. Note, however, that while the nightly builds are usually
-very stable, they contain bleeding-edge code from the development branch and are
-not guaranteed to be always working. Despite our best efforts, they might
-contain undocumented and/or broken changes that will not become a part of an
-actual release. They are not meant for production use.
+In addition to releases, we provide **prereleases** and **nightly development builds** to make it
+easy for developers to try out upcoming features and provide early feedback.
+Note that such builds contain bleeding-edge code from the development branch and are not guaranteed
+to be of the same quality as full releases.
+Despite our best efforts, they might contain undocumented and/or broken changes that will not
+become a part of an actual release. They are not meant for production use.
 
 Al desplegar contratos, debería usar el último lanzamiento de Solidity. Esto es 
 porque regularmente se introducen cambios con rupturas, funcionalidades nuevas y 
@@ -33,8 +32,7 @@ Remix
 *Recomendamos Remix para pequeños contratos y para aprender Solidity rápidamente.*
 
 `Access Remix online <https://remix.ethereum.org/>`_, you do not need to install anything.
-If you want to use it without connection to the Internet, go to
-https://github.com/ethereum/remix-live/tree/gh-pages#readme and follow the instructions on that page.
+If you want to use it without connection to the Internet, download Remix Desktop from `the releases page <https://github.com/remix-project-org/remix-desktop/releases/>`_.
 Remix is also a convenient option for testing nightly builds
 without installing multiple Solidity versions.
 
@@ -47,21 +45,30 @@ or if you require more compilation options.
 npm / Node.js
 =============
 
+<<<<<<< HEAD
 Use ``npm`` para instalar ``solcjs``, un compilador de Solidity, de una manera portable 
 y sencilla. El programa `solcjs` tiene menos funcionalidades que el resto de maneras de 
 compilar detalladas más abajo en esta página. La documentación del 
 :ref:`compilador de línea de comandos` asume que está usando el compilador con funcionalidad 
 completa, ``solc``. El uso de ``solcjs`` está documentado dentro de su propio
 `repositorio <https://github.com/ethereum/solc-js>`_.
+=======
+Use ``npm`` for a convenient and portable way to install ``solcjs``, a Solidity compiler. The
+``solcjs`` program has fewer features than the ways to access the compiler described
+further down this page. The
+:ref:`commandline-compiler` documentation assumes you are using
+the full-featured compiler, ``solc``. The usage of ``solcjs`` is documented inside its own
+`repository <https://github.com/argotorg/solc-js>`_.
+>>>>>>> english/develop
 
 Note: The solc-js project is derived from the C++
-`solc` by using Emscripten, which means that both use the same compiler source code.
-`solc-js` can be used in JavaScript projects directly (such as Remix).
+``solc`` by using Emscripten, which means that both use the same compiler source code.
+``solc-js`` can be used in JavaScript projects directly (such as Remix).
 Please refer to the solc-js repository for instructions.
 
 .. code-block:: bash
 
-    npm install -g solc
+    npm install --global solc
 
 .. Nota::
 
@@ -73,7 +80,7 @@ Please refer to the solc-js repository for instructions.
 Docker
 ======
 
-Docker images of Solidity builds are available using the ``solc`` image from the ``ethereum`` organization.
+Docker images of Solidity builds are available using the `solc <https://github.com/argotorg/solidity/pkgs/container/solc>`_ image from the argotorg organization on ghcr.io.
 Use the ``stable`` tag for the latest released version, and ``nightly`` for potentially unstable changes in the ``develop`` branch.
 
 The Docker image runs the compiler executable so that you can pass all compiler arguments to it.
@@ -82,26 +89,26 @@ and runs it in a new container, passing the ``--help`` argument.
 
 .. code-block:: bash
 
-    docker run ethereum/solc:stable --help
+    docker run ghcr.io/argotorg/solc:stable --help
 
-You can specify release build versions in the tag. For example:
+.. note::
 
-.. code-block:: bash
-
-    docker run ethereum/solc:stable --help
-
-Note
-
-Specific compiler versions are supported as the Docker image tag such as `ethereum/solc:0.8.23`. We will be passing the
-`stable` tag here instead of specific version tag to ensure that users get the latest version by default and avoid the issue of
-an out-of-date version.
+    Specific compiler versions are supported as the Docker image tag such as ``ghcr.io/argotorg/solc:0.8.23``.
+    We will be passing the ``stable`` tag here instead of specific version tag to ensure that users get
+    the latest version by default and avoid the issue of an out-of-date version.
 
 To use the Docker image to compile Solidity files on the host machine, mount a
 local folder for input and output, and specify the contract to compile. For example:
 
 .. code-block:: bash
 
-    docker run -v /local/path:/sources ethereum/solc:stable -o /sources/output --abi --bin /sources/Contract.sol
+    docker run \
+        --volume "/tmp/some/local/path/:/sources/" \
+        ghcr.io/argotorg/solc:stable \
+            /sources/Contract.sol \
+            --abi \
+            --bin \
+            --output-dir /sources/output/
 
 You can also use the standard JSON interface (which is recommended when using the compiler with tooling).
 When using this interface, it is not necessary to mount any directories as long as the JSON input is
@@ -110,47 +117,62 @@ self-contained (i.e. it does not refer to any external files that would have to 
 
 .. code-block:: bash
 
-    docker run ethereum/solc:stable --standard-json < input.json > output.json
+    docker run ghcr.io/argotorg/solc:stable --standard-json < input.json > output.json
 
 Paquetes de Linux
 =================
 
+<<<<<<< HEAD
 Los binarios de Solidity están disponibles en
 `solidity/releases <https://github.com/ethereum/solidity/releases>`_.
 
 También tenemos PPAs para Ubuntu, puede obtener la versión estable más 
 reciente usando los siguientes comandos:
+=======
+We provide :ref:`standalone binaries <static-binaries>` of the compiler that should run on most
+distributions without any additional installation steps.
 
-.. code-block:: bash
+Ubuntu packages for versions up to 0.8.30 are available in the
+`ethereum/ethereum PPA <https://launchpad.net/~ethereum/+archive/ubuntu/ethereum>`_.
+However, we have discontinued this distribution method and future versions will not be added there.
+>>>>>>> english/develop
 
-    sudo add-apt-repository ppa:ethereum/ethereum
-    sudo apt-get update
-    sudo apt-get install solc
+Some Linux distributions provide their own packages.
+These packages are not directly maintained by us but usually kept up-to-date by the respective
+package maintainers.
 
+Unofficial, community-maintained scripts for building and installing the compiler are also
+available for some distributions:
+
+<<<<<<< HEAD
 La versión nocturna puede ser instalada usando estos comandos:
+=======
+- Arch Linux / (AUR):
+>>>>>>> english/develop
 
-.. code-block:: bash
+    - `solidity <https://aur.archlinux.org/packages/solidity>`_ (builds from source),
+    - `solidity-bin <https://aur.archlinux.org/packages/solidity-bin>`_ (uses our standalone binaries).
 
-    sudo add-apt-repository ppa:ethereum/ethereum
-    sudo add-apt-repository ppa:ethereum/ethereum-dev
-    sudo apt-get update
-    sudo apt-get install solc
+- Nix:
 
-Furthermore, some Linux distributions provide their own packages. These packages are not directly
-maintained by us but usually kept up-to-date by the respective package maintainers.
-
-For example, Arch Linux has packages for the latest development version as AUR packages: `solidity <https://aur.archlinux.org/packages/solidity>`_
-and `solidity-bin <https://aur.archlinux.org/packages/solidity-bin>`_.
+    - `solc.nix <https://github.com/hellwolf/solc.nix>`_ (builds from source).
 
 .. note::
 
-    Please be aware that `AUR <https://wiki.archlinux.org/title/Arch_User_Repository>`_ packages
-    are user-produced content and unofficial packages. Exercise caution when using them.
+    Please be aware that these scripts are produced and maintained by users and not vetted in any
+    way by the distro maintainers.
+    Exercise caution when using them.
 
+<<<<<<< HEAD
 También hay un `paquete para snap <https://snapcraft.io/solc>`_, 
 sin embargo actualmente **no se le da mantenimiento**. Se puede instalar en todas las
 `distros de Linux respaldadas <https://snapcraft.io/docs/core/install>`_. Para instalar
 la última versión estable de solc:
+=======
+There is also a `snap package <https://snapcraft.io/solc>`_, however, it is **currently unmaintained**.
+It is installable in all the `supported Linux distros <https://snapcraft.io/docs/reference/administration/distribution-support/>`_. To
+install the latest stable version of solc:
+>>>>>>> english/develop
 
 .. code-block:: bash
 
@@ -210,8 +232,15 @@ Instalar usando ``brew``:
     # ej. para instalar 0.4.8
     brew install solidity.rb
 
+<<<<<<< HEAD
 Binarios estáticos
 ==================
+=======
+.. _static-binaries:
+
+Static Binaries
+===============
+>>>>>>> english/develop
 
 Mantenemos un repositorio con todos los binarios estáticos y versiones actuales del compilador 
 para todas las plataformas respaldadas en `solc-bin`_. En esta locación también puede encontrar
@@ -223,7 +252,7 @@ herramientas de terceros:
 
 - The content is mirrored to https://binaries.soliditylang.org where it can be easily downloaded over
   HTTPS without any authentication, rate limiting or the need to use git.
-- Content is served with correct `Content-Type` headers and lenient CORS configuration so that it
+- Content is served with correct ``Content-Type`` headers and lenient CORS configuration so that it
   can be directly loaded by tools running in the browser.
 - Binaries do not require installation or unpacking (exception for older Windows builds
   bundled with necessary DLLs).
@@ -254,22 +283,26 @@ Each one includes a ``list.json`` file listing the available binaries. For examp
       "keccak256": "0x300330ecd127756b824aa13e843cb1f43c473cb22eaf3750d5fb9c99279af8c3",
       "sha256": "0x2b55ed5fec4d9625b6c7b3ab1abd2b7fb7dd2a9c68543bf0323db2c7e2d55af2",
       "urls": [
-        "bzzr://16c5f09109c793db99fe35f037c6092b061bd39260ee7a677c8a97f18c955ab1",
         "dweb:/ipfs/QmTLs5MuLEWXQkths41HiACoXDiH8zxyqBHGFDRSzVE5CS"
       ]
     }
 
 Esto significa que:
 
+<<<<<<< HEAD
 - Puede encontrar el binario en el mismo directorio bajo el nombre
   `solc-emscripten-wasm32-v0.7.4+commit.3f05b770.js <https://github.com/ethereum/solc-bin/blob/gh-pages/emscripten-wasm32/solc-emscripten-wasm32-v0.7.4+commit.3f05b770.js>`_.
+=======
+- You can find the binary in the same directory under the name
+  `solc-emscripten-wasm32-v0.7.4+commit.3f05b770.js <https://github.com/argotorg/solc-bin/blob/gh-pages/emscripten-wasm32/solc-emscripten-wasm32-v0.7.4+commit.3f05b770.js>`_.
+>>>>>>> english/develop
   Note that the file might be a symlink, and you will need to resolve it yourself if you are not using
   git to download it or your file system does not support symlinks.
 - The binary is also mirrored at https://binaries.soliditylang.org/emscripten-wasm32/solc-emscripten-wasm32-v0.7.4+commit.3f05b770.js.
   In this case git is not necessary and symlinks are resolved transparently, either by serving a copy
   of the file or returning a HTTP redirect.
 - The file is also available on IPFS at `QmTLs5MuLEWXQkths41HiACoXDiH8zxyqBHGFDRSzVE5CS`_.
-- The file might in future be available on Swarm at `16c5f09109c793db99fe35f037c6092b061bd39260ee7a677c8a97f18c955ab1`_.
+  Please, be aware that the order of items in the ``urls`` array is not predetermined or guaranteed and users should not rely on it.
 - You can verify the integrity of the binary by comparing its keccak256 hash to
   ``0x300330ecd127756b824aa13e843cb1f43c473cb22eaf3750d5fb9c99279af8c3``.  The hash can be computed
   on the command-line using ``keccak256sum`` utility provided by `sha3sum`_ or `keccak256() function
@@ -297,28 +330,56 @@ Esto significa que:
      ``soliditylang.org`` y esto también aplica para ``solc-bin``. Aunque recomendamos el nuevo 
      dominio, el antiguo sigue siendo mantenido y se garantiza que apunte a la misma locación.
 
+<<<<<<< HEAD
 .. Advertencia::
+=======
+   - Use ``emscripten-wasm32/`` (with a fallback to ``emscripten-asmjs/``) instead of ``bin/`` if
+     you want the best performance. Until version 0.6.1 we only provided asm.js binaries.
+     Starting with 0.6.2 we switched to `WebAssembly builds`_ with much better performance. We have
+     rebuilt the older versions for wasm but the original asm.js files remain in ``bin/``.
+     The new ones had to be placed in a separate directory to avoid name clashes.
+   - Use ``emscripten-asmjs/`` and ``emscripten-wasm32/`` instead of ``bin/`` and ``wasm/`` directories
+     if you want to be sure whether you are downloading a wasm or an asm.js binary.
+   - Use ``list.json`` instead of ``list.js`` and ``list.txt``. The JSON list format contains all
+     the information from the old ones and more.
+
+.. warning::
+   - The solc-bin.ethereum.org domain is no longer supported. Going forward,
+     we recommend any tools which are still using it as the source of Solidity binaries
+     to switch to binaries.soliditylang.org.
+>>>>>>> english/develop
 
     Los binarios también están disponbiles en https://ethereum.github.io/solc-bin/ pero esta página
     dejó de ser actualizada justo después del lanzamiento de la versión 0.7.2, no va a recibir 
     nuevos releases ni compilaciones nocturnas para ninguna plataforma y no sirve la nueva estructura
     del directorio, incluyendo compilaciones no-emscripten.
 
+<<<<<<< HEAD
     Si usted la está usando, por favor cambie a https://binaries.soliditylang.org, que es su reemplazo.
     Esto nos permite hacerle cambios al hosting subyacente de una manera transparente y minimizar
     disrupciones. Al contrario del dominio ``ethereum.github.io``, el cual no controlamos, 
     ``binaries.soliditylang.org`` está garantizado para funcionar y mantener la misma estructura de URLs 
     en el largo plazo.
+=======
+    The binaries are also available at https://argotorg.github.io/solc-bin/ but this page
+    stopped being updated just after the release of version 0.7.2, will not receive any new releases
+    or nightly builds for any platform and does not serve the new directory structure, including
+    non-emscripten builds.
+
+    If you are using it, please switch to https://binaries.soliditylang.org, which is a drop-in
+    replacement. This allows us to make changes to the underlying hosting in a transparent way and
+    minimize disruption. Unlike the ``argotorg.github.io`` domain, which we do not have any control
+    over, ``binaries.soliditylang.org`` is guaranteed to work and maintain the same URL structure
+    in the long-term.
+>>>>>>> english/develop
 
 .. _IPFS: https://ipfs.io
-.. _Swarm: https://swarm-gateways.net/bzz:/swarm.eth
-.. _solc-bin: https://github.com/ethereum/solc-bin/
-.. _Solidity release page on GitHub: https://github.com/ethereum/solidity/releases
+.. _solc-bin: https://github.com/argotorg/solc-bin/
+.. _Solidity release page on GitHub: https://github.com/argotorg/solidity/releases
 .. _sha3sum: https://github.com/maandree/sha3sum
 .. _función keccak256() de ethereumjs-util: https://github.com/ethereumjs/ethereumjs-util/blob/master/docs/modules/_hash_.md#const-keccak256
 .. _WebAssembly builds: https://emscripten.org/docs/compiling/WebAssembly.html
 .. _QmTLs5MuLEWXQkths41HiACoXDiH8zxyqBHGFDRSzVE5CS: https://gateway.ipfs.io/ipfs/QmTLs5MuLEWXQkths41HiACoXDiH8zxyqBHGFDRSzVE5CS
-.. _16c5f09109c793db99fe35f037c6092b061bd39260ee7a677c8a97f18c955ab1: https://swarm-gateways.net/bzz:/16c5f09109c793db99fe35f037c6092b061bd39260ee7a677c8a97f18c955ab1/
 
 .. _compilando-del-codigo-fuente:
 
@@ -329,14 +390,15 @@ Prerequisites - All Operating Systems
 
 A continuación las dependencias para todas las compilaciones de Solidity:
 
+.. Note: This has to be kept in sync with `scripts/ci/install_and_check_minimum_requirements.sh`.
+
 +-----------------------------------+-------------------------------------------------------+
 | Software                          | Notas                                                 |
 +===================================+=======================================================+
 | `CMake`_ (version 3.21.3+ on      | Cross-platform build file generator.                  |
 | Windows, 3.13+ otherwise)         |                                                       |
 +-----------------------------------+-------------------------------------------------------+
-| `Boost`_ (version 1.77+ on        | C++ libraries.                                        |
-| Windows, 1.65+ otherwise)         |                                                       |
+| `Boost`_ (version 1.83+)          | C++ libraries.                                        |
 +-----------------------------------+-------------------------------------------------------+
 | `Git`_                            | Software de línea de comandos para obtener código     |
 |                                   | fuente.                                               |
@@ -344,10 +406,12 @@ A continuación las dependencias para todas las compilaciones de Solidity:
 | `z3`_ (versión 4.8+, Opcional)    | Para usar con SMT checker.                            |
 | `z3`_ (version 4.8.16+, Opcional) | Para usar con SMT checker.                            |
 +-----------------------------------+-------------------------------------------------------+
+<<<<<<< HEAD
 | `cvc4`_ (Opcional)                | Para usar con SMT checker.                            |
 +-----------------------------------+-------------------------------------------------------+
+=======
+>>>>>>> english/develop
 
-.. _cvc4: https://cvc4.cs.stanford.edu/web/
 .. _Git: https://git-scm.com/download
 .. _Boost: https://www.boost.org
 .. _CMake: https://cmake.org/download/
@@ -371,6 +435,19 @@ A continuación las dependencias para todas las compilaciones de Solidity:
     compilar con cualquier versión que satisfaga los requerimientos de la tabla de arriba. Si hace esto,
     sin embargo, recuerde pasar la opción ``--no-smt`` a ``scripts/tests.sh`` para saltar las pruebas SMT.
 
+<<<<<<< HEAD
+=======
+.. note::
+    By default the build is performed in *pedantic mode*, which enables extra warnings and tells the
+    compiler to treat all warnings as errors.
+    This forces developers to fix warnings as they arise, so they do not accumulate "to be fixed later".
+    If you are only interested in creating a release build and do not intend to modify the source code
+    to deal with such warnings, you can pass ``-DPEDANTIC=OFF`` option to CMake to disable this mode.
+    Doing this is not recommended for general use but may be necessary when using a toolchain we are
+    not testing with or trying to build an older version with newer tools.
+    If you encounter such warnings, please consider
+    `reporting them <https://github.com/argotorg/solidity/issues/new>`_.
+>>>>>>> english/develop
 
 Versiones Mínimas del Compilador
 ==============================
@@ -388,7 +465,15 @@ Versiones Mínimas del Compilador
     <https://github.com/ethereum/solidity/issues/new>`_.
     
 
+<<<<<<< HEAD
 Los siguientes compiladores de C++ y sus versiones mínimas pueden compilar el código de Solidity:
+=======
+.. Note: Minimum versions for GCC and Clang are based on availability in Ubuntu 24.04.
+
+- `GCC <https://gcc.gnu.org>`_, version 13.3+
+- `Clang <https://clang.llvm.org/>`_, version 18.1.3+
+- `MSVC <https://visualstudio.microsoft.com/vs/>`_, version 2019+
+>>>>>>> english/develop
 
 - `GCC <https://gcc.gnu.org>`_, versión 8+
 - `Clang <https://clang.llvm.org/>`_, versión 7+
@@ -462,7 +547,7 @@ Para clonar el código fuente ejecute el siguiente comando:
 
 .. code-block:: bash
 
-    git clone --recursive https://github.com/ethereum/solidity.git
+    git clone --recursive https://github.com/argotorg/solidity.git
     cd solidity
 
 If you want to help develop Solidity,
@@ -478,7 +563,7 @@ you should fork Solidity and add your personal fork as a second remote:
     If you want to re-build a released Solidity compiler, then
     please use the source tarball on the GitHub release page:
 
-    https://github.com/ethereum/solidity/releases/download/v0.X.Y/solidity_0.X.Y.tar.gz
+    https://github.com/argotorg/solidity/releases/download/v0.X.Y/solidity_0.X.Y.tar.gz
 
     (not the "Source code" provided by GitHub).
 
@@ -520,9 +605,15 @@ Y para Windows:
     cd build
     cmake -G "Visual Studio 16 2019" ..
 
+<<<<<<< HEAD
 En caso de querer usar la versión de boost instalada por ``scripts\install_deps.ps1``, deberá 
 pasar adicionalmente las banderas ``-DBoost_DIR="deps\boost\lib\cmake\Boost-*"`` y 
 ``-DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded`` como argumentos cuando corra ``cmake``.
+=======
+In case you want to use the version of boost installed by ``scripts\install_deps.ps1``, you will
+additionally need to pass ``-DBoost_ROOT="deps/boost" -DBoost_INCLUDE_DIR="deps/boost/include"`` and ``-DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded``
+as arguments to the call to ``cmake``.
+>>>>>>> english/develop
 
 Esto debería crear un archivo **solidity.sln** en ese directorio. Al hacer doble click 
 en ese archivo Visual Studio debería abrirse. Sugerimos compilar con la configuración 
@@ -543,9 +634,10 @@ Para ver las opciones de Cmake disponibles solo corra ``cmake .. -LH``.
 
 SMT Solvers
 -----------
-Solidity can be built against SMT solvers and will do so by default if
-they are found in the system. Each solver can be disabled by a ``cmake`` option.
+Solidity can optionally use SMT solvers, namely ``z3``, ``cvc5`` and ``Eldarica``,
+but their presence is checked only at runtime, they are not needed for the build to succeed.
 
+<<<<<<< HEAD
 *Nota: En algunos casos, esto también puede ser una solución alterna para compilaciones fallidas.*
 
 En la carpeta donde compile puede deshabilitarlos, ya que están habilitados por defecto:
@@ -560,40 +652,75 @@ En la carpeta donde compile puede deshabilitarlos, ya que están habilitados por
 
     # deshabilita los solvers para CVC4 y Z3
     cmake .. -DUSE_CVC4=OFF -DUSE_Z3=OFF
+=======
+.. note::
+
+    The emscripten builds require Z3 and will statically link against it instead.
+>>>>>>> english/develop
 
 La Cadena de Versión en Detalle
 ===============================
 
 La cadena de versión de Solidity contiene cuatro partes:
 
+<<<<<<< HEAD
 - el número de versión
 - la etiqueta de pre-release, generalmente fijada en ``develop.YYYY.MM.DD`` o ``nightly.YYYY.MM.DD``
 - commit en el formato ``commit.GITHASH``
 - la plataforma, que contiene un número arbitrario de elementos, e incluye detalles sobre la plataforma y el compilador
+=======
+- the version number
+- pre-release tag, usually set to ``develop.YYYY.MM.DD``, ``pre.N`` or ``nightly.YYYY.MM.DD``
+- commit in the format of ``commit.GITHASH``
+- platform, which has an arbitrary number of items, containing details about the platform and compiler
+>>>>>>> english/develop
 
 Si hay modificaciones locales, el commit tendrá el sufijo de ``.mod``.
 
 Estas partes se combinan según requerimientos de SemVer, donde la etiqueta de pre-release de Solidity equivale al 
 pre-release de SemVer y el commit de Solidity y la plataforma combinados nos dan la metadata del compilado de SemVer.
 
+<<<<<<< HEAD
 Un ejemplo de release: ``0.4.8+commit.60cc1668.Emscripten.clang``.
 
 Un ejemplo de pre-release: ``0.4.9-nightly.2017.1.17+commit.6ecb4aa3.Emscripten.clang``
+=======
+Examples:
+
+- release: ``0.4.8+commit.60cc1668.Emscripten.clang``
+- pre-release: ``0.4.9-pre.3+commit.fb60450bc.Emscripten.clang``
+- nightly build: ``0.4.9-nightly.2017.1.17+commit.6ecb4aa3.Emscripten.clang``
+>>>>>>> english/develop
 
 Información Importante Sobre el Versionado
 ==========================================
 
+<<<<<<< HEAD
 Después de que se hace un lanzamiento, se aumenta el número de versión de parche, porque asumimos
 que solo siguen cambios a nivel de parches. Cuando los cambios se fusionan, la versión debería ser
 aumentada de acuerdo a SemVer y a la severidad del cambio. Finalmente, un lanzamiento siempre se hace 
 con la versión de la compilación nocturna vigente, pero sin el especificador de ``prerelease``.
+=======
+After a release is made, the patch version level is bumped, because we assume that only
+patch level changes follow. When changes are merged, the version should be bumped according
+to SemVer and the severity of the change. Finally, a release is always made with the version
+of the current build, but without the ``prerelease`` specifier.
+>>>>>>> english/develop
 
 Ejemplo:
 
+<<<<<<< HEAD
 1. Se hace el release de la versión 0.4.0.
 2. La compilación nocturna tiene una versión de 0.4.1 de ahora en adelante.
 3. Se introducen cambios sin rupturas --> no hay cambio en la versión.
 4. Se introduce un cambio con rupturas --> la versión se aumenta a 0.5.0.
 5. Se hace el release de la versión 0.5.0.
+=======
+1. The 0.4.0 release is made.
+2. Nightly builds and preerelases have a version of 0.4.1 from now on.
+3. Non-breaking changes are introduced --> no change in version.
+4. A breaking change is introduced --> version is bumped to 0.5.0.
+5. The 0.5.0 release is made.
+>>>>>>> english/develop
 
-This behavior works well with the  :ref:`version pragma <version_pragma>`.
+This behavior works well with the :ref:`version pragma <version_pragma>`.

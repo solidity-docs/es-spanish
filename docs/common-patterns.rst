@@ -57,7 +57,8 @@ los fondos de la persona que ahora es la más rica.
             // Remember to zero the pending refund before
             // sending to prevent reentrancy attacks
             pendingWithdrawals[msg.sender] = 0;
-            payable(msg.sender).transfer(amount);
+            (bool success, ) = payable(msg.sender).call{value: amount}("");
+            require(success);
         }
     }
 
@@ -83,8 +84,14 @@ Patrón de envío:
 
         function becomeRichest() public payable {
             if (msg.value <= mostSent) revert NotEnoughEther();
+<<<<<<< HEAD
             // Esta línea puede causar problemas (explicado más abajo).
             richest.transfer(msg.value);
+=======
+            // This line can cause problems (explained below).
+            (bool success, ) = richest.call{value: msg.value}("");
+            require(success);
+>>>>>>> english/develop
             richest = payable(msg.sender);
             mostSent = msg.value;
         }
@@ -211,8 +218,10 @@ restricciones sumamente legibles.
                 revert NotEnoughEther();
 
             _;
-            if (msg.value > amount)
-                payable(msg.sender).transfer(msg.value - amount);
+            if (msg.value > amount) {
+                (bool success, ) = payable(msg.sender).call{value: msg.value - amount}("");
+                require(success);
+            }
         }
 
         function forceOwnerChange(address newOwner)

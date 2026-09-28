@@ -120,7 +120,7 @@ Positivo
     0000...0000 0000 0001
     0000...0000 0000 0010
     ....
-    0000...0000 1111 1111
+    0000...0000 0111 1111
 
 El compilador ``signextend`` el bit de signo, que es 1 para valores negativos y 0 para 
 valores positivos, sobrescribiendo los bits superiores:

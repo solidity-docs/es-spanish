@@ -35,9 +35,16 @@ herramientas de verificación.
 Ejemplo de Documentación
 =====================
 
+<<<<<<< HEAD
 La documentación se inserta encima de cada ``contrato``, ``interfaz``, ``biblioteca``,
 ``función`` y ``evento`` usando el formato de notación Doxygen.
 Una variable de estado ``pública`` es equivalente a una ``función`` para los propósitos de NatSpec.
+=======
+Documentation is inserted above each ``contract``, ``interface``, ``library``,
+``function``, ``enum``, ``enum`` value and ``event`` using the Doxygen notation format.
+A ``public`` state variable is equivalent to a ``function``
+for the purposes of NatSpec.
+>>>>>>> english/develop
 
 -  Para Solidity puede optar ``///`` para comentarios de una línea o múltiples líneas, 
    o ``/**`` y finalizar con ``*/``.
@@ -67,12 +74,22 @@ El siguiente ejemplo muestra un contrato y una función usando todas las etiquet
     /// @dev Todas las llamadas a funciones están actualmente implementadas sin efectos secundarios
     /// @custom:experimental Este es un contrato experimental.
     contract Tree {
+<<<<<<< HEAD
         /// @notice Calcula la edad del árbol en años, redondeado hacia arriba, para los árboles vivos.
         /// @dev El algoritmo de Alexandr N. Tetearing podría incrementar la precisión
         /// @param rings El número de anillos de una muestra dendrocronológica
         /// @return Edad en años, redondeado hacia arriba para años parciales
         function age(uint256 rings) external virtual pure returns (uint256) {
             return rings + 1;
+=======
+        /// @notice Calculate tree age in years, rounded up, for live trees
+        /// @dev The Alexandr N. Tetearing algorithm could increase precision
+        /// @param rings The number of rings from dendrochronological sample
+        /// @return Age in years, rounded up for partial years
+        /// @return Name of the tree
+        function age(uint256 rings) external virtual pure returns (uint256, string memory) {
+            return (rings + 1, "tree");
+>>>>>>> english/develop
         }
 
         /// @notice Retorna la cantidad de hojas que tiene el árbol.
@@ -89,8 +106,8 @@ El siguiente ejemplo muestra un contrato y una función usando todas las etiquet
     }
 
     contract KumquatTree is Tree, Plant {
-        function age(uint256 rings) external override pure returns (uint256) {
-            return rings + 2;
+        function age(uint256 rings) external override pure returns (uint256, string memory) {
+            return (rings + 2, "Kumquat");
         }
 
         /// Retorna la cantidad de hojas que tiene este tipo específico de árbol
@@ -113,13 +130,13 @@ la misma manera como si fuese etiquetado con ``@notice``.
 =============== ====================================================================================== =============================
 Etiqueta                                                                                               Contexto
 =============== ====================================================================================== =============================
-``@title``      A title that should describe the contract/interface                                    contract, library, interface, struct, enum
-``@author``     The name of the author                                                                 contract, library, interface, struct, enum
-``@notice``     Explain to an end user what this does                                                  contract, library, interface, function, public state variable, event, struct, enum
-``@dev``        Explain to a developer any extra details                                               contract, library, interface, function, state variable, event, struct, enum
-``@param``      Documents a parameter just like in Doxygen (must be followed by parameter name)        function, event
-``@return``     Documents the return variables of a contract's function                                function, public state variable
-``@inheritdoc`` Copies all missing tags from the base function (must be followed by the contract name) function, public state variable
+``@title``      A title that should describe the contract/interface                                    contract, library, interface, struct, enum, enum values
+``@author``     The name of the author                                                                 contract, library, interface, struct, enum, enum values
+``@notice``     Explain to an end user what this does                                                  contract, library, interface, function, public state variable, event, struct, enum, enum values error
+``@dev``        Explain to a developer any extra details                                               contract, library, interface, function, state variable, event, struct, enum, enum values, error
+``@param``      Documents a parameter just like in Doxygen (must be followed by parameter name)        function, event, enum values, error
+``@return``     Documents the return variables of a contract's function                                function, enum, enum values, public state variable
+``@inheritdoc`` Copies all missing tags from the base function (must be followed by the contract name) function, enum, enum values, public state variable
 ``@custom:...`` Custom tag, semantics is application-defined                                           everywhere
 =============== ====================================================================================== =============================
 
@@ -193,8 +210,13 @@ Y la salida está abajo.
 Documentación del Usuario
 ------------------
 
+<<<<<<< HEAD
 La documentación de arriba producirá el siguiente archivo JSON 
 de la documentación del usuario como salida:
+=======
+The above documentation will produce the following user documentation
+JSON file as output for the ``Tree`` contract:
+>>>>>>> english/develop
 
 .. code-block:: json
 
@@ -205,7 +227,15 @@ de la documentación del usuario como salida:
       {
         "age(uint256)" :
         {
+<<<<<<< HEAD
           "notice" : "Calcula la edad del árbol en años, redondeado hacia arriba, para los árboles vivos"
+=======
+          "notice" : "Calculate tree age in years, rounded up, for live trees"
+        },
+        "leaves()" :
+        {
+            "notice" : "Returns the amount of leaves the tree has."
+>>>>>>> english/develop
         }
       },
       "notice" : "Puede usar este contrato solo para la simulación más básica"
@@ -239,7 +269,18 @@ también se debería producir y debería asemejarse a esto:
           {
             "rings" : "El número de anillos de una muestra dendrocronológica"
           },
+<<<<<<< HEAD
           "return" : "Edad en años, redondeado hacia arriba para años parciales"
+=======
+          "returns" : {
+            "_0" : "Age in years, rounded up for partial years",
+            "_1" : "Name of the tree"
+          }
+        },
+        "leaves()" :
+        {
+            "details" : "Returns only a fixed number."
+>>>>>>> english/develop
         }
       },
       "title" : "Un simulador para árboles"

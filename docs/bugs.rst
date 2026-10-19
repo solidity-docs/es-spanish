@@ -8,13 +8,25 @@ Lista de Bugs Conocidos
 
 Below, you can find a JSON-formatted list of some of the known security-relevant bugs in the
 Solidity compiler. The file itself is hosted in the `GitHub repository
-<https://github.com/ethereum/solidity/blob/develop/docs/bugs.json>`_.
+<https://github.com/argotorg/solidity/blob/develop/docs/bugs.json>`_.
 The list stretches back as far as version 0.3.0, bugs known to be present only
 in versions preceding that are not listed.
 
+<<<<<<< HEAD
 Hay otro archivo llamado `bugs_by_version.json <https://github.com/ethereum/solidity/blob/develop/docs/bugs_by_version.json>`_, que se puede utilizar para comprobar qué errores afectan a una versión específica del compilador.
 
 Herramientas para la verificación del código fuente de un contrato, y otras herramientas que interactúen con contratos, deben consultar esta lista de acuerdo a los siguientes criterios:
+=======
+There is another file called `bugs_by_version.json
+<https://github.com/argotorg/solidity/blob/develop/docs/bugs_by_version.json>`_,
+which can be used to check which bugs affect a specific version of the compiler.
+
+When reporting a security-relevant bug, please make sure that the behavior is unintentional and outside of documented language guarantees.
+Some regularly misreported behaviors are collected in :ref:`Frequently Reported Non-Bugs<frequently-reported-non-bugs>`.
+
+Contract source verification tools and also other tools interacting with
+contracts should consult this list according to the following criteria:
+>>>>>>> english/develop
 
 - Se puede sospechar levemente si un contrato fue compilado con una versión nightly del compilador, en vez de un versión publicada.
   Esta lista no realiza un seguimiento de las versiones que no han sido publicadas o versiones nightly.

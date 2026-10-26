@@ -1,5 +1,6 @@
-.. index:: storage, state variable, mapping
+.. index:: storage, state variable, mapping, transient storage
 
+<<<<<<< HEAD
 ************************************
 Diseño de variables de estado en almacenamiento
 ************************************
@@ -13,6 +14,28 @@ se almacena de manera contigua elemento despues elemento que comienza con la pri
 que se almacena en ranura ``0``. Para cada variable, un tamaño en bytes se determina según su tipo.
 Varios, elementos contiguos que necesita menos que 32 bytes se empaquetan en una sola ranura
 de almacenamiento si es posible, de acuerdo con las siguientes reglas:
+=======
+**********************************************************
+Layout of State Variables in Storage and Transient Storage
+**********************************************************
+
+.. _storage-inplace-encoding:
+
+.. note::
+    The rules described in this section apply for both storage and transient storage data locations.
+    The layouts are completely independent and don't interfere with each other's variable locations.
+    Thus storage and transient storage state variables can be safely interleaved without any side effects.
+    Only value types are supported for transient storage.
+
+State variables of contracts are stored in storage in a compact way such
+that multiple values sometimes use the same storage slot.
+Except for dynamically-sized arrays and mappings (see below), data is stored
+contiguously item after item starting with the first state variable,
+which is stored in slot ``0``. For each variable,
+a size in bytes is determined according to its type.
+Multiple, contiguous items that need less than 32 bytes are packed into a single
+storage slot if possible, according to the following rules:
+>>>>>>> english/develop
 
 - El primer elemento en una ranura de almacenamiento se almacena alineado en orden inferior.
 - Los tipos de valor se usa sólo tantos bytes como sean necesarios para almacenarlos.
@@ -27,6 +50,110 @@ las variables de estado de diferentes contratos comparten la misma ranura de alm
 
 Los elementos de structs y arrays se almacenan uno después del otro, como si se dieran 
 como valores individuales.
+
+If a contract specifies a :ref:`custom storage layout<custom-storage-layout>`, the slots assigned
+to static storage variables are shifted according the value defined as the layout base.
+Locations of dynamic arrays and mappings are also indirectly affected by this due to shifting
+of the static slots they are based on.
+The custom layout is specified in the most derived contract and, following the order explained
+above, starting from the most base-ward contract's variables, all storage slots are adjusted.
+
+In the following example, contract ``C`` inherits from contracts ``A`` and ``B`` and also
+specifies a custom storage base slot.
+The result is that all storage variable slots of the inheritance tree are adjusted according to
+the value specified by ``C``.
+
+.. code-block:: solidity
+
+    // SPDX-License-Identifier: GPL-3.0
+    pragma solidity ^0.8.29;
+
+    struct S {
+        int32 x;
+        bool y;
+    }
+
+    contract A {
+        uint a;
+        uint128 transient b;
+        uint constant c = 10;
+        uint immutable d = 12;
+    }
+
+    contract B {
+        uint8[] e;
+        mapping(uint => S) f;
+        uint16 g;
+        uint16 h;
+        bytes16 transient i;
+        S s;
+        int8 k;
+    }
+
+    contract C is A, B layout at 42 {
+        bytes21 l;
+        uint8[10] m;
+        bytes5[8] n;
+        bytes5 o;
+    }
+
+In the example, the storage layout starts with the inherited
+state variable ``a`` stored directly inside the base slot (slot ``42``).
+Transient, constant and immutable variables are stored in separate
+locations, and thus, ``b``, ``i``, ``c`` and ``d`` have no effect on the storage layout.
+Then we get to the dynamic array ``e`` and mapping ``f``.
+They both reserve a whole slot whose address will be used to :ref:`calculate<storage-hashed-encoding>`
+the location where their data is actually stored.
+The slot cannot be shared with any other variable, because the resulting addresses must be unique.
+The next two variables, ``g`` and ``h``, need 2 bytes each and can be packed together into
+slot ``45``, at offsets ``0`` and ``2`` respectively.
+Since ``s`` is a struct, its two members are packed contiguously, each taking up 5 bytes.
+Even though they both would still fit in slot ``45``, structs and arrays always start a new slot.
+Therefore, ``s`` is placed in slot ``46`` and the next variable, ``k``, in slot ``47``.
+Base contracts, on the other hand, can share slots with derived ones, so ``l`` does not require an new one.
+Then variable ``m``, which is an array of 10 items, gets into slot ``48`` and takes up 10 bytes.
+``n`` is an array as well, but due to the size of its items, cannot fill its first slot perfectly
+and spills over to the next one.
+Finally, variable ``o`` ends up in slot ``51``, even though it is of the same type as items of ``n``.
+As explained before, variables after structs and arrays always start a new slot.
+
+Putting it all together, the storage and transient storage layouts of contract ``C`` can be illustrated as follows:
+
+- Storage:
+  ::
+
+      42 [aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]
+      43 [eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee]
+      44 [ffffffffffffffffffffffffffffffff]
+      45 [                            hhgg]
+      46 [                           yxxxx]
+      47 [          lllllllllllllllllllllk]
+      48 [                      mmmmmmmmmm]
+      49 [  nnnnnnnnnnnnnnnnnnnnnnnnnnnnnn]
+      50 [                      nnnnnnnnnn]
+      51 [                           ooooo]
+
+- Transient storage:
+  ::
+
+      00 [iiiiiiiiiiiiiiiibbbbbbbbbbbbbbbb]
+
+Note that the storage specifier affects ``A`` and ``B`` only as a part of ``C``'s inheritance hierarchy.
+When deployed independently, their storage starts at ``0``:
+
+- Storage layout of ``A``:
+  ::
+
+      00 [aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]
+
+- Storage layout of ``B``:
+  ::
+
+      00 [eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee]
+      01 [ffffffffffffffffffffffffffffffff]
+      02 [                            hhgg]
+      03 [                           yxxxx]
+      04 [                               k]
 
 .. warning::
     Cuando se utilizan elementos de menos de 32 bytes, el uso de gas de su contrato puede ser mayor.
@@ -146,10 +273,17 @@ Salida JSON
 
 .. _storage-layout-top-level:
 
+<<<<<<< HEAD
 El diseño de almacenamiento de un contrato se puede solicitar a través 
 de :ref:`standard JSON interface <compiler-api>`. La salida es un objeto JSON que contiene dos claves,
 ``storage`` y ``types``. El objeto ``storage`` es una matriz donde cada 
 elemento tiene la siguiente forma:
+=======
+The storage (or transient storage) layout of a contract can be requested via
+the :ref:`standard JSON interface <compiler-api>`.  The output is a JSON object containing two keys,
+``storage`` and ``types``.  The ``storage`` object is an array where each
+element has the following form:
+>>>>>>> english/develop
 
 
 .. code-block:: json
@@ -211,14 +345,19 @@ mismo formato que el ``storage`` de nivel superior (consulte :ref:`above <storag
   The JSON output format of a contract's storage layout is still considered experimental
   and is subject to change in non-breaking releases of Solidity.
 
+<<<<<<< HEAD
 El ejemplo siguiente muestra un contrato y su diseño de almacenamiento, que 
 contiene tipos de valor y referencía, tipos codificados empaquetados y tipos anidados.
+=======
+The following example shows a contract and both its storage and transient storage layout,
+containing value and reference types, types that are encoded packed, and nested types.
+>>>>>>> english/develop
 
 
 .. code-block:: solidity
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.4.0 <0.9.0;
+    pragma solidity ^0.8.28;
     contract A {
         struct S {
             uint128 a;
@@ -228,14 +367,21 @@ contiene tipos de valor y referencía, tipos codificados empaquetados y tipos an
         }
 
         uint x;
-        uint y;
+        uint transient y;
+        uint w;
+        uint transient z;
+
         S s;
         address addr;
+        address transient taddr;
         mapping(uint => mapping(address => bool)) map;
         uint[] array;
         string s1;
         bytes b1;
     }
+
+Storage Layout
+--------------
 
 .. code-block:: json
 
@@ -250,15 +396,15 @@ contiene tipos de valor y referencía, tipos codificados empaquetados y tipos an
           "type": "t_uint256"
         },
         {
-          "astId": 17,
+          "astId": 19,
           "contract": "fileA:A",
-          "label": "y",
+          "label": "w",
           "offset": 0,
           "slot": "1",
           "type": "t_uint256"
         },
         {
-          "astId": 20,
+          "astId": 24,
           "contract": "fileA:A",
           "label": "s",
           "offset": 0,
@@ -266,7 +412,7 @@ contiene tipos de valor y referencía, tipos codificados empaquetados y tipos an
           "type": "t_struct(S)13_storage"
         },
         {
-          "astId": 22,
+          "astId": 26,
           "contract": "fileA:A",
           "label": "addr",
           "offset": 0,
@@ -274,7 +420,7 @@ contiene tipos de valor y referencía, tipos codificados empaquetados y tipos an
           "type": "t_address"
         },
         {
-          "astId": 28,
+          "astId": 34,
           "contract": "fileA:A",
           "label": "map",
           "offset": 0,
@@ -282,7 +428,7 @@ contiene tipos de valor y referencía, tipos codificados empaquetados y tipos an
           "type": "t_mapping(t_uint256,t_mapping(t_address,t_bool))"
         },
         {
-          "astId": 31,
+          "astId": 37,
           "contract": "fileA:A",
           "label": "array",
           "offset": 0,
@@ -290,7 +436,7 @@ contiene tipos de valor y referencía, tipos codificados empaquetados y tipos an
           "type": "t_array(t_uint256)dyn_storage"
         },
         {
-          "astId": 33,
+          "astId": 39,
           "contract": "fileA:A",
           "label": "s1",
           "offset": 0,
@@ -298,7 +444,7 @@ contiene tipos de valor y referencía, tipos codificados empaquetados y tipos an
           "type": "t_string_storage"
         },
         {
-          "astId": 35,
+          "astId": 41,
           "contract": "fileA:A",
           "label": "b1",
           "offset": 0,
@@ -396,6 +542,52 @@ contiene tipos de valor y referencía, tipos codificados empaquetados y tipos an
           "encoding": "inplace",
           "label": "uint128",
           "numberOfBytes": "16"
+        },
+        "t_uint256": {
+          "encoding": "inplace",
+          "label": "uint256",
+          "numberOfBytes": "32"
+        }
+      }
+    }
+
+Transient Storage Layout
+------------------------
+
+.. code-block:: json
+
+    {
+      "storage": [
+        {
+          "astId": 17,
+          "contract": "fileA:A",
+          "label": "y",
+          "offset": 0,
+          "slot": "0",
+          "type": "t_uint256"
+        },
+        {
+          "astId": 21,
+          "contract": "fileA:A",
+          "label": "z",
+          "offset": 0,
+          "slot": "1",
+          "type": "t_uint256"
+        },
+        {
+          "astId": 28,
+          "contract": "fileA:A",
+          "label": "taddr",
+          "offset": 0,
+          "slot": "2",
+          "type": "t_address"
+        }
+      ],
+      "types": {
+        "t_address": {
+          "encoding": "inplace",
+          "label": "address",
+          "numberOfBytes": "20"
         },
         "t_uint256": {
           "encoding": "inplace",

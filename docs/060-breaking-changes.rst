@@ -6,7 +6,7 @@ This section highlights the main breaking changes introduced in Solidity
 version 0.6.0, along with the reasoning behind the changes and how to update
 affected code.
 For the full list check
-`the release changelog <https://github.com/ethereum/solidity/releases/tag/v0.6.0>`_.
+`the release changelog <https://github.com/argotorg/solidity/releases/tag/v0.6.0>`_.
 
 
 Changes the Compiler Might not Warn About
@@ -119,7 +119,7 @@ Metadata Hash Options
 
 The compiler now appends the `IPFS <https://ipfs.io/>`_ hash of the metadata file to the end of the bytecode by default
 (for details, see documentation on :doc:`contract metadata <metadata>`). Before 0.6.0, the compiler appended the
-`Swarm <https://ethersphere.github.io/swarm-home/>`_ hash by default, and in order to still support this behavior,
+`Swarm <https://www.ethswarm.org/>`_ hash by default, and in order to still support this behavior,
 the new command-line option ``--metadata-hash`` was introduced. It allows you to select the hash to be produced and
 appended, by passing either ``ipfs`` or ``swarm`` as value to the ``--metadata-hash`` command-line option.
 Passing the value ``none`` completely removes the hash.

@@ -2,9 +2,16 @@
 Cambios introducidos en Solidity v0.8.0
 ***************************************
 
+<<<<<<< HEAD
 Esta sección versa sobre los principales cambios introducidos en la versión 0.8.0 de Solidity.
 Para ver la lista completa 
 `registro de cambios de lanzamiento <https://github.com/ethereum/solidity/releases/tag/v0.8.0>`_.
+=======
+This section highlights the main breaking changes introduced in Solidity
+version 0.8.0.
+For the full list check
+`the release changelog <https://github.com/argotorg/solidity/releases/tag/v0.8.0>`_.
+>>>>>>> english/develop
 
 Cambios silenciosos en la semántica
 ===================================
@@ -160,8 +167,13 @@ Cambios en el interface
 * La salida de ``--combined-json`` ha cambiado: Los campos JSON ``abi``, ``devdoc``, ``userdoc`` y
   ``storage-layout`` ahora son subobjetos. Antes de la versión 0.8.0 se usaban serializados como strings.
 
+<<<<<<< HEAD
 * El "legacy AST" ha sido eliminado (``--ast-json`` en el interfaz de linea de comandos ``legacyAST`` para el 
   standard JSON). Use "compact AST" (``--ast-compact--json`` para ``AST``) en su lugar.
+=======
+* The "legacy AST" has been removed (``--ast-json`` on the commandline interface and ``legacyAST`` for standard JSON).
+  Use the "compact AST" (``--ast-compact-json`` resp. ``AST``) as replacement.
+>>>>>>> english/develop
 
 * El antigüo informador (``--old-reporter``) ha sido eliminado.
 

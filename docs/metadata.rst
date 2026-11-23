@@ -124,60 +124,41 @@ explanatory purposes.
           "version": 1 // NatSpec version
         }
       },
-      // Required: Compiler settings. Reflects the settings in the JSON input during compilation.
-      // Check the documentation of standard JSON input's "settings" field
+      // Required: Compiler settings.
+      // Reflects the settings in the JSON input during compilation, except:
+      // - Different format: "libraries" field
+      // - Added field in metadata.settings: "compilationTarget"
+      // - Not in metadata.settings: "stopAfter", "debug.debugInfo", "outputSelection"
+      // See the standard JSON input's "settings" field docs for the rest.
       "settings": {
         // Required for Solidity: File path and the name of the contract or library this
-        // metadata is created for.
+        // metadata is created for. This field is not present in the standard JSON input settings.
         "compilationTarget": {
           "myDirectory/myFile.sol": "MyContract"
         },
-        // Required for Solidity.
-        "evmVersion": "london",
+        // Optional (false if omitted): Indicates whether experimental mode has been enabled.
+        // Always matches the value of the `experimental` flag in CBOR metadata.
+        // Note that experimental mode being enabled does not necessarily mean that any
+        // experimental features were actually used, or if they were, that those features
+        // affected the bytecode.
+        "experimental": true,
         // Required for Solidity: Addresses for libraries used.
+        // Note that metadata has a different format for "libraries" field than the standard JSON input.
+        // metadata format = { "MyLib.sol:MyLib": "0x123123..." }
+        // standard JSON input format = { "MyLib.sol": { "MyLib": "0x123123..." } }
         "libraries": {
-          "MyLib": "0x123123..."
+          "MyLib.sol:MyLib": "0x123123..."
         },
-        "metadata": {
-          // Reflects the setting used in the input json, defaults to "true"
-          "appendCBOR": true,
-          // Reflects the setting used in the input json, defaults to "ipfs"
-          "bytecodeHash": "ipfs",
-          // Reflects the setting used in the input json, defaults to "false"
-          "useLiteralContent": true
-        },
-        // Optional: Optimizer settings. The fields "enabled" and "runs" are deprecated
-        // and are only given for backward-compatibility.
-        "optimizer": {
-          "details": {
-            "constantOptimizer": false,
-            "cse": false,
-            "deduplicate": false,
-            // inliner defaults to "false"
-            "inliner": false,
-            // jumpdestRemover defaults to "true"
-            "jumpdestRemover": true,
-            "orderLiterals": false,
-            // peephole defaults to "true"
-            "peephole": true,
-            "yul": true,
-            // Optional: Only present if "yul" is "true"
-            "yulDetails": {
-              "optimizerSteps": "dhfoDgvulfnTUtnIf...",
-              "stackAllocation": false
-            }
-          },
-          "enabled": true,
-          "runs": 500
-        },
-        // Required for Solidity: Sorted list of import remappings.
-        "remappings": [ ":g=/dir" ]
+        // ...
+        // ...
+        // ...
+        // The rest of the fields and their defaults same as in std JSON input.
       },
       // Required: Compilation source files/source units, keys are file paths
       "sources": {
-        "destructible": {
+        "settable": {
           // Required (unless "url" is used): literal contents of the source file
-          "content": "contract destructible is owned { function destroy() { if (msg.sender == owner) selfdestruct(owner); } }",
+          "content": "contract settable is owned { uint256 private x = 0; function set(uint256 _x) public { if (msg.sender == owner) x = _x; } }",
           // Required: keccak256 hash of the source file
           "keccak256": "0x234..."
         },
@@ -222,12 +203,14 @@ Below are all the possible fields:
 .. code-block:: javascript
 
     {
+      // Present if "bytecodeHash" was "ipfs" in compiler settings
       "ipfs": "<metadata hash>",
-      // If "bytecodeHash" was "bzzr1" in compiler settings not "ipfs" but "bzzr1"
+      // Present if "bytecodeHash" was "bzzr1" in compiler settings
       "bzzr1": "<metadata hash>",
       // Previous versions were using "bzzr0" instead of "bzzr1"
       "bzzr0": "<metadata hash>",
-      // If any experimental features that affect code generation are used
+      // Present if experimental mode has been enabled either via "--experimental" flag or
+      // "settings.experimental" option in Standard JSON
       "experimental": true,
       "solc": "<compiler version>"
     }

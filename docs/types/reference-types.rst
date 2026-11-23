@@ -30,16 +30,30 @@ annotation, the "data location", about where it is stored. There are three data 
 non-persistent area where function arguments are stored, and behaves mostly like memory.
 
 .. note::
+    ``transient`` is not yet supported as a data location for reference types.
+
+.. note::
     If you can, try to use ``calldata`` as data location because it will avoid copies and
     also makes sure that the data cannot be modified. Arrays and structs with ``calldata``
     data location can also be returned from functions, but it is not possible to
     allocate such types.
 
 .. note::
+    Arrays and structs with ``calldata`` location declared in a function body
+    or as its return parameters must be assigned before being used or returned.
+    There are certain cases in which non-trivial control flow is used and the compiler
+    can't properly detect the initialization.
+    A common workaround in such cases is to assign the affected variable to itself before
+    the correct initialization takes place.
+
+.. note::
     Prior to version 0.6.9 data location for reference-type arguments was limited to
     ``calldata`` in external functions, ``memory`` in public functions and either
     ``memory`` or ``storage`` in internal and private ones.
     Now ``memory`` and ``calldata`` are allowed in all functions regardless of their visibility.
+
+.. note::
+    Constructor parameters cannot use ``calldata`` as their data location.
 
 .. note::
     Prior to version 0.5.0 the data location could be omitted, and would default to different locations
@@ -393,8 +407,7 @@ Array Members
         // Data location for all state variables is storage.
         bool[2][] pairsOfFlags;
 
-        // newPairs is stored in memory - the only possibility
-        // for public contract function arguments
+        // newPairs is stored in memory
         function setAllFlagPairs(bool[2][] memory newPairs) public {
             // assignment to a storage array performs a copy of ``newPairs`` and
             // replaces the complete array ``pairsOfFlags``.
@@ -478,6 +491,8 @@ Array Members
     }
 
 .. index:: ! array;dangling storage references
+
+.. _dangling-storage-references:
 
 Dangling References to Storage Array Elements
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -668,7 +683,7 @@ shown in the following example:
 .. code-block:: solidity
 
     // SPDX-License-Identifier: GPL-3.0
-    pragma solidity >=0.6.0 <0.9.0;
+    pragma solidity >=0.6.2 <0.9.0;
 
     // Defines a new type with two fields.
     // Declaring a struct outside of a contract allows
@@ -717,8 +732,8 @@ shown in the following example:
                 return false;
             uint amount = c.amount;
             c.amount = 0;
-            c.beneficiary.transfer(amount);
-            return true;
+            (bool success, ) = c.beneficiary.call{value: amount}("");
+            return success;
         }
     }
 
@@ -731,6 +746,12 @@ It is not possible for a struct to contain a member of its own type,
 although the struct itself can be the value type of a mapping member
 or it can contain a dynamically-sized array of its type.
 This restriction is necessary, as the size of the struct has to be finite.
+
+.. _recursive-structs:
+
+A struct whose values can contain other values of the same type, for example as elements of a dynamically-sized array member, is called *recursive*.
+In storage, the data of a nested struct lives inside the struct that contains it (cf. :ref:`storage layout <storage-hashed-encoding>`), and copying to a struct overwrites everything nested in it.
+See :ref:`copying-recursive-structs` for what that means when one of the two structs in a copy is nested in the other.
 
 Note how in all the functions, a struct type is assigned to a local variable
 with data location ``storage``.
@@ -745,3 +766,77 @@ assigning it to a local variable, as in
     Until Solidity 0.7.0, memory-structs containing members of storage-only types (e.g. mappings)
     were allowed and assignments like ``campaigns[campaignID] = Campaign(beneficiary, goal, 0, 0)``
     in the example above would work and just silently skip those members.
+
+.. _copying-recursive-structs:
+
+Copying Recursive Storage Structs
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A :ref:`recursive struct <recursive-structs>` is only valid in Solidity if it contains its own type through a dynamically-sized array or a mapping.
+
+If it is recursive through a mapping, it cannot be copied at all and the compiler rejects the attempt, as mappings themselves cannot be copied.
+
+A struct that is recursive through a dynamically-sized array can be copied.
+Such a struct can contain other structs of the same type: the elements of its array, the elements of their arrays, and so on.
+For example, ``root`` in the contract below contains ``root.children[0]``.
+Special rules apply when such a struct is copied from storage to storage and either the source or the target of the copy contains the other:
+
+* If the target contains the source, as in ``root = root.children[0]``, the copy is supported.
+  The target receives the value that the source had before the copy.
+* If the source contains the target, as in ``root.children[0] = root``, the copy is not supported.
+  Its behavior is undefined: it may revert and should be avoided.
+
+.. code-block:: solidity
+
+    // SPDX-License-Identifier: GPL-3.0
+    pragma solidity >=0.8.39;
+
+    contract Tree {
+        // Recursive through a dynamically-sized array: can be copied.
+        struct Node {
+            uint value;
+            Node[] children;
+        }
+
+        // Recursive through a mapping: contains a mapping and can therefore
+        // not be copied. The compiler rejects assignments to variables of this type.
+        struct Registry {
+            uint value;
+            mapping(uint => Registry) entries;
+        }
+
+        Node root;
+
+        function copyFromNested() public {
+            root.value = 1;
+            root.children.push();
+            root.children[0].value = 2;
+            // The target (root) contains the source (root.children[0]): supported.
+            root = root.children[0];
+            // Now root.value is 2 and root.children is empty.
+        }
+
+        function copyOntoNested() public {
+            root.children.push();
+            // The source (root) contains the target (root.children[0]): not supported.
+            // Its behavior is undefined; avoid this.
+            root.children[0] = root;
+        }
+    }
+
+If the target contains the source, the copy behaves as if a snapshot of the source were taken before the target is modified.
+Writing to the target directly would overwrite parts of the source before they have been read.
+
+Whether the target contains the source is checked at runtime by comparing storage locations.
+The check is part of every copy of a recursive struct from storage to storage, even if neither struct contains the other.
+Its gas cost grows with the number of structs that the target contains.
+
+.. warning::
+    Avoid copies in which the source contains the target.
+    If the target is part of the source, writing to the target adds to the data that still has to be copied.
+    The behavior of such a copy is undefined and it may revert.
+    Besides assignments such as ``root.children[0] = root``, an example is ``root.children.push(root)``.
+    ``push`` copies its argument to a new element of ``root.children``, which ``root`` contains.
+
+Assignments from ``memory`` to ``memory`` do not copy the data but only a reference to it.
+For them, it therefore does not matter whether the source contains the target or the target contains the source.

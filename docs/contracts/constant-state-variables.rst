@@ -12,7 +12,13 @@ En ambos casos, estas variables ya no podrán ser modificadas una vez se haya cr
 Las variables ``constant`` fijarán su valor ya directamente en el propio proceso de compilación,
 mientras que las variables ``immutable``, podrán hacerlo cuando el contrato sea construido.
 
+<<<<<<< HEAD
 También se pueden definir variables ``constant`` a nivel de archivo.
+=======
+Every occurrence of such a variable in the source is replaced by its underlying value
+and the compiler does not reserve a storage slot for it.
+It cannot be assigned a slot in transient storage using the ``transient`` keyword either.
+>>>>>>> english/develop
 
 El compilador no reservará un espacio de almacenamiento (storage slot) para estas variables.
 En su lugar, cada una de estas variables será reemplazada por su respectivo valor.

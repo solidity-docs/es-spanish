@@ -8,13 +8,25 @@ Lista de Bugs Conocidos
 
 Below, you can find a JSON-formatted list of some of the known security-relevant bugs in the
 Solidity compiler. The file itself is hosted in the `GitHub repository
-<https://github.com/ethereum/solidity/blob/develop/docs/bugs.json>`_.
+<https://github.com/argotorg/solidity/blob/develop/docs/bugs.json>`_.
 The list stretches back as far as version 0.3.0, bugs known to be present only
 in versions preceding that are not listed.
 
+<<<<<<< HEAD
 Hay otro archivo llamado `bugs_by_version.json <https://github.com/ethereum/solidity/blob/develop/docs/bugs_by_version.json>`_, que se puede utilizar para comprobar qué errores afectan a una versión específica del compilador.
 
 Herramientas para la verificación del código fuente de un contrato, y otras herramientas que interactúen con contratos, deben consultar esta lista de acuerdo a los siguientes criterios:
+=======
+There is another file called `bugs_by_version.json
+<https://github.com/argotorg/solidity/blob/develop/docs/bugs_by_version.json>`_,
+which can be used to check which bugs affect a specific version of the compiler.
+
+When reporting a security-relevant bug, please make sure that the behavior is unintentional and outside of documented language guarantees.
+Some regularly misreported behaviors are collected in :ref:`Frequently Reported Non-Bugs<frequently-reported-non-bugs>`.
+
+Contract source verification tools and also other tools interacting with
+contracts should consult this list according to the following criteria:
+>>>>>>> english/develop
 
 - Se puede sospechar levemente si un contrato fue compilado con una versión nightly del compilador, en vez de un versión publicada.
   Esta lista no realiza un seguimiento de las versiones que no han sido publicadas o versiones nightly.
@@ -41,6 +53,7 @@ fixed
 publish
     La fecha en la que el bug se hizo público. Opcional.
 severity
+<<<<<<< HEAD
     Gravedad del bug: muy baja, baja, media, alta.
     Se toma en cuenta la detectabilidad en los tests del contrato, probabilidad de ocurrencia y daños potenciales por exploits.
 conditions
@@ -51,6 +64,28 @@ conditions
     El string puede contener operadores de comparación.
     Por ejemplo, ``">=constantinople"`` significa que el bug está presente cuando la versión de EVM se establece en "constantinople" o posterior.
     Si no hay condiciones, se debe suponer que el bug aún siga presente.
+=======
+    Severity of the bug: ``very low``, ``very low/low``, ``low``, ``low/medium``, ``medium``, ``medium/high``, ``high``.
+    Takes into account discoverability in contract tests, likelihood of occurrence and
+    potential damage by exploits.
+conditions
+    Conditions that have to be met to trigger the bug. The following
+    keys can be used:
+    ``optimizer``, Boolean value which means that the opcode-based evmasm optimizer
+    has to be switched on to trigger the bug. This says nothing about the Yul optimizer.
+    ``yulOptimizer``, Boolean value which means that the Yul optimizer
+    has to be switched on to trigger the bug.
+    ``ABIEncoderV2``, Boolean value which means that ABI coder v2
+    has to be used to trigger the bug.
+    ``viaIR``, Boolean value which means that the IR-based code generator
+    has to be used (``true``) or must not be used (``false``) to trigger the bug.
+    ``evmVersion``, a string that indicates which EVM version compiler
+    settings trigger the bug. The string can contain comparison
+    operators. For example, ``">=constantinople"`` means that the bug
+    is present when the EVM version is set to ``constantinople`` or
+    later.
+    If no conditions are given, assume that the bug is present.
+>>>>>>> english/develop
 check
     This field contains different checks that report whether the smart contract
     contains the bug or not. The first type of check are JavaScript regular
@@ -64,6 +99,9 @@ check
     is a `JsonPath <https://github.com/json-path/JsonPath>`_ expression.
     If at least one path of the Solidity AST matches the query, the bug is
     likely present.
+
+The format of the file is formally specified by a `JSON schema
+<https://github.com/argotorg/solidity/blob/develop/docs/bugs.schema.json>`_.
 
 .. literalinclude:: bugs.json
    :language: js
